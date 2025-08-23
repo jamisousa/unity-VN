@@ -9,6 +9,8 @@ namespace TESTING
         DialogueSystem ds;
         TextArchitect architect;
 
+        public TextArchitect.BuildMethod buildMethod = TextArchitect.BuildMethod.instant;
+
         string[] lines = new string[5]
         {
             "This is the first randomized line of text.",
@@ -23,13 +25,24 @@ namespace TESTING
         {
             ds = DialogueSystem.instance;
             architect = new TextArchitect(ds.dialogueContainer.dialogueText);
-            architect.buildMethod = TextArchitect.BuildMethod.typewriter;
+            architect.buildMethod = TextArchitect.BuildMethod.fade;
             architect.speed = 2f;
         }
 
         // Update is called once per frame
         void Update()
         {
+            if(buildMethod != architect.buildMethod)
+            {
+                architect.buildMethod = buildMethod;
+                architect.StopBuilding();
+            }
+
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+              architect.StopBuilding();
+            }
+
             string longLine = "This is a very long line of text that is meant to test how the text architect handles longer strings of text. It should be able to manage the text without any issues, ensuring that everything displays correctly and in a readable manner.";   
            
             if (Input.GetKeyDown(KeyCode.Space))
