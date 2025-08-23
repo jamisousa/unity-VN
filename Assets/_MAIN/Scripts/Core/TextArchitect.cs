@@ -164,7 +164,48 @@ public class TextArchitect
 
     private void Prepare_Fade()
     {
+        tmpro.text = preText;
+        if(preText != "")
+        {
+            tmpro.ForceMeshUpdate();
+            preTextLength = tmpro.textInfo.characterCount;
+        }
+        else preTextLength = 0;
 
+        tmpro.text += targetText;
+        tmpro.maxVisibleCharacters = int.MaxValue;
+        tmpro.ForceMeshUpdate();
+
+        //fade effect
+        TMP_TextInfo textInfo = tmpro.textInfo;
+        Color visibleColor = new Color(textColor.r, textColor.g, textColor.b, 1);
+        Color hiddenColor = new Color(textColor.r, textColor.g, textColor.b, 0);
+
+        Color32[] vertexColors = textInfo.meshInfo[textInfo.characterInfo[0].materialReferenceIndex].colors32;
+
+        for(int i = 0; i < textInfo.characterCount; i++)
+        {
+            TMP_CharacterInfo charInfo = textInfo.characterInfo[i]; 
+
+            if(!charInfo.isVisible) { continue; }
+
+            if (i < preTextLength)
+            {
+                for(int vertex = 0; vertex < 4; vertex++)
+                {
+                    vertexColors[charInfo.vertexIndex + vertex] = visibleColor;
+                }
+            }
+            else
+            {
+                for (int vertex = 0; vertex < 4; vertex++)
+                {
+                    vertexColors[charInfo.vertexIndex + vertex] = hiddenColor;
+                }
+            }
+        }
+
+        tmpro.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
     }
 
 
@@ -180,7 +221,65 @@ public class TextArchitect
 
     }
 
-    private IEnumerator Build_Fade() { yield return null; }
+    private IEnumerator Build_Fade() {
+
+        //define a range of characters to fade in and remove from the range to add new ones
+        int minRange = preTextLength;
+        int maxRange = minRange + 1;
+
+        byte alphaThreshold = 15;
+        TMP_TextInfo textInfo = tmpro.textInfo;
+
+        Color32[] vertexColors = textInfo.meshInfo[textInfo.characterInfo[0].materialReferenceIndex].colors32;
+        float[] alphas = new float[textInfo.characterCount];
+
+        while (true)
+        {
+            float fadeSpeed = ((hurryText ? charactersPerCycle * 5 : charactersPerCycle) * speed) * 4f;
+
+            for (int i = minRange; i < maxRange; i++)
+            {
+                TMP_CharacterInfo charInfo = textInfo.characterInfo[i];
+
+                if (!charInfo.isVisible) { continue; }
+
+
+                int vertexIndex = textInfo.characterInfo[i].vertexIndex; 
+
+                //move alpha of character to visible color
+                alphas[i] = Mathf.MoveTowards(alphas[i], 255, fadeSpeed);
+
+
+                for (int vertex = 0; vertex < 4; vertex++)
+                {
+                    vertexColors[charInfo.vertexIndex + vertex].a = (byte)alphas[i];
+                }
+
+                if (alphas[i] >= 255)
+                {
+                    minRange++;
+                }
+            }
+
+            tmpro.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
+
+            bool isLastCharacterInvisible = !textInfo.characterInfo[maxRange - 1].isVisible;
+            if (alphas[maxRange - 1] > alphaThreshold || isLastCharacterInvisible)
+            {
+                if(maxRange < textInfo.characterCount)
+                {
+                    maxRange++;
+                }
+                else if (alphas[maxRange -1] >= 255 || isLastCharacterInvisible)
+                {
+                    break;
+                }
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+    }
 
 
     //once the building is done
@@ -196,6 +295,9 @@ public class TextArchitect
         {
             case BuildMethod.typewriter:
                 tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
+                break;
+            case BuildMethod.fade:
+                tmpro.ForceMeshUpdate();
                 break;
         }
 
