@@ -1,0 +1,5 @@
+World "Text example"
+
+Person "Character text example"
+
+Narrator "Narrator text example"
