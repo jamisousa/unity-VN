@@ -28,7 +28,7 @@ public class TestFiles : MonoBehaviour
 
         foreach (string line in lines)
         {
-            Debug.Log(line);
+            //Debug.Log(line);
         }
 
         yield return null;
