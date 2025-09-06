@@ -1,0 +1,5 @@
+World "Text example from resource"
+
+Person "Character text example from resource"
+
+Narrator "Narrator text example from resource"
