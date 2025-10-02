@@ -106,6 +106,8 @@ public class TextArchitect
                 break;
         }
         yield return null;
+        onComplete();  
+    
     }
 
     //prepare based on the build method
