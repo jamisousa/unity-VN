@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//manages the flow of a conversation, including dialogue display and command execution
+
 namespace DIALOGUE
 {
     public class ConversationManager
@@ -71,15 +73,47 @@ namespace DIALOGUE
                 dialogueSystem.ShowSpeakerName(line.speaker);
             }
             else
-            {
+            {  
                 dialogueSystem.HideSpeakerName();
             }
 
 
-            yield return BuildDialogue(line.dialogue);
+            yield return BuildLineSegments(line.dialogue);
 
             //wait for user input
             yield return WaitForUserInput();
+        }
+
+
+        IEnumerator BuildLineSegments(DL_DIALOGUE_DATA line)
+        {
+            for (int i = 0; i < line.segments.Count; i++)
+            {
+                DL_DIALOGUE_DATA.DIALOGUE_SEGMENT segment = line.segments[i];
+
+                yield return WaitForSegmentSignalToBeTriggered(segment);
+
+                yield return BuildDialogue(segment.dialogue, segment.appendText);
+            }
+        }
+
+        IEnumerator WaitForSegmentSignalToBeTriggered(DL_DIALOGUE_DATA.DIALOGUE_SEGMENT segment)
+        {
+
+            switch (segment.startSignal)
+            {
+                case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.C:
+                case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.A:
+                    yield return WaitForUserInput();
+                    break;
+                case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.WC:
+                case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.WA:
+                    yield return new WaitForSeconds(segment.signalDelay);
+                    break;
+                default:
+                    break;
+
+            }
         }
 
         IEnumerator Line_RunCommands(DIALOGUE_LINES line)
@@ -88,30 +122,38 @@ namespace DIALOGUE
             yield return null;
         }
 
-        IEnumerator BuildDialogue(string dialogue)
+        IEnumerator BuildDialogue(string dialogue, bool append = false)
         {
 
-            //Build dialogue
-            architect.Build(dialogue);
-
-            while (architect.isBuilding)
-            {
-                if (userPrompt)
+                if (!append)
                 {
-                    if (!architect.hurryText)
-                    {
-                        architect.hurryText = true;
-                    }
-                    else
-                    {
-                        architect.ForceComplete();
-
-                    }
-
-                    userPrompt = false;
+                    //Build dialogue
+                    architect.Build(dialogue);
                 }
-                yield return null;
-            }
+                else
+                {
+                    architect.Append(dialogue);
+                }
+
+
+                while (architect.isBuilding)
+                {
+                    if (userPrompt)
+                    {
+                        if (!architect.hurryText)
+                        {
+                            architect.hurryText = true;
+                        }
+                        else
+                        {
+                            architect.ForceComplete();
+
+                        }
+
+                        userPrompt = false;
+                    }
+                    yield return null;
+                }
         }
 
         IEnumerator WaitForUserInput()

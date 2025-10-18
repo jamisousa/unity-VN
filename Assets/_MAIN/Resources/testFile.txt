@@ -5,3 +5,11 @@ setScene("Classroom" -s 5.5)
 World "Hello, \"Quote here\" right back at ya"
 
 Narrator "And so ended the 'Hello World' conversation." PlaySong(End, -p 0.5), list(players), saveGame(1 -g all -f simple)
+
+
+Elen "This is line 1"
+"This is line 2 from Elen"
+"This is line 3 from Elen"
+
+narrator "Narrator is speaking now."
+"Narrator is continuing to speak"

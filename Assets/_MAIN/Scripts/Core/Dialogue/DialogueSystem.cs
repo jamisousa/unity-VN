@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//central dialogue system to manage conversations and dialogue display
+
 namespace DIALOGUE
 {
     public class DialogueSystem : MonoBehaviour
@@ -13,7 +15,7 @@ namespace DIALOGUE
 
         public bool isRunningConversation => conversationManager.isRunning;
 
-        public static DialogueSystem instance;
+        public static DialogueSystem instance { get; private set; }
 
         public delegate void DialogueSystemEvent();
         public event DialogueSystemEvent onUserPrompt_Next;

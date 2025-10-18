@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
+//handles building text in various styles (typewriter, fade, instant) for game dialog in general
 public class TextArchitect
 {
     private TextMeshProUGUI tmpro_UI;
