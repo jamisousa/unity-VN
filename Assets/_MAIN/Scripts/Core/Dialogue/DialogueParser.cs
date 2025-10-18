@@ -1,6 +1,8 @@
 using System.Text.RegularExpressions;
 using UnityEngine;
 
+// handles parsing raw dialogue lines into structured dialogue data
+
 namespace DIALOGUE { 
 
     public class DialogueParser
@@ -10,11 +12,7 @@ namespace DIALOGUE {
 
         public static DIALOGUE_LINES Parse(string rawLine)
         {   
-            Debug.Log("Parsing line: " + rawLine); 
-
             (string speaker, string dialogue, string commands) = RipContent(rawLine);   
-
-            Debug.Log($"Speaker = '{speaker}', Dialogue = '{dialogue}', Commands = '{commands}'");
 
             return new DIALOGUE_LINES(speaker, dialogue, commands);
         }

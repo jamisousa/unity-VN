@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 
+//the container that holds all dialogue-related UI elements
 namespace DIALOGUE
 {
     [System.Serializable]
