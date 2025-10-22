@@ -70,7 +70,7 @@ namespace DIALOGUE
             //show or hide the speaker name
             if (line.hasSpeaker)
             {
-                dialogueSystem.ShowSpeakerName(line.speaker);
+                dialogueSystem.ShowSpeakerName(line.speaker.displayName);
             }
             else
             {  
