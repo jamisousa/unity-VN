@@ -1,7 +1,7 @@
-Detective: "This changes everything.{a} We are dealing with a whole new level of evil here."
+Elen as ??? "Hi there"
 
-Partner: "I agree.{c} But we need to stay focused on...{wa 1} the evidence we have."
+Elen as ??? at 1:0 "Welcome to our village."
 
-Detective: "Right.{wc 0.5} Let's start by reviewing the crime scene photos again."
+Elen at 0.5:0.5 as The Girl "I hope you like it here!"
 
-Partner: "Good idea.{wa 0.5} Maybe we'll notice something we missed before."
+Elen as ??? [0:Angle1, 1:happy] at 0 "Feel free to walk around."

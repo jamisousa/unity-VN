@@ -1,15 +1,7 @@
-Player "Hello World" list(items -f long), playSong("Intro Song" -v 1)
+Detective: "This changes everything.{a} We are dealing with a whole new level of evil here."
 
-setScene("Classroom" -s 5.5)
+Partner: "I agree.{c} But we need to stay focused on...{wa 1} the evidence we have."
 
-World "Hello, \"Quote here\" right back at ya"
+Detective: "Right.{wc 0.5} Let's start by reviewing the crime scene photos again."
 
-Narrator "And so ended the 'Hello World' conversation." PlaySong(End, -p 0.5), list(players), saveGame(1 -g all -f simple)
-
-
-Elen "This is line 1"
-"This is line 2 from Elen"
-"This is line 3 from Elen"
-
-narrator "Narrator is speaking now."
-"Narrator is continuing to speak"
+Partner: "Good idea.{wa 0.5} Maybe we'll notice something we missed before."
