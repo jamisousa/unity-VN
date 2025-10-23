@@ -1,7 +1,7 @@
-Elen as ??? "Hi there"
+Elen as ??? "Hi there" playSong("Test Song" -v 0.75 -p 1), setMood(chill)
 
-Elen as ??? at 1:0 "Welcome to our village."
+Elen as ??? at 1:0 "Welcome to our village." playVoice("e_d1_v2" -v 1.5), setBackground(Room1 -t "Diagonal Lines" -s 3.5)
 
-Elen at 0.5:0.5 as The Girl "I hope you like it here!"
+Elen at 0.5:0.5 as The Girl "I hope you like it here!" setMood(chill)
 
-Elen as ??? [0:Angle1, 1:happy] at 0 "Feel free to walk around."
+Elen as ??? [0:Angle1, 1:happy] at 0 "Feel free to walk around." setMood(chill)
