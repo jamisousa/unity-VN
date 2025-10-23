@@ -22,7 +22,7 @@ public class TestDialogueFiles : MonoBehaviour
 
         //foreach (string line in lines)
         //{
-        //    if (string.IsNullOrEmpty(line)) return;
+        //    if (string.IsNullOrEmpty(line)) continue;
 
         //    Debug.Log($"Segmenting line '{line}'");
         //    DIALOGUE_LINES dlLine = DialogueParser.Parse(line);
@@ -34,7 +34,23 @@ public class TestDialogueFiles : MonoBehaviour
         //    }
         //}
 
-        DialogueSystem.instance.Say(lines);
+        //DialogueSystem.instance.Say(lines);
+
+
+        foreach (string line in lines)
+        {
+            if (string.IsNullOrEmpty(line)) continue;
+
+            DIALOGUE_LINES dl = DialogueParser.Parse(line);
+
+            for(int i = 0; i < dl.commandData.commands.Count; i++)
+            {
+                DL_COMMAND_DATA.Command cmd = dl.commandData.commands[i];
+
+                Debug.Log($"Command [{i}] = '{cmd.name}' has these arguments [{string.Join(", ", cmd.arguments)}]");
+            }
+        }
+
 
     }
 }
