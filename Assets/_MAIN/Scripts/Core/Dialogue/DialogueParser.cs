@@ -54,19 +54,25 @@ namespace DIALOGUE {
 
             //Identify command pattern
             Regex commandRegex = new Regex(commandRegexPattern);
-            Match commandMatch = commandRegex.Match(rawLine);
+            MatchCollection matches = commandRegex.Matches(rawLine);
             int commandStart =  -1;
-            if (commandMatch.Success)
+
+            foreach(Match match in matches)
             {
-                commandStart = commandMatch.Index;
-
-                if(dialogueStart == -1 && dialogueEnd == -1)
+                if(match.Index < dialogueStart || match.Index > dialogueEnd)
                 {
-                    return ("", "", rawLine.Trim());
-
+                    commandStart = match.Index;
+                    break;
                 }
 
             }
+
+            if(commandStart != -1 && (dialogueStart == -1 && dialogueEnd == -1))
+            { 
+                return("", "", rawLine.Trim());
+            }
+
+    
 
             //If we got here then we either got a dialogue or multi word argument in a command, find out which
             if (dialogueStart != -1 && dialogueEnd != -1 && (commandStart == -1 || commandStart > dialogueEnd))
@@ -85,8 +91,9 @@ namespace DIALOGUE {
             }
             else
             {
-                speaker = rawLine;
+                dialogue = rawLine;
             }
+
 
             return (speaker, dialogue, commands);
         }

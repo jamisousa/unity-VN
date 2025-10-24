@@ -1,3 +1,5 @@
+Elen "(This is a thought)"
+
 Elen as ??? "Hi there" playSong("Test Song" -v 0.75 -p 1), setMood(chill)
 
 Elen as ??? at 1:0 "Welcome to our village." playVoice("e_d1_v2" -v 1.5), setBackground(Room1 -t "Diagonal Lines" -s 3.5)
