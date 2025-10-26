@@ -1,4 +1,3 @@
-
 //data container representing a single line/entry in a dialogue script.
 
 namespace DIALOGUE
