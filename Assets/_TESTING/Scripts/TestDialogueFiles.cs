@@ -1,4 +1,4 @@
-using System.Collections;
+using COMMANDS;
 using System.Collections.Generic;
 using DIALOGUE;
 using UnityEngine;
@@ -34,22 +34,22 @@ public class TestDialogueFiles : MonoBehaviour
         //    }
         //}
 
-        //DialogueSystem.instance.Say(lines);
+        DialogueSystem.instance.Say(lines);
 
 
-        foreach (string line in lines)
-        {
-            if (string.IsNullOrEmpty(line)) continue;
+        //foreach (string line in lines)
+        //{
+        //    if (string.IsNullOrEmpty(line)) continue;
 
-            DIALOGUE_LINES dl = DialogueParser.Parse(line);
+        //    DIALOGUE_LINES dl = DialogueParser.Parse(line);
 
-            for(int i = 0; i < dl.commandData.commands.Count; i++)
-            {
-                DL_COMMAND_DATA.Command cmd = dl.commandData.commands[i];
+        //    for(int i = 0; i < dl.commandData.commands.Count; i++)
+        //    {
+        //        DL_COMMAND_DATA.Command cmd = dl.commandData.commands[i];
 
-                Debug.Log($"Command [{i}] = '{cmd.name}' has these arguments [{string.Join(", ", cmd.arguments)}]");
-            }
-        }
+        //        Debug.Log($"Command [{i}] = '{cmd.name}' has these arguments [{string.Join(", ", cmd.arguments)}]");
+        //    }
+        //}
 
 
     }

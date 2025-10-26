@@ -3,41 +3,45 @@ using System.Reflection;
 using System.Linq;
 using System;
 
-//system responsible for validating and executing special commands
-
-public class CommandManager : MonoBehaviour
+namespace COMMANDS
 {
-    public static CommandManager instance { get; private set; }
-    private CommandDatabase database;
 
-    private void Awake()
+    //system responsible for validating and executing special commands
+
+    public class CommandManager : MonoBehaviour
     {
-        if (instance == null)
+        public static CommandManager instance { get; private set; }
+        private CommandDatabase database;
+
+        private void Awake()
         {
-            instance = this;
-
-            database = new CommandDatabase(); 
-
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            System.Type[] extensionTypes = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(CMD_DatabaseExtension))).ToArray();
-
-            foreach(Type extension in extensionTypes)
+            if (instance == null)
             {
-                MethodInfo extendMethod = extension.GetMethod("Extend");
+                instance = this;
 
-                extendMethod.Invoke(null, new object[] { database });
+                database = new CommandDatabase();
+
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                Type[] extensionTypes = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(CMD_DatabaseExtension))).ToArray();
+
+                foreach (Type extension in extensionTypes)
+                {
+                    MethodInfo extendMethod = extension.GetMethod("Extend");
+
+                    extendMethod.Invoke(null, new object[] { database });
+                }
             }
+            else DestroyImmediate(gameObject);
         }
-        else DestroyImmediate(gameObject);
-    }
 
-    public void Execute(string commandName)
-    {
-        Delegate command = database.GetCommand(commandName);
-
-       if(command != null)
+        public void Execute(string commandName)
         {
-            command.DynamicInvoke();
+            Delegate command = database.GetCommand(commandName);
+
+            if (command != null)
+            {
+                command.DynamicInvoke();
+            }
         }
     }
 }

@@ -2,93 +2,97 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-/*
-    C - clear
-    A - append
-    WC N - wait for N seconds, then clear
-    WA N - wait for N seconds, then append
- */
-
-public class DL_DIALOGUE_DATA
+namespace DIALOGUE
 {
 
-    public List<DIALOGUE_SEGMENT> segments;
+    /*
+        C - clear
+        A - append
+        WC N - wait for N seconds, then clear
+        WA N - wait for N seconds, then append
+     */
 
-    private const string segmentIdentifierPattern = @"\{[ca]\}|\{w[ca]\s\d*\.?\d*\}";
-
-
-    public DL_DIALOGUE_DATA(string rawDialogue)
+    public class DL_DIALOGUE_DATA
     {
-        segments = RipSegments(rawDialogue);
 
-    }
+        public List<DIALOGUE_SEGMENT> segments;
 
-    public List<DIALOGUE_SEGMENT> RipSegments(string rawDialogue)
-    {
-        List<DIALOGUE_SEGMENT> segments = new List<DIALOGUE_SEGMENT>();
+        private const string segmentIdentifierPattern = @"\{[ca]\}|\{w[ca]\s\d*\.?\d*\}";
 
-        MatchCollection matches  = Regex.Matches(rawDialogue, segmentIdentifierPattern);
 
-        int lastIndex = 0;
-
-        //find the first or only segment in the file
-        DIALOGUE_SEGMENT segment = new DIALOGUE_SEGMENT();
-        segment.dialogue = (matches.Count == 0 ? rawDialogue : rawDialogue.Substring(0, matches[0].Index));
-        segment.startSignal = DIALOGUE_SEGMENT.StartSignal.NONE;
-        segment.signalDelay = 0;
-        segments.Add(segment);
-        
-        if(matches.Count == 0)
+        public DL_DIALOGUE_DATA(string rawDialogue)
         {
-            return segments;
-        }
-        else
-        {
-            lastIndex = matches[0].Index;
+            segments = RipSegments(rawDialogue);
 
         }
 
-        for (int i = 0; i < matches.Count; i++)
+        public List<DIALOGUE_SEGMENT> RipSegments(string rawDialogue)
         {
-            Match match = matches[i];
-            segment = new DIALOGUE_SEGMENT();
+            List<DIALOGUE_SEGMENT> segments = new List<DIALOGUE_SEGMENT>();
 
-            //get the start signal for the segment
-            string signalMatch = match.Value; //this will get brackets {A}
-            signalMatch = signalMatch.Substring(1, match.Length - 2); //remove brackets
-            string[] signalSplit = signalMatch.Split(' '); //split by space to get command and argument
+            MatchCollection matches = Regex.Matches(rawDialogue, segmentIdentifierPattern);
 
-            segment.startSignal = (DIALOGUE_SEGMENT.StartSignal) Enum.Parse(typeof(DIALOGUE_SEGMENT.StartSignal), signalSplit[0].ToUpper());
+            int lastIndex = 0;
 
+            //find the first or only segment in the file
+            DIALOGUE_SEGMENT segment = new DIALOGUE_SEGMENT();
+            segment.dialogue = matches.Count == 0 ? rawDialogue : rawDialogue.Substring(0, matches[0].Index);
+            segment.startSignal = DIALOGUE_SEGMENT.StartSignal.NONE;
+            segment.signalDelay = 0;
+            segments.Add(segment);
 
-            //get the signal delay
-            if(signalSplit.Length > 1)
+            if (matches.Count == 0)
             {
-                float.TryParse(signalSplit[1], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out segment.signalDelay);
+                return segments;
+            }
+            else
+            {
+                lastIndex = matches[0].Index;
+
             }
 
-            //get the dialogue for the segment
-            int nextIndex = i + 1 < matches.Count ? matches[i+1].Index : rawDialogue.Length;
-            segment.dialogue = rawDialogue.Substring(lastIndex + match.Length, nextIndex - (lastIndex + match.Length));
-            lastIndex = nextIndex;
+            for (int i = 0; i < matches.Count; i++)
+            {
+                Match match = matches[i];
+                segment = new DIALOGUE_SEGMENT();
 
-            segments.Add(segment);
+                //get the start signal for the segment
+                string signalMatch = match.Value; //this will get brackets {A}
+                signalMatch = signalMatch.Substring(1, match.Length - 2); //remove brackets
+                string[] signalSplit = signalMatch.Split(' '); //split by space to get command and argument
+
+                segment.startSignal = (DIALOGUE_SEGMENT.StartSignal)Enum.Parse(typeof(DIALOGUE_SEGMENT.StartSignal), signalSplit[0].ToUpper());
+
+
+                //get the signal delay
+                if (signalSplit.Length > 1)
+                {
+                    float.TryParse(signalSplit[1], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out segment.signalDelay);
+                }
+
+                //get the dialogue for the segment
+                int nextIndex = i + 1 < matches.Count ? matches[i + 1].Index : rawDialogue.Length;
+                segment.dialogue = rawDialogue.Substring(lastIndex + match.Length, nextIndex - (lastIndex + match.Length));
+                lastIndex = nextIndex;
+
+                segments.Add(segment);
+            }
+
+            return segments;
         }
 
-        return segments;
-    }
-
-    public struct DIALOGUE_SEGMENT
-    {
-        public string dialogue;
-        public StartSignal startSignal;
-        public float signalDelay;
-        
-        public enum StartSignal
+        public struct DIALOGUE_SEGMENT
         {
-            NONE, C, A, WA, WC
-        }
+            public string dialogue;
+            public StartSignal startSignal;
+            public float signalDelay;
 
-        public bool appendText => (startSignal == StartSignal.A || startSignal == StartSignal.WA);
+            public enum StartSignal
+            {
+                NONE, C, A, WA, WC
+            }
+
+            public bool appendText => startSignal == StartSignal.A || startSignal == StartSignal.WA;
+        }
     }
 }

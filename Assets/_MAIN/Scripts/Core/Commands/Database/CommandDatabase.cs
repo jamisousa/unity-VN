@@ -2,33 +2,36 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static DL_COMMAND_DATA;
 
-//a database of all commands that are available for the command manager to use
-public class CommandDatabase
+
+namespace COMMANDS
 {
-    private Dictionary<string, Delegate> database = new Dictionary<string, Delegate>();
 
-    public bool HasCommand(string commandName) => database.ContainsKey(commandName);
-
-    public void AddCommand(string commandName, Delegate command)
+    //a database of all commands that are available for the command manager to use
+    public class CommandDatabase
     {
-        if(!database.ContainsKey(commandName))
-            database.Add(commandName, command);
-        else
-            Debug.LogWarning($"CommandDatabase: Command \"{commandName}\" already exists in the database!");
-    }
+        private Dictionary<string, Delegate> database = new Dictionary<string, Delegate>();
 
-    public Delegate GetCommand(string commandName)
-    {
-        if (!database.ContainsKey(commandName))
+        public bool HasCommand(string commandName) => database.ContainsKey(commandName);
+
+        public void AddCommand(string commandName, Delegate command)
         {
-            Debug.LogWarning($"CommandDatabase: Command \"{commandName}\" does not exist in the database!");
-            return null;
+            if (!database.ContainsKey(commandName))
+                database.Add(commandName, command);
+            else
+                Debug.LogWarning($"CommandDatabase: Command \"{commandName}\" already exists in the database!");
         }
 
-        return database[commandName];
+        public Delegate GetCommand(string commandName)
+        {
+            if (!database.ContainsKey(commandName))
+            {
+                Debug.LogWarning($"CommandDatabase: Command \"{commandName}\" does not exist in the database!");
+                return null;
+            }
 
+            return database[commandName];
+
+        }
     }
 }
-
