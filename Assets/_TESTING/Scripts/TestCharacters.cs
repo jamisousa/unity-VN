@@ -18,13 +18,13 @@ namespace TESTING
 
 
         /*******************************************************
-        * Say lines independent from dialogue system and files
+        * Say lines independent from dialogue system and files (optional)
         ********************************************************/
         IEnumerator Test()
         {
             Character Elen = CharacterManager.instance.CreateCharacter("Elen");
             Character Stella = CharacterManager.instance.CreateCharacter("Stella");
-            Character Adam = CharacterManager.instance.CreateCharacter("Adam");
+            Character Ben = CharacterManager.instance.CreateCharacter("Benjamin");
 
 
             List<string> lines = new List<string>()
@@ -37,14 +37,19 @@ namespace TESTING
 
             yield return Elen.Say(lines);
 
+            Elen.SetNameColor(Color.red);
+            Elen.SetDialogueColor(Color.yellow);
+
             yield return Stella.Say(lines);
+
+            yield return Ben.Say(lines);
 
 
             Debug.Log("Done");
         }
 
         /*******************************************************
-         * End Say lines independent from dialogue system and files
+         * End Say lines independent from dialogue system and files (optional)
          ********************************************************/
 
         // Update is called once per frame

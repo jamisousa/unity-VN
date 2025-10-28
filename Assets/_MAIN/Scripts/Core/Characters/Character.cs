@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DIALOGUE;
+using TMPro;
 using UnityEngine;
 
 namespace CHARACTERS
@@ -14,14 +15,16 @@ namespace CHARACTERS
         public string name = "";
         public string displayName = "";
         public RectTransform root = null;
+        public CharacterConfigData config;
         
         public DialogueSystem dialogueSystem => DialogueSystem.instance;
 
-        public Character(string name)
+        public Character(string name, CharacterConfigData config)
         {
             //base constructor
             this.name = name;
             displayName = name;
+            this.config = config;
         }
 
         //supported character types
@@ -36,7 +39,7 @@ namespace CHARACTERS
 
 
         /*******************************************************
-         * Say lines independent from dialogue system and files
+         * Say lines independent from dialogue system and files (optional)
          ********************************************************/
         public Coroutine Say(string dialogue) => Say(new List<string> { dialogue });
 
@@ -44,6 +47,11 @@ namespace CHARACTERS
         {
             dialogueSystem.ShowSpeakerName(displayName);
             dialogue = FormatDialogue(dialogue);
+
+            //dialogueSystem.ApplySpeakerDataToDialogueContainer(name);
+
+            UpdateTextCustomizationsOnScreen();
+
             return dialogueSystem.Say(dialogue);
         }
 
@@ -64,9 +72,20 @@ namespace CHARACTERS
         }
 
         /*******************************************************
-         * End Say lines independent from dialogue system and files
+         * End Say lines independent from dialogue system and files (optional)
          ********************************************************/
 
+
+        //Real time screen customs
+        public void SetNameColor(Color color) => config.nameColor = color;
+        public void SetDialogueColor(Color color) => config.dialogueColor = color;
+
+        public void SetNameFont(TMP_FontAsset font) => config.nameFont = font;
+        public void SetDialogueFont(TMP_FontAsset font) => config.dialogueFont = font;
+
+        public void UpdateTextCustomizationsOnScreen() => dialogueSystem.ApplySpeakerDataToDialogueContainer(config);
+
+        public void ResetConfigurationData() => config = CharacterManager.instance.GetCharacterConfig(name);
 
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CHARACTERS;
 using UnityEngine;
 
 //central dialogue system to manage conversations and dialogue display
@@ -22,6 +23,7 @@ namespace DIALOGUE
 
         public delegate void DialogueSystemEvent();
         public event DialogueSystemEvent onUserPrompt_Next;
+
 
         private void Awake()
         {
@@ -51,6 +53,23 @@ namespace DIALOGUE
         public void OnUserPrompt_Next()
         {
             onUserPrompt_Next?.Invoke();
+        }
+
+
+        public void ApplySpeakerDataToDialogueContainer(string speakerName)
+        {
+            Character character = CharacterManager.instance.GetCharacter(speakerName);
+            CharacterConfigData config = character != null ? character.config : CharacterManager.instance.GetCharacterConfig(speakerName);
+
+            ApplySpeakerDataToDialogueContainer(config);
+        }
+
+        public void ApplySpeakerDataToDialogueContainer(CharacterConfigData config)
+        {
+            dialogueContainer.SetDialogueFont(config.dialogueFont);
+            dialogueContainer.SetDialogueColor(config.dialogueColor);
+            dialogueContainer.nameContainer.SetNameFont(config.nameFont);
+            dialogueContainer.nameContainer.SetNameColor(config.nameColor);
         }
 
 
