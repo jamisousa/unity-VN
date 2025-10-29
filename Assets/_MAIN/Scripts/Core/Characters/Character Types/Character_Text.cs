@@ -9,7 +9,7 @@ namespace CHARACTERS
     public class Character_Text : Character
     {
         //whenever we call this constructor we also call the base constructor
-        public Character_Text(string name, CharacterConfigData config) : base(name, config)
+        public Character_Text(string name, CharacterConfigData config) : base(name, config, prefab:null)
         {
             Debug.Log("Created Text Character: " + name);
         }
