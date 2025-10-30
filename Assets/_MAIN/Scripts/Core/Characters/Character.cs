@@ -43,6 +43,7 @@ namespace CHARACTERS
             if (prefab != null)
             {
                 GameObject ob = Object.Instantiate(prefab, manager.characterPanel);
+                ob.name = manager.FormatCharacterPath(manager.characterPrefabNameFormat, name);
                 ob.SetActive(true);
                 root = ob.GetComponent<RectTransform>();
                 animator = root.GetComponentInChildren<Animator>();
