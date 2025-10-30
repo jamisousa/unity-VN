@@ -27,9 +27,21 @@ namespace TESTING
 
             guard1.Show();
                         yield return new WaitForSeconds(1f);
+
+            guard1.SetPosition(new Vector2(0.2f, 0f));
+
             guard2.Show();
                         yield return new WaitForSeconds(1f);
+
+            guard2.SetPosition(new Vector2(0.5f, 0f));
+
             guard3.Show();
+
+            guard3.SetPosition(new Vector2(0.8f, 0f));
+
+            guard3.MoveToPosition(new Vector2(0.2f, 0f), speed: 1f, smooth: true);
+
+
 
             yield return null;
         }
