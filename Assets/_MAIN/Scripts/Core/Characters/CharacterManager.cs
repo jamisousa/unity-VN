@@ -22,10 +22,14 @@ namespace CHARACTERS
 
         //paths for prefabs
         private const string CHARACTER_NAME_ID = "<characterName>";
-        private string characterRootPath => $"Characters/{CHARACTER_NAME_ID}";
-        private string characterPrefabPath => $"{characterRootPath}/Character - [{CHARACTER_NAME_ID}]";
+        public string characterRootPathFormat => $"Characters/{CHARACTER_NAME_ID}";
 
-       [SerializeField] private RectTransform _characterPanel =  null;
+        public string characterPrefabNameFormat => $"Character - [{CHARACTER_NAME_ID}]";
+
+        public string characterPrefabPathFormat => $"{characterRootPathFormat}/{characterPrefabNameFormat}";
+
+
+        [SerializeField] private RectTransform _characterPanel =  null;
         public RectTransform characterPanel => _characterPanel;
 
         private void Awake()
@@ -120,14 +124,14 @@ namespace CHARACTERS
             public GameObject prefab = null;
         }
 
-        private string FormatCharacterPath(string path, string characterName) => path.Replace(CHARACTER_NAME_ID, characterName);
+        public string FormatCharacterPath(string path, string characterName) => path.Replace(CHARACTER_NAME_ID, characterName);
 
         private GameObject GetPrefabForCharacter(string characterName)
         {
             //use character path in resources folder
-            string prefabPath = FormatCharacterPath(characterPrefabPath, characterName);
+            string prefabPath = FormatCharacterPath(characterPrefabPathFormat, characterName);
 
-            Debug.Log("path" + prefabPath + "characterPrefabPath" + characterPrefabPath);
+            Debug.Log("path" + prefabPath + "characterPrefabPath" + characterPrefabPathFormat);
 
             return Resources.Load<GameObject>(prefabPath);
         }
