@@ -1130,7 +1130,7 @@ PrefabInstance:
     - target: {fileID: 5033214477810347632, guid: 6ce7be681f1e4fe4a9b46b9ded5d0cd6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -429
+      value: -428.99997
       objectReference: {fileID: 0}
     - target: {fileID: 5033214477810347632, guid: 6ce7be681f1e4fe4a9b46b9ded5d0cd6,
         type: 3}
@@ -1152,6 +1152,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5358143896864219234, guid: 6ce7be681f1e4fe4a9b46b9ded5d0cd6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -9.779968
+      objectReference: {fileID: 0}
+    - target: {fileID: 5358143896864219234, guid: 6ce7be681f1e4fe4a9b46b9ded5d0cd6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10.428696
+      objectReference: {fileID: 0}
     - target: {fileID: 5826939106795368754, guid: 6ce7be681f1e4fe4a9b46b9ded5d0cd6,
         type: 3}
       propertyPath: m_Name
@@ -1166,6 +1176,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IgnoreParentGroups
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947472226299356478, guid: 6ce7be681f1e4fe4a9b46b9ded5d0cd6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -9.779968
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947472226299356478, guid: 6ce7be681f1e4fe4a9b46b9ded5d0cd6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10.428696
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2582,7 +2602,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -264.00003, y: 0}
   m_SizeDelta: {x: 0, y: 657}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1147645460
@@ -3205,6 +3225,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8726891235374473721, guid: adef569bee20a1743a05eea0a98443fa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 14.752991
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726891235374473721, guid: adef569bee20a1743a05eea0a98443fa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -37.92871
+      objectReference: {fileID: 0}
     - target: {fileID: 9112528792243348182, guid: adef569bee20a1743a05eea0a98443fa,
         type: 3}
       propertyPath: m_Sprite
@@ -3313,7 +3343,7 @@ PrefabInstance:
     - target: {fileID: 784129023162563074, guid: 5baaf8ed1ded15a4982389b6a9bad9e7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.0000305
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 784129023162563074, guid: 5baaf8ed1ded15a4982389b6a9bad9e7,
         type: 3}

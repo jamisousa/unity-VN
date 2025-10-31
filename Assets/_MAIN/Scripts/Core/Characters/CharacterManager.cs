@@ -84,11 +84,11 @@ namespace CHARACTERS
                     return new Character_Text(info.name, config);
                 case Character.CharacterType.Sprite:
                 case Character.CharacterType.SpriteSheet:
-                    return new Character_Sprite(info.name, config, info.prefab);
+                    return new Character_Sprite(info.name, config, info.prefab, info.rootCharacterFolder);
                 case Character.CharacterType.Live2D:
-                    return new Character_Live2D(info.name, config, info.prefab);
+                    return new Character_Live2D(info.name, config, info.prefab, info.rootCharacterFolder);
                 case Character.CharacterType.Model3D:
-                    return new Character_Model3D(info.name, config, info.prefab);
+                    return new Character_Model3D(info.name, config, info.prefab, info.rootCharacterFolder);
                 default:
                     return null;
             }
@@ -111,6 +111,8 @@ namespace CHARACTERS
 
             result.prefab = GetPrefabForCharacter(result.castingName);
 
+            result.rootCharacterFolder = FormatCharacterPath(characterRootPathFormat, result.castingName);
+
             return result;
         }
 
@@ -118,6 +120,8 @@ namespace CHARACTERS
         {
             public string name = "";
             public string castingName = "";
+
+            public string rootCharacterFolder = "";
 
             public CharacterConfigData config = null;
 

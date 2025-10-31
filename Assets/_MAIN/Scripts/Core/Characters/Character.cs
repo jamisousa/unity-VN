@@ -30,7 +30,7 @@ namespace CHARACTERS
 
         public bool isMoving => co_moving != null;
 
-        public virtual bool isVisible => false;
+        public virtual bool isVisible { get; set; }
 
 
         public Character(string name, CharacterConfigData config, GameObject prefab)
