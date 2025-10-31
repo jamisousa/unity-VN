@@ -21,25 +21,30 @@ namespace TESTING
 
         IEnumerator Test()
         {
-            Character guard1 = CreateCharacter("Guard1 as Generic");
-            Character guard2 = CreateCharacter("Guard2 as Generic");
-            Character guard3 = CreateCharacter("Guard3 as Generic");
 
-            guard1.Show();
-                        yield return new WaitForSeconds(1f);
+            Character_Sprite Raelin = CreateCharacter("Raelin") as Character_Sprite;
 
-            guard1.SetPosition(new Vector2(0.2f, 0f));
+            Sprite RaelinBodySprite = Raelin.GetSprite("Raelin_1");
+            Sprite RaelinFaceSprite = Raelin.GetSprite("Raelin_10");
+            
+            Sprite RaelinSecondaryBodySprite = Raelin.GetSprite("Raelin_2");
+            Sprite RaelinSecondaryFaceSprite = Raelin.GetSprite("Raelin_23");
 
-            guard2.Show();
-                        yield return new WaitForSeconds(1f);
+            Raelin.Show();
 
-            guard2.SetPosition(new Vector2(0.5f, 0f));
+            yield return new WaitForSeconds(1);
 
-            guard3.Show();
+            Raelin.TransitionSprite(RaelinBodySprite);
+            yield return Raelin.TransitionSprite(RaelinFaceSprite, layer: 1);
 
-            guard3.SetPosition(new Vector2(0.8f, 0f));
+            yield return new WaitForSeconds(1);
 
-            guard3.MoveToPosition(new Vector2(0.2f, 0f), speed: 1f, smooth: true);
+            Raelin.TransitionSprite(RaelinSecondaryBodySprite);
+            yield return Raelin.TransitionSprite(RaelinSecondaryFaceSprite, layer: 1);
+
+            yield return new WaitForSeconds(1);
+
+            Raelin.MoveToPosition(Vector2.zero, speed: 2f);
 
 
 
