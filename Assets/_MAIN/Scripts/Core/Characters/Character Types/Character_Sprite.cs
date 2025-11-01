@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -127,6 +128,80 @@ namespace CHARACTERS
             co_revealing = null;
             co_hiding = null;
         }
+
+        //override color for transition logic
+        public override void SetColor(Color color)
+        {
+            base.SetColor(color);
+            color = displayColor;
+
+            foreach (CharacterSpriteLayer layer in layers)
+            {
+                layer.StopChangingColor();
+                layer.SetColor(color);
+            }
+        }
+
+        //override changing color coroutine to specific sprite type behavior
+        public override IEnumerator ChangingColor(Color color, float speed)
+        {
+            foreach(CharacterSpriteLayer layer in layers)
+            {
+                layer.TransitionColor(color, speed);
+            }
+
+            yield return null;
+
+            while(layers.Any(layer => layer.isChangingColor))
+            {
+                yield return null;
+            }
+
+            co_changingColor = null;
+        }
+
+        //override the coroutine for highlighting for specific sprite type behavior
+        public override IEnumerator Highlighting(bool highlight, float speedMultiplier)
+        {
+            Color targetColor = displayColor;
+
+            foreach (CharacterSpriteLayer layer in layers)
+            {
+                layer.TransitionColor(targetColor, speedMultiplier);
+            }
+
+            yield return null;
+
+
+            while (layers.Any(layer => layer.isChangingColor))
+            {
+                yield return null;
+            }
+
+            co_highlighting = null;
+
+        }
+
+        //override face direction logic for sprite characters
+        public override IEnumerator FaceDirection(bool faceLeft, float speedMultiplier, bool immediate)
+        {
+            foreach(CharacterSpriteLayer layer in layers)
+            {
+                if (faceLeft)
+                {
+                    layer.FaceLeft(speedMultiplier, immediate);
+                }
+                layer.FaceRight(speedMultiplier, immediate);
+            }
+
+            yield return null;
+
+            while(layers.Any(layer => layer.isFlipping))
+            {
+                yield return null;
+            }   
+        }
+
     }
 
 }
