@@ -23,6 +23,7 @@ namespace TESTING
         {
 
             Character_Sprite Raelin = CreateCharacter("Raelin") as Character_Sprite;
+            Character_Sprite Guard = CreateCharacter("Guard as Generic") as Character_Sprite;
 
             Sprite RaelinBodySprite = Raelin.GetSprite("Raelin_1");
             Sprite RaelinFaceSprite = Raelin.GetSprite("Raelin_10");
@@ -34,22 +35,25 @@ namespace TESTING
 
             yield return new WaitForSeconds(1);
 
-            Raelin.TransitionSprite(RaelinBodySprite);
-            yield return Raelin.TransitionSprite(RaelinFaceSprite, layer: 1);
+            Guard.Show();
 
             yield return new WaitForSeconds(1);
 
-            Raelin.TransitionSprite(RaelinSecondaryBodySprite);
-            yield return Raelin.TransitionSprite(RaelinSecondaryFaceSprite, layer: 1);
+            CharacterManager.instance.SortCharacters(new string[]
+            {
+                "Raelin", 
+                "Guard as Generic" 
+            });
 
             yield return new WaitForSeconds(1);
 
-            Raelin.MoveToPosition(Vector2.zero, speed: 2f);
 
-
+            CharacterManager.instance.SortCharacters();
 
             yield return null;
         }
+
+
 
 
 

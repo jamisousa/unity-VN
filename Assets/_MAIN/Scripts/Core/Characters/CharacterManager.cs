@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DIALOGUE;
 using UnityEngine;
 
@@ -69,7 +70,7 @@ namespace CHARACTERS
 
             Character character = CreateCharacterFromInfo(info);
 
-            characters.Add(characterName.ToLower(), character);
+            characters.Add(info.name.ToLower(), character);
 
             return character;
         }
@@ -138,6 +139,92 @@ namespace CHARACTERS
             Debug.Log("path" + prefabPath + "characterPrefabPath" + characterPrefabPathFormat);
 
             return Resources.Load<GameObject>(prefabPath);
+        }
+
+        /*
+         * below functions wil sort characters in the UI hierarchy based on priority and visibility
+         * can be called without parameters (auto-sorting by priority) or with a list of names (manual sorting)
+         * ensures active characters appear on top and the visual order matches their defined priority
+        */
+
+        public void SortCharacters()
+        {
+
+            /*
+             * sorts all characters in the scene based on their visibility and priority
+             * - collects all active and visible characters
+             * - separates inactive ones to keep their positions unchanged
+             * - sorts active characters by their priority value (lowest to highest)
+             * - reapplies the sorted order to the UI hierarchy so that characters render in the correct visual order
+             */
+
+
+            List<Character> activeCharacters = characters.Values.Where(c=> c.root.gameObject.activeInHierarchy && c.isVisible).ToList();
+            List<Character> inactiveCharacters = characters.Values.Except(activeCharacters).ToList();
+
+            activeCharacters.Sort((a,b) => a.priority.CompareTo(b.priority));
+
+            activeCharacters.Concat(inactiveCharacters);
+
+            SortCharacters(activeCharacters);
+
+        }
+
+        private void SortCharacters(List<Character> charactersSortingOrder)
+        {
+
+            /*
+             * applies the given sorting order to the UI hierarchy
+             * iterates through the provided character list and updates each character's sibling index,
+             * changing their render order in the scene to match the specified sequence
+             */
+
+            int i = 0;
+
+            foreach(Character character in charactersSortingOrder)
+            {
+                character.root.SetSiblingIndex(i++);
+            }
+        }
+
+
+        public void SortCharacters(string[] characterNames)
+        {
+
+            /*
+             *  manually sorts characters based on a specified list of names:
+             *  retrieves the characters matching the given names and filters out any that don't exist;
+             *  keeps the remaining characters ordered by their current priority;
+             *  reverses the provided list to ensure the last name appears on top in the UI;
+             *  reassigns priorities to the specified characters so they appear above the others;
+             *  merges all characters (remaining + reordered) and applies the final sorting to the UI hierarchy!
+             */
+
+
+            List<Character> sortedCharacters = new List<Character>();
+
+            sortedCharacters = characterNames
+                .Select(name => GetCharacter(name))
+                .Where(c => c != null)
+                .ToList();
+
+
+            List<Character> remainingCharacters = characters.Values.Except(sortedCharacters).OrderBy(character => character.priority).ToList();
+
+            sortedCharacters.Reverse();
+
+
+            int startingPriority = remainingCharacters.Count > 0 ? remainingCharacters.Max(c=> c.priority) : 0;
+
+            for(int i = 0; i < sortedCharacters.Count; i++)
+            {
+                Character character = sortedCharacters[i];
+                character.SetPriority(startingPriority + i + 1, autoSortCharactersOnUi: false);
+            }
+
+
+            List<Character> allCharacters = remainingCharacters.Concat(sortedCharacters).ToList();
+            SortCharacters(allCharacters);
         }
 
     }
