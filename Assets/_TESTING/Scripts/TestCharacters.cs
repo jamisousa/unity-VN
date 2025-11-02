@@ -39,6 +39,8 @@ namespace TESTING
 
             yield return new WaitForSeconds(1);
 
+            Raelin.Animate("Hop");
+
             CharacterManager.instance.SortCharacters(new string[]
             {
                 "Raelin", 
