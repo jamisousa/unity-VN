@@ -14,6 +14,7 @@ namespace CHARACTERS
     {
         private const float UNHIGHLIGHTED_DARKEN_STRENGTH = 0.65f;
         public const bool DEFAULT_ORIENTATION_IS_FACING_LEFT = true;
+        public const string ANIMATION_REFRESH_TRIGGER = "Refresh";
 
         public string name = "";
         public string displayName = "";
@@ -370,6 +371,18 @@ namespace CHARACTERS
 
             this.priority = priority;
             root.SetSiblingIndex(priority);
+        }
+
+        //animations
+        public void Animate(string animation)
+        {
+            animator.SetTrigger(animation);
+        }
+
+        public void Animate(string animation, bool state)
+        {
+            animator.SetBool(animation, state);
+            animator.SetTrigger(ANIMATION_REFRESH_TRIGGER);
         }
 
     }
