@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CHARACTERS;
+using COMMANDS;
 using UnityEngine;
 
 //manages the flow of a conversation, including dialogue display and command execution
@@ -154,6 +155,20 @@ namespace DIALOGUE
 
         IEnumerator Line_RunCommands(DIALOGUE_LINES line)
         {
+            List<DL_COMMAND_DATA.Command> commands = line.commandData.commands;
+
+            foreach(DL_COMMAND_DATA.Command command in commands)
+            {
+                if (command.waitForCompletion || command.name == "wait")
+                {
+                    yield return CommandManager.instance.Execute(command.name, command.arguments);
+                }
+                else
+                {
+                    CommandManager.instance.Execute(command.name, command.arguments);
+                }
+            }
+
             Debug.Log(line.commandData);
             yield return null;
         }
