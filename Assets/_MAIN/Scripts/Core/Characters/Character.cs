@@ -385,5 +385,10 @@ namespace CHARACTERS
             animator.SetTrigger(ANIMATION_REFRESH_TRIGGER);
         }
 
+        public virtual void OnReceiveCastingExpression(int layer, string expression)
+        {
+            return;
+        }
+
     }
 }

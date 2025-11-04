@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CHARACTERS;
 using UnityEngine;
 
 //manages the flow of a conversation, including dialogue display and command execution
@@ -69,16 +70,16 @@ namespace DIALOGUE
 
         IEnumerator Line_RunDialogue(DIALOGUE_LINES line)
         {
-            //show or hide the speaker name
+
             if (line.hasSpeaker)
             {
-                dialogueSystem.ShowSpeakerName(line.speakerData.displayName);
+                HandleSpeakerLogic(line.speakerData);
+
             }
             else
-            {  
+            {
                 dialogueSystem.HideSpeakerName();
             }
-
 
             yield return BuildLineSegments(line.dialogueData);
 
@@ -86,6 +87,39 @@ namespace DIALOGUE
             yield return WaitForUserInput();
         }
 
+        private void HandleSpeakerLogic(DL_SPEAKER_DATA speakerData)
+        {
+            bool characterMustBeCreated = (speakerData.makeCharacterEnter || speakerData.isCastingPosition | speakerData.isCastingExpressions);
+
+            Character character = CharacterManager.instance.GetCharacter(speakerData.name, createIfDoesNotExist: characterMustBeCreated);
+
+                if (speakerData.makeCharacterEnter && (!character.isVisible && !character.isRevealing))
+                {
+                    character.Show();
+                }
+
+                dialogueSystem.ShowSpeakerName(speakerData.displayName);
+
+                //add character customs based on who is talking
+                DialogueSystem.instance.ApplySpeakerDataToDialogueContainer(speakerData.name);
+
+            //cast position
+            if (speakerData.isCastingPosition)
+            {
+                //or character.SetPosition(speakerData.castPosition); for immediate effect
+                character.MoveToPosition(speakerData.castPosition);
+            }
+
+            //cast expression
+            if (speakerData.isCastingExpressions)
+            {
+                foreach(var ce in speakerData.CastExpressions)
+                {
+                    character.OnReceiveCastingExpression(ce.layer, ce.expression);
+                }
+            }
+
+        }
 
         IEnumerator BuildLineSegments(DL_DIALOGUE_DATA line)
         {

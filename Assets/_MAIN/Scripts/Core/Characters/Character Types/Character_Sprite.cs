@@ -202,6 +202,18 @@ namespace CHARACTERS
             }   
         }
 
+        public override void OnReceiveCastingExpression(int layer, string expression)
+        {
+            Sprite sprite = GetSprite(expression);
+
+            if (sprite == null)
+            {
+                Debug.LogWarning("Sprite could not be found for character");
+                return;
+            }
+
+            TransitionSprite(sprite, layer);
+        }
     }
 
 }
