@@ -259,5 +259,6 @@ namespace CHARACTERS
 
             co_flipping = null;
         }
+
     }
 }
