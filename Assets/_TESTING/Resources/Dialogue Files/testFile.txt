@@ -1,10 +1,4 @@
-wait(1), CreateCharacter(Raelin), CreateCharacter("Guard1 as Generic" -e false -i true)
-
-Show(Raelin -i false)
-
-MoveCharacter(Raelin -x 1 -spd 1.2 -s false)
-
-Raelin "This changes everything.{a} We are dealing with a whole new level of evil here."
+enter Raelin "This changes everything.{a} We are dealing with a whole new level of evil here."
 
 Generic as Guard "I agree.{c} But we need to stay focused on...{wa 1} the evidence we have."
 
