@@ -61,7 +61,12 @@ namespace DIALOGUE
                 DIALOGUE_LINES line = DialogueParser.Parse(conversation[i]);
 
                 //Show dialogue
-                if (line.hasDialogue) yield return Line_RunDialogue(line);
+                if (line.hasDialogue)
+                {
+                    yield return Line_RunDialogue(line);
+
+                    CommandManager.instance.StopAllProcesses();
+                }
 
                 //run commands
                 if (line.hasCommands) yield return Line_RunCommands(line);
@@ -161,7 +166,16 @@ namespace DIALOGUE
             {
                 if (command.waitForCompletion || command.name == "wait")
                 {
-                    yield return CommandManager.instance.Execute(command.name, command.arguments);
+                    CoroutineWrapper cw = CommandManager.instance.Execute(command.name, command.arguments);
+                    while (!cw.IsDone)
+                    {
+                        if (userPrompt)
+                        {
+                            CommandManager.instance.StopCurrentProcess();
+                            userPrompt = false;
+                        }
+                        yield return null;
+                    }
                 }
                 else
                 {
