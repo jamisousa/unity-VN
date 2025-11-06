@@ -2495,7 +2495,7 @@ GameObject:
   - component: {fileID: 937751879}
   - component: {fileID: 937751880}
   m_Layer: 0
-  m_Name: Character Testing
+  m_Name: Dialog Testing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2525,9 +2525,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 937751878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19da31f0ea5b3bb4c9d0d0f16c347fd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a8909c815c6786439a5a94a171635c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fileToRead: {fileID: 4900000, guid: dfaa5a1307a71f343b1ebf5e14fd9c3a, type: 3}
 --- !u!1 &942629624
 GameObject:
   m_ObjectHideFlags: 0
@@ -2607,7 +2608,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -264, y: 0}
+  m_AnchoredPosition: {x: -263.99997, y: 0}
   m_SizeDelta: {x: 0, y: 657}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1147645460
