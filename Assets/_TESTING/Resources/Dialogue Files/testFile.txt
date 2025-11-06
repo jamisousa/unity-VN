@@ -1,5 +1,5 @@
-wait(10), CreateCharacter(Raelin 1 -e true), CreateCharacter("Guard1 as Generic" -e true -i true), wait(10)
+wait(10), CreateCharacter(Raelin 1 -e true), CreateCharacter("Guard1 as Generic" -e true -i true)
 
-Hide(Raelin -spd 0.2), wait(10)
+[wait]Raelin.move(0 1 -spd 0.5), wait(5)
 
-[wait]MoveCharacter(Raelin 1 -2.5 -speed 1)
+Raelin.SetColor(-c red)

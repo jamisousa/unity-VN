@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DIALOGUE;
@@ -28,6 +27,8 @@ namespace CHARACTERS
         public string characterPrefabNameFormat => $"Character - [{CHARACTER_NAME_ID}]";
  
         public string characterPrefabPathFormat => $"{characterRootPathFormat}/{characterPrefabNameFormat}";
+
+        public bool HasCharacter(string characterName) => characters.ContainsKey(characterName.ToLower());
 
 
         [SerializeField] private RectTransform _characterPanel =  null;

@@ -30,7 +30,7 @@ public static class ColorExtensions
             case "magenta":
                 return Color.magenta;
             case "orange":
-                return new Color(1f, 0.5f, 0f); // Orange is not a predefined color, so we create it manually
+                return new Color(1f, 0.5f, 0f); //orange is not a predefined color, so we create it manually
             default:
                 Debug.LogWarning("Unrecognized color name: " + colorName);
                 return Color.clear;

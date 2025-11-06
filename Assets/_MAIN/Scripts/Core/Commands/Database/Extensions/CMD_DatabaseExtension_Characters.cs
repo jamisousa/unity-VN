@@ -23,11 +23,18 @@ namespace COMMANDS
             database.AddCommand("hide", new Func<string[], IEnumerator>(HideAll));
             database.AddCommand("createcharacter", new Action<string[]>(CreateCharacter));
             database.AddCommand("movecharacter", new Func<string[], IEnumerator>(MoveCharacter));
+
+            //Add commands to characters
+            CommandDatabase baseCommands = CommandManager.instance.CreateSubDatabase(CommandManager.DATABASE_CHARACTERS_BASE);
+            baseCommands.AddCommand("move", new Func<string[], IEnumerator>(MoveCharacter));
+            baseCommands.AddCommand("setColor", new Func<string[], IEnumerator>(SetColor));
+
         }
 
         private static IEnumerator MoveCharacter(string[] data)
         {
             string characterName = data[0];
+
             Character character = CharacterManager.instance.GetCharacter(characterName, createIfDoesNotExist: false);
             if (character == null)
             {
@@ -208,5 +215,46 @@ namespace COMMANDS
                 }
             }
         }
+
+        //global - set color
+        public static IEnumerator SetColor(string[] data)
+        {
+            Character character = CharacterManager.instance.GetCharacter(data[0], createIfDoesNotExist: false);
+            string colorName;
+            float speed;
+            bool immediate;
+
+            if (character == null || data.Length < 2)
+                yield break;
+
+            //grab the extra parameters
+            var parameters = ConvertDataToParameters(data);
+
+            //try to get the color name
+            parameters.TryGetValue(new string[] { "-c", "-color" }, out colorName);
+            //try to get the speed of the transition
+            bool specifiedSpeed = parameters.TryGetValue(new string[] { "-spd", "-speed" }, out speed, defaultValue: 1f);
+            //try to get the instant value
+            if (!specifiedSpeed)
+                parameters.TryGetValue(new string[] { "-i", "-immediate" }, out immediate, defaultValue: true);
+            else
+                immediate = false;
+
+            //get the color value from the name
+            Color color = Color.white;
+            color = color.GetColorFromName(colorName);
+
+            if (immediate)
+                character.SetColor(color);
+            else
+            {
+                CommandManager.instance.AddTerminationActionToCurrentProcess(() => { character?.SetColor(color); });
+                character.TransitionColor(color, speed);
+            }
+
+            yield break;
+        }
+
+
     }
 }
