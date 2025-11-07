@@ -68,4 +68,12 @@ public class GraphicPanel
 
         return layer;
     }
+
+    public void Clear()
+    {
+        foreach(var layer in layers)
+        {
+            layer.Clear();
+        }
+    }
 }
