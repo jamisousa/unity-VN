@@ -1,3 +1,6 @@
+wait(1)
+
+SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
 
 enter Raelin "This changes everything.{a} We are dealing with a whole new level of evil here."
 
