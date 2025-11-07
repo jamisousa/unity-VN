@@ -7,9 +7,10 @@ public class GraphicPanelManager : MonoBehaviour
 {
     public static GraphicPanelManager instance { get; private set; }
 
-    public const float DEFAULT_TRANSITION_SPEED = 3f;
+    public const float DEFAULT_TRANSITION_SPEED = 1f;
 
-    [SerializeField] private GraphicPanel[] allPanels; 
+    [SerializeField] private GraphicPanel[] allPanels;
+
     private void Awake()
     {
         instance = this;
@@ -18,14 +19,14 @@ public class GraphicPanelManager : MonoBehaviour
     public GraphicPanel GetPanel(string name)
     {
         name = name.ToLower();
-        foreach(var panel in allPanels)
+
+        foreach (var panel in allPanels)
         {
-            if(panel.panelName.ToLower() == name)
-            {
+            if (panel.panelName.ToLower() == name)
                 return panel;
-            }
         }
 
         return null;
     }
+
 }

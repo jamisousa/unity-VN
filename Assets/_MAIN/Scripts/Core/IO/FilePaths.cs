@@ -1,14 +1,13 @@
-using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 
 public class FilePaths
 {
     public static readonly string root = $"{Application.dataPath}/gameData/";
 
-    // To log the value of 'root', use a method or constructor, not directly in the class body.
-    // Example: static constructor
-    static FilePaths()
-    {
-        Debug.Log(root);
-    }
+    //Resources paths
+    public static readonly string resources_graphics = "Graphics/";
+    public static readonly string resources_backgroundImages = $"{resources_graphics}BG Images/";
+    public static readonly string resources_backgroundVideos = $"{resources_graphics}BG Videos/";
+    public static readonly string resources_blendTextures = $"{resources_graphics}Transition Effects/";
+
 }
