@@ -15,6 +15,8 @@ public class GraphicObject
     private const string MATERIAL_FIELD_BLEND = "_Blend";
     private const string MATERIAL_FIELD_ALPHA = "_Alpha";
 
+    private GraphicLayer layer;
+
     public RawImage renderer;
     public VideoPlayer video = null;
     public AudioSource audio = null;
@@ -31,6 +33,7 @@ public class GraphicObject
     public GraphicObject(GraphicLayer layer, string graphicPath, Texture tex)
     {
         this.graphicPath = graphicPath;
+        this.layer = layer;
 
         GameObject ob = new GameObject();
         ob.transform.SetParent(layer.panel);
@@ -43,6 +46,51 @@ public class GraphicObject
         renderer.name = string.Format(NAME_FORMAT, graphicName);
 
         renderer.material.SetTexture(MATERIAL_FIELD_MAINTEX, tex);
+    }
+
+    public GraphicObject(GraphicLayer layer, string graphicPath, VideoClip clip, bool useAudio)
+    {
+        this.graphicPath = graphicPath;
+        this.layer = layer;
+
+        GameObject ob = new GameObject();
+        ob.transform.SetParent(layer.panel);
+        renderer = ob.AddComponent<RawImage>();
+
+        graphicName = clip.name;
+        renderer.name = string.Format(NAME_FORMAT, graphicName);
+
+        InitGraphic();
+
+        RenderTexture tex = new RenderTexture(Mathf.RoundToInt(clip.width), Mathf.RoundToInt(clip.height), 0);
+
+        renderer.material.SetTexture(MATERIAL_FIELD_MAINTEX, tex);
+
+        video = renderer.AddComponent<VideoPlayer>();
+        video.playOnAwake = true;
+        video.source = VideoSource.VideoClip;
+        video.clip = clip;
+        video.renderMode = VideoRenderMode.RenderTexture;
+        video.targetTexture = tex;
+        video.isLooping = true;
+
+        video.audioOutputMode = VideoAudioOutputMode.AudioSource;
+        audio = video.AddComponent<AudioSource>();
+
+        audio.volume = 0;
+
+        if (!useAudio)
+        {
+            audio.mute = true;
+        }
+
+        video.SetTargetAudioSource(0, audio);
+        video.frame = 0;
+        video.Prepare();
+        video.Play();
+
+        video.enabled = false;
+        video.enabled = true;
     }
 
     private void InitGraphic()
@@ -77,7 +125,7 @@ public class GraphicObject
         return null;
     }
 
-    public Coroutine FadeIn(float speed, Texture blend = null) { 
+    public Coroutine FadeIn(float speed = 1f, Texture blend = null) { 
     
         if(co_fadingOut != null)
         {
@@ -93,7 +141,7 @@ public class GraphicObject
         return co_fadingIn;
     }
 
-    public Coroutine FadeOut(float speed, Texture blend = null)
+    public Coroutine FadeOut(float speed = 1f, Texture blend = null)
     {
 
         if (co_fadingIn != null)
@@ -125,10 +173,39 @@ public class GraphicObject
         {
             float opacity = Mathf.MoveTowards(renderer.material.GetFloat(opacityParam), target, speed * Time.deltaTime);
             renderer.material.SetFloat(opacityParam, opacity);
+
+            if (isVideo)
+            {
+                audio.volume = opacity;
+            }
             yield return null;
         }
 
         co_fadingIn = null;
         co_fadingOut = null;
+
+        if(target == 0)
+        {
+            Destroy();
+        }
+        else
+        {
+            DestroyBackgroundGraphicsOnLayer();
+        }
     }
+
+    private void Destroy()
+    {
+        if (layer.currentGraphic != null && layer.currentGraphic.renderer == renderer) {
+            layer.currentGraphic = null;
+        }
+
+        Object.Destroy(renderer.gameObject);
+    }
+
+    private void DestroyBackgroundGraphicsOnLayer()
+    {
+        layer.DestroyOldGraphics();
+    }
+
 }

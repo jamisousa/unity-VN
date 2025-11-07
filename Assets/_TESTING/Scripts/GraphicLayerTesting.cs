@@ -16,14 +16,20 @@ public class GraphicLayerTesting : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        Texture blendTex = Resources.Load<Texture>("Graphics/Transition Effects/hurricane");
+        layer.SetVideo("Graphics/BG Videos/Fantasy Landscape", useAudio: true, transitionSpeed: 0.5f);
 
-        layer.SetTexture("Graphics/BG Images/2", blendingTexture: blendTex);
+        yield return new WaitForSeconds(1);
+
+        layer.currentGraphic.FadeOut();
+
+        //Texture blendTex = Resources.Load<Texture>("Graphics/Transition Effects/hurricane");
+
+        //layer.SetTexture("Graphics/BG Images/2", blendingTexture: blendTex);
 
         //layer.SetTexture("Graphics/BG Images/2");
 
         //layer.currentGraphic.renderer.material.SetColor("_Color", Color.red);
     }
 
-  
+
 }
