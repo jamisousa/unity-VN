@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class FilePaths
 {
+    private const string HOME_DIRECTORY_SYMBOL = "~/";
+    
     public static readonly string root = $"{Application.dataPath}/gameData/";
 
     //Resources paths
@@ -9,5 +11,16 @@ public class FilePaths
     public static readonly string resources_backgroundImages = $"{resources_graphics}BG Images/";
     public static readonly string resources_backgroundVideos = $"{resources_graphics}BG Videos/";
     public static readonly string resources_blendTextures = $"{resources_graphics}Transition Effects/";
+
+    public static readonly string resources_audio = "Audio/";
+    public static readonly string resources_sfx = $"{resources_audio}SFX/";
+
+    public static string GetPathToResource(string defaultPath, string resourceName)
+    {
+        if(resourceName.StartsWith(HOME_DIRECTORY_SYMBOL)) return resourceName.Substring(HOME_DIRECTORY_SYMBOL.Length);
+
+        return defaultPath + resourceName;
+    }
+
 
 }

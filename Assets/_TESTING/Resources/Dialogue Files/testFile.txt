@@ -1,8 +1,11 @@
-wait(1)
+wait(2)
 
-SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
+playsfx(-s thunder_01 -v 1 -p 1 -l false)
+
+wait(10)
 
 enter Raelin "This changes everything.{a} We are dealing with a whole new level of evil here."
+
 
 Generic as Guard "I agree.{c} But we need to stay focused on...{wa 1} the evidence we have."
 
@@ -11,3 +14,5 @@ Raelin at 1 [0:4,1:Raelin_10] "Right.{wc 0.5} Let's start by reviewing the crime
 enter Generic as Guard "Good idea.{wa 0.5} Maybe we'll notice something we missed before."
 
 Raelin at 0 [0:Raelin_2,1:Raelin_5] "Alright."
+
+SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
