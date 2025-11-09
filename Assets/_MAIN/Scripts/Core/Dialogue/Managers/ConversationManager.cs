@@ -64,12 +64,17 @@ namespace DIALOGUE
                 if (line.hasDialogue)
                 {
                     yield return Line_RunDialogue(line);
-
-                    CommandManager.instance.StopAllProcesses();
                 }
 
                 //run commands
                 if (line.hasCommands) yield return Line_RunCommands(line);
+
+                //wait for user input if dialogue was in this line
+                if (line.hasDialogue)
+                {
+                    yield return WaitForUserInput();
+                    CommandManager.instance.StopAllProcesses();
+                }
 
             }
         }
@@ -223,10 +228,15 @@ namespace DIALOGUE
 
         IEnumerator WaitForUserInput()
         {
+
+            dialogueSystem.prompt.Show();
+
             while (!userPrompt)
             {
                 yield return null;
             }
+
+            dialogueSystem.prompt.Hide();
 
             userPrompt = false;
         }
