@@ -24,6 +24,8 @@ namespace DIALOGUE
         public delegate void DialogueSystemEvent();
         public event DialogueSystemEvent onUserPrompt_Next;
 
+        public DialogueContinuePrompt prompt;
+
 
         private void Awake()
         {
