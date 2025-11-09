@@ -16,10 +16,12 @@ namespace DIALOGUE
         private TextArchitect architect = null;
         private bool userPrompt = false;
 
+        private TagManager tagManager;
         public ConversationManager(TextArchitect architect)
         {
             this.architect = architect;
             dialogueSystem.onUserPrompt_Next += OnUserPrompt_Next;
+            tagManager = new TagManager();
         }
 
         private void OnUserPrompt_Next()
@@ -96,37 +98,31 @@ namespace DIALOGUE
 
         private void HandleSpeakerLogic(DL_SPEAKER_DATA speakerData)
         {
-            bool characterMustBeCreated = (speakerData.makeCharacterEnter || speakerData.isCastingPosition | speakerData.isCastingExpressions);
+            bool characterMustBeCreated = (speakerData.makeCharacterEnter || speakerData.isCastingPosition || speakerData.isCastingExpressions);
 
             Character character = CharacterManager.instance.GetCharacter(speakerData.name, createIfDoesNotExist: characterMustBeCreated);
 
-                if (speakerData.makeCharacterEnter && (!character.isVisible && !character.isRevealing))
-                {
-                    character.Show();
-                }
+            if (speakerData.makeCharacterEnter && (!character.isVisible && !character.isRevealing))
+                character.Show();
 
-                dialogueSystem.ShowSpeakerName(speakerData.displayName);
+            //Add character name to the UI
+            dialogueSystem.ShowSpeakerName(tagManager.Inject(speakerData.displayName));
 
-                //add character customs based on who is talking
-                DialogueSystem.instance.ApplySpeakerDataToDialogueContainer(speakerData.name);
+            //Now customize the dialogue for this character - if applicable
+            DialogueSystem.instance.ApplySpeakerDataToDialogueContainer(speakerData.name);
 
-            //cast position
+            //Cast position
             if (speakerData.isCastingPosition)
-            {
-                //or character.SetPosition(speakerData.castPosition); for immediate effect
                 character.MoveToPosition(speakerData.castPosition);
-            }
 
-            //cast expression
+            //Cast Expression
             if (speakerData.isCastingExpressions)
             {
-                foreach(var ce in speakerData.CastExpressions)
-                {
+                foreach (var ce in speakerData.CastExpressions)
                     character.OnReceiveCastingExpression(ce.layer, ce.expression);
-                }
             }
-
         }
+
 
         IEnumerator BuildLineSegments(DL_DIALOGUE_DATA line)
         {
@@ -190,6 +186,8 @@ namespace DIALOGUE
 
         IEnumerator BuildDialogue(string dialogue, bool append = false)
         {
+
+                dialogue = tagManager.Inject(dialogue);
 
                 if (!append)
                 {

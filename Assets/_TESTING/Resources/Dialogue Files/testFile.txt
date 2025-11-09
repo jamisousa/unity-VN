@@ -4,6 +4,8 @@ playsfx(-s thunder_01 -v 1 -p 1 -l false)
 
 wait(5)
 
+<mainChar> "My name is <mainChar> I am <playerLevel> and now is <time>"
+
 enter Raelin "This changes everything.{a} We are dealing with a whole new level of evil here."
 
 [wait]HideUI(-spd 0.5 -i false)

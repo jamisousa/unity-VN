@@ -33,7 +33,7 @@ MonoBehaviour:
     dialoguefontSize: 20
   - name: Generic
     alias: gen
-    characterType: 1
+    characterType: 2
     nameColor: {r: 0, g: 0.5377358, b: 0.17091376, a: 1}
     dialogueColor: {r: 0, g: 0.5384617, b: 1, a: 1}
     nameFont: {fileID: 11400000, guid: 8c56fd0b4d5286345b1e72ed2f017125, type: 2}
