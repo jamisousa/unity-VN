@@ -13,7 +13,7 @@ namespace DIALOGUE
         private Coroutine process = null;
         public bool isRunning => process != null;
         private DialogueSystem dialogueSystem => DialogueSystem.instance;
-        private TextArchitect architect = null;
+        public TextArchitect architect = null;
         private bool userPrompt = false;
 
         private TagManager tagManager;
@@ -136,6 +136,8 @@ namespace DIALOGUE
             }
         }
 
+        public bool isWaitingOnAutoTimer { get; private set; } = false;
+
         IEnumerator WaitForSegmentSignalToBeTriggered(DL_DIALOGUE_DATA.DIALOGUE_SEGMENT segment)
         {
 
@@ -147,7 +149,9 @@ namespace DIALOGUE
                     break;
                 case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.WC:
                 case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.WA:
+                    isWaitingOnAutoTimer = true;
                     yield return new WaitForSeconds(segment.signalDelay);
+                    isWaitingOnAutoTimer = false;
                     break;
                 default:
                     break;
