@@ -70,8 +70,10 @@ namespace DIALOGUE
         {
             dialogueContainer.SetDialogueFont(config.dialogueFont);
             dialogueContainer.SetDialogueColor(config.dialogueColor);
+            dialogueContainer.SetDialogueFontSize(config.dialoguefontSize * this.config.dialogueFontScale);
             dialogueContainer.nameContainer.SetNameFont(config.nameFont);
             dialogueContainer.nameContainer.SetNameColor(config.nameColor);
+            dialogueContainer.nameContainer.SetNameFontSize(config.namefontSize);
         }
 
 

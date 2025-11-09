@@ -20,6 +20,8 @@ MonoBehaviour:
     dialogueColor: {r: 1, g: 1, b: 1, a: 1}
     nameFont: {fileID: 11400000, guid: 63c0a3037e096854983fabbb910ce15d, type: 2}
     dialogueFont: {fileID: 11400000, guid: 63c0a3037e096854983fabbb910ce15d, type: 2}
+    namefontSize: 18
+    dialoguefontSize: 30
   - name: Female Student 2
     alias: f
     characterType: 1
@@ -27,6 +29,8 @@ MonoBehaviour:
     dialogueColor: {r: 0.6981132, g: 0.18845065, b: 0.16135636, a: 1}
     nameFont: {fileID: 11400000, guid: 1f9987afb925cfc46ad034ca97acfba8, type: 2}
     dialogueFont: {fileID: 11400000, guid: 1f9987afb925cfc46ad034ca97acfba8, type: 2}
+    namefontSize: 18
+    dialoguefontSize: 20
   - name: Generic
     alias: gen
     characterType: 1
@@ -34,3 +38,5 @@ MonoBehaviour:
     dialogueColor: {r: 0, g: 0.5384617, b: 1, a: 1}
     nameFont: {fileID: 11400000, guid: 8c56fd0b4d5286345b1e72ed2f017125, type: 2}
     dialogueFont: {fileID: 11400000, guid: bc1aff5a11f4e29449e05565bfe84b3e, type: 2}
+    namefontSize: 18
+    dialoguefontSize: 20
