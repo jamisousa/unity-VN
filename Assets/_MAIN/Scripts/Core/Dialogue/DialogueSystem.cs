@@ -17,6 +17,8 @@ namespace DIALOGUE
 
         private TextArchitect architect;
 
+        private AutoReader autoReader;
+
         public bool isRunningConversation => conversationManager.isRunning;
 
         public static DialogueSystem instance { get; private set; }
@@ -57,13 +59,28 @@ namespace DIALOGUE
             cgController = new CanvasGroupController(this, mainCanvas);
 
             dialogueContainer.Initialize();
+
+            if(TryGetComponent(out autoReader))
+            {
+                autoReader.Initialize(conversationManager);
+            }
         }
 
         public void OnUserPrompt_Next()
         {
             onUserPrompt_Next?.Invoke();
+
+            if(autoReader != null && autoReader.isOn)
+            {
+                autoReader.Disable();
+            }
         }
 
+
+        public void OnSystemPrompt_Next()
+        {
+            onUserPrompt_Next?.Invoke();
+        }
 
         public void ApplySpeakerDataToDialogueContainer(string speakerName)
         {
