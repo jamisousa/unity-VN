@@ -81,22 +81,18 @@ namespace DIALOGUE
 
         IEnumerator Line_RunDialogue(DIALOGUE_LINES line)
         {
-
+            //Show or hide the speaker name if there is one present.
             if (line.hasSpeaker)
-            {
                 HandleSpeakerLogic(line.speakerData);
 
-            }
-            else
-            {
-                dialogueSystem.HideSpeakerName();
-            }
+            //If the dialogue box is not visible - make sure it becomes visible automatically
+            if (!dialogueSystem.dialogueContainer.isVisible)
+                dialogueSystem.dialogueContainer.Show();
 
+            //Build dialogue
             yield return BuildLineSegments(line.dialogueData);
-
-            //wait for user input
-            yield return WaitForUserInput();
         }
+
 
         private void HandleSpeakerLogic(DL_SPEAKER_DATA speakerData)
         {
