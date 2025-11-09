@@ -1,18 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-// handles parsing raw dialogue lines into structured dialogue data
-
-namespace DIALOGUE { 
-
+namespace DIALOGUE
+{
     public class DialogueParser
     {
-
-        private const string commandRegexPattern = @"\w*[^\s]\(";
+        private const string commandRegexPattern = @"[\w\[\]]*[^\s]\(";
 
         public static DIALOGUE_LINES Parse(string rawLine)
-        {   
-            (string speaker, string dialogue, string commands) = RipContent(rawLine);   
+        {
+            //Debug.Log($"Parsing line - '{rawLine}'");
+
+            (string speaker, string dialogue, string commands) = RipContent(rawLine);
+
+            //Debug.Log($"Speaker = '{speaker}'\nDialogue = '{dialogue}'\nCommands = '{commands}'");
 
             return new DIALOGUE_LINES(speaker, dialogue, commands);
         }
@@ -28,72 +31,44 @@ namespace DIALOGUE {
             for (int i = 0; i < rawLine.Length; i++)
             {
                 char current = rawLine[i];
-
                 if (current == '\\')
-                {
                     isEscaped = !isEscaped;
-                }
                 else if (current == '"' && !isEscaped)
                 {
                     if (dialogueStart == -1)
-                    {
                         dialogueStart = i;
-                    }
                     else if (dialogueEnd == -1)
-                    {
                         dialogueEnd = i;
-                        break; // We found both start and end, exit loop
-                    }
                 }
                 else
-                {
-                    isEscaped = false; // Reset escape status if current char is not '\'
-                }
-
+                    isEscaped = false;
             }
 
-            //Identify command pattern
+            //Identify Command Pattern
             Regex commandRegex = new Regex(commandRegexPattern);
-            MatchCollection matches = commandRegex.Matches(rawLine);
-            int commandStart =  -1;
-
-            foreach(Match match in matches)
+            Match match = commandRegex.Match(rawLine);
+            int commandStart = -1;
+            if (match.Success)
             {
-                if(match.Index < dialogueStart || match.Index > dialogueEnd)
-                {
-                    commandStart = match.Index;
-                    break;
-                }
+                commandStart = match.Index;
 
+                if (dialogueStart == -1 && dialogueEnd == -1)
+                    return ("", "", rawLine.Trim());
             }
 
-            if(commandStart != -1 && (dialogueStart == -1 && dialogueEnd == -1))
-            { 
-                return("", "", rawLine.Trim());
-            }
-
-    
-
-            //If we got here then we either got a dialogue or multi word argument in a command, find out which
+            //If we are here then we either have dialogue or a multi word argument in a command. Figure out if this is dialogue.
             if (dialogueStart != -1 && dialogueEnd != -1 && (commandStart == -1 || commandStart > dialogueEnd))
             {
-                //got dialogue
+                //we know that we have valid dialogue
                 speaker = rawLine.Substring(0, dialogueStart).Trim();
                 dialogue = rawLine.Substring(dialogueStart + 1, dialogueEnd - dialogueStart - 1).Replace("\\\"", "\"");
-                if(commandStart != -1)
-                {
+                if (commandStart != -1)
                     commands = rawLine.Substring(commandStart).Trim();
-                }
             }
-            else if (commandStart != -1d && dialogueStart > commandStart)
-            {
+            else if (commandStart != -1 && dialogueStart > commandStart)
                 commands = rawLine;
-            }
             else
-            {
-                dialogue = rawLine;
-            }
-
+                speaker = rawLine;
 
             return (speaker, dialogue, commands);
         }

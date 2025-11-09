@@ -2893,6 +2893,7 @@ GameObject:
   - component: {fileID: 1436573568}
   - component: {fileID: 1436573570}
   - component: {fileID: 1436573569}
+  - component: {fileID: 1436573571}
   m_Layer: 5
   m_Name: Root Container
   m_TagString: Untagged
@@ -2960,6 +2961,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1436573567}
   m_CullTransparentMesh: 1
+--- !u!225 &1436573571
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436573567}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1541171699
 GameObject:
   m_ObjectHideFlags: 0
@@ -3069,6 +3082,7 @@ GameObject:
   - component: {fileID: 1550581616}
   - component: {fileID: 1550581615}
   - component: {fileID: 1550581614}
+  - component: {fileID: 1550581617}
   m_Layer: 5
   m_Name: Canvas - Main
   m_TagString: Untagged
@@ -3160,6 +3174,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &1550581617
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550581612}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1587552776
 GameObject:
   m_ObjectHideFlags: 0
@@ -3400,6 +3426,7 @@ MonoBehaviour:
       nameText: {fileID: 2058233671}
     dialogueText: {fileID: 1866066054}
   prompt: {fileID: 642918347}
+  mainCanvas: {fileID: 1550581617}
 --- !u!1001 &1841078863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3526,7 +3553,7 @@ PrefabInstance:
     - target: {fileID: 8726891235374473721, guid: adef569bee20a1743a05eea0a98443fa,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -37.928696
+      value: -37.92868
       objectReference: {fileID: 0}
     - target: {fileID: 9112528792243348182, guid: adef569bee20a1743a05eea0a98443fa,
         type: 3}
@@ -3666,7 +3693,7 @@ PrefabInstance:
     - target: {fileID: 2410357320820961612, guid: 5baaf8ed1ded15a4982389b6a9bad9e7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -62
+      value: -61.999985
       objectReference: {fileID: 0}
     - target: {fileID: 3081045078704243175, guid: 5baaf8ed1ded15a4982389b6a9bad9e7,
         type: 3}

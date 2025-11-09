@@ -26,6 +26,9 @@ namespace DIALOGUE
 
         public DialogueContinuePrompt prompt;
 
+        //used to hide and show the entire dialog layers
+        [SerializeField] private CanvasGroup mainCanvas;
+        private CanvasGroupController cgController;
 
         private void Awake()
         {
@@ -50,6 +53,10 @@ namespace DIALOGUE
             }
             architect = new TextArchitect(dialogueContainer.dialogueText);
             conversationManager = new ConversationManager(architect);
+
+            cgController = new CanvasGroupController(this, mainCanvas);
+
+            dialogueContainer.Initialize();
         }
 
         public void OnUserPrompt_Next()
@@ -99,6 +106,12 @@ namespace DIALOGUE
         {
            return conversationManager.StartConversation(conversation);
         }
+
+        public Coroutine Show(float speed = 1f, bool immediate = false) => cgController.Show(speed, immediate);
+
+        public Coroutine Hide(float speed = 1f, bool immediate = false) => cgController.Hide(speed, immediate);
+
+        public bool isVisible => cgController.isVisible;
 
     }
 
