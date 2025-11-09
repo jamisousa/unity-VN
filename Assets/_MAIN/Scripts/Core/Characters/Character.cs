@@ -141,7 +141,7 @@ namespace CHARACTERS
         {
             if (isRevealing)
             {
-                return co_revealing;
+                characterManager.StopCoroutine(co_revealing);
             }
 
             if (isHiding)
@@ -158,7 +158,7 @@ namespace CHARACTERS
         {
             if (isHiding)
             {
-                return co_hiding;
+                characterManager.StopCoroutine(co_hiding);
             }
 
 
@@ -286,11 +286,7 @@ namespace CHARACTERS
         //highlighting character - differentiate active speaker
         public Coroutine Highlight(float speed = 1f)
         {
-            if (isHighlighting)
-            {
-                return co_highlighting;
-            }
-            if (isUnhighlighting)
+            if (isHighlighting || isUnhighlighting)
             {
                 characterManager.StopCoroutine(co_highlighting);
             }
@@ -302,15 +298,11 @@ namespace CHARACTERS
 
         public Coroutine Unhighlight(float speed = 1f)
         {
-            if (isUnhighlighting)
-            {
-                return co_highlighting;
-            }
-            if (isHighlighting)
+            if (isUnhighlighting || isHighlighting)
             {
                 characterManager.StopCoroutine(co_highlighting);
             }
-
+ 
             highlighted = false;
             co_highlighting = characterManager.StartCoroutine(Highlighting(highlighted, speed));
             return co_highlighting;
