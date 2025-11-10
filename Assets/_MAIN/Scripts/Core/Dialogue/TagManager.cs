@@ -20,7 +20,9 @@ public class TagManager
         tags["<time>"] = () => DateTime.Now.ToString("hh:mm tt");
         tags["<playerLevel>"] = () => "15";
         tags["<tempVal1>"] = () => "42";
+        tags["<input>"] = () => InputPanel.instance.lastInput;
     }
+
 
     public string Inject(string text)
     {

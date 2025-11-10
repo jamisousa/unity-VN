@@ -14,6 +14,7 @@ namespace DIALOGUE
 
     public class DL_DIALOGUE_DATA
     {
+        public string rawData { get; private set; } = string.Empty;
 
         public List<DIALOGUE_SEGMENT> segments;
 
@@ -22,8 +23,8 @@ namespace DIALOGUE
 
         public DL_DIALOGUE_DATA(string rawDialogue)
         {
+            this.rawData = rawDialogue;
             segments = RipSegments(rawDialogue);
-
         }
 
         public List<DIALOGUE_SEGMENT> RipSegments(string rawDialogue)
