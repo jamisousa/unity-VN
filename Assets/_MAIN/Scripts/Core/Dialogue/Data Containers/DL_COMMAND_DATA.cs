@@ -9,6 +9,7 @@ public class DL_COMMAND_DATA
     private const char COMMANDSPLITTER_ID = ',';
     private const char ARGUMENTSCONTAINER_ID = '(';
     private const string WAITCOMMAND_ID = "[wait]";
+    public string rawData { get; private set; } = string.Empty;
 
     public struct Command
     {

@@ -7,6 +7,8 @@ namespace DIALOGUE
 {
     public class DL_SPEAKER_DATA
     {
+        public string rawData { get; private set; } = string.Empty;
+
         //needed to display character on screen
         public string name, castName;
         public string displayName => isCastingName ? castName : name;
@@ -43,7 +45,7 @@ namespace DIALOGUE
 
         public DL_SPEAKER_DATA(string rawSpeaker)
         {
-
+            rawData = rawSpeaker;
             rawSpeaker = ProcessKeywords(rawSpeaker);
 
             //regex to look for necessary words

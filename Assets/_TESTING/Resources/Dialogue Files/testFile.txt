@@ -1,5 +1,11 @@
 wait(2)
 
+narrator "Enter your name please"
+
+input "What is your name?"
+
+narrator "Nice to meet you, <input>!"
+
 playsfx(-s thunder_01 -v 1 -p 1 -l false)
 
 wait(5)

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using CHARACTERS;
-using COMMANDS;
 using UnityEngine;
+using DIALOGUE.LogicalLines;
 
 //manages the flow of a conversation, including dialogue display and command execution
 
@@ -17,11 +17,15 @@ namespace DIALOGUE
         private bool userPrompt = false;
 
         private TagManager tagManager;
+
+        private LogicalLines.LogicalLineManager logicalLineManager;
+
         public ConversationManager(TextArchitect architect)
         {
             this.architect = architect;
             dialogueSystem.onUserPrompt_Next += OnUserPrompt_Next;
             tagManager = new TagManager();
+            logicalLineManager = new LogicalLineManager();
         }
 
         private void OnUserPrompt_Next()
@@ -62,20 +66,27 @@ namespace DIALOGUE
 
                 DIALOGUE_LINES line = DialogueParser.Parse(conversation[i]);
 
-                //Show dialogue
-                if (line.hasDialogue)
+                if (logicalLineManager.TryGetLogic(line, out Coroutine logic))
                 {
-                    yield return Line_RunDialogue(line);
+                    yield return logic;
                 }
-
-                //run commands
-                if (line.hasCommands) yield return Line_RunCommands(line);
-
-                //wait for user input if dialogue was in this line
-                if (line.hasDialogue)
+                else
                 {
-                    yield return WaitForUserInput();
-                    CommandManager.instance.StopAllProcesses();
+                    //Show dialogue
+                    if (line.hasDialogue)
+                    {
+                        yield return Line_RunDialogue(line);
+                    }
+
+                    //run commands
+                    if (line.hasCommands) yield return Line_RunCommands(line);
+
+                    //wait for user input if dialogue was in this line
+                    if (line.hasDialogue)
+                    {
+                        yield return WaitForUserInput();
+                        CommandManager.instance.StopAllProcesses();
+                    }
                 }
 
             }

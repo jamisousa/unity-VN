@@ -17,7 +17,7 @@ namespace DIALOGUE
 
             //Debug.Log($"Speaker = '{speaker}'\nDialogue = '{dialogue}'\nCommands = '{commands}'");
 
-            return new DIALOGUE_LINES(speaker, dialogue, commands);
+            return new DIALOGUE_LINES(rawLine, speaker, dialogue, commands);
         }
 
         private static (string, string, string) RipContent(string rawLine)
