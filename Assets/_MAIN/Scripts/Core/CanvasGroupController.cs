@@ -23,6 +23,8 @@ public class CanvasGroupController
     public bool isFading => isShowing || isHiding;
     public bool isVisible => co_showing != null || rootCG.alpha > 0;
 
+    public float alpha { get { return rootCG.alpha; } set { rootCG.alpha = value; } }
+
     //show or hide dialogue box
     public Coroutine Show(float speed = 1f, bool immediate = false)
     {
@@ -76,5 +78,11 @@ public class CanvasGroupController
 
         co_showing = null;
         co_hiding = null;
+    }
+
+    public void SetInteractableState(bool active)
+    {
+        rootCG.interactable = active;
+        rootCG.blocksRaycasts = active;
     }
 }
