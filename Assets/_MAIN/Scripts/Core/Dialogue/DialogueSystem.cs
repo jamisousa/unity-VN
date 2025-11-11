@@ -13,7 +13,7 @@ namespace DIALOGUE
 
         public DialogueContainer dialogueContainer = new DialogueContainer();
 
-        public ConversationManager conversationManager;
+        public ConversationManager conversationManager { get; private set; }
 
         private TextArchitect architect;
 
@@ -119,9 +119,18 @@ namespace DIALOGUE
 
         }
 
-        public Coroutine Say(List<string> conversation)
+        public Coroutine Say(List<string> lines)
         {
+            Debug.Log("triggered say function with" + lines);
+
+           Conversation conversation = new Conversation(lines);
+
            return conversationManager.StartConversation(conversation);
+        }
+
+        public Coroutine Say(Conversation conversation)
+        {
+            return conversationManager.StartConversation(conversation);
         }
 
         public Coroutine Show(float speed = 1f, bool immediate = false) => cgController.Show(speed, immediate);
