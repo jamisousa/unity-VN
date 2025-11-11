@@ -6,6 +6,30 @@ input "What is your name?"
 
 narrator "Nice to meet you, <input>!"
 
+enter Raelin "Hey there!"
+
+choice "Lets start with a basic question"
+{
+	-Not in the mood for that
+		Raelin "Why not?"
+		<mainChar> "Just because."
+		Raelin "Ah, well alright."
+
+	-Sure
+		Raelin "Good then!"
+		choice "Now a second question for u"
+		{
+			-Nope
+				Raelin "You dont mind answering do you?"
+				<mainChar> "No."
+				Raelin "Ah, well okay."
+
+			-Okay!
+				Raelin "Good!"
+		}
+		Raelin "Just testing here."
+}
+
 playsfx(-s thunder_01 -v 1 -p 1 -l false)
 
 wait(5)

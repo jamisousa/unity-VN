@@ -16,7 +16,7 @@ namespace DIALOGUE
         }
 
         public int GetProgress() => progress;
-        public void SetProcess(int value) => progress = value;
+        public void SetProgress(int value) => progress = value;
         public void IncrementProgress() => progress++;
         public int Count => lines.Count;
         public List<string> GetLines() => lines;
