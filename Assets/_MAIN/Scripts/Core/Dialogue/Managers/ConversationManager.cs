@@ -25,7 +25,6 @@ namespace DIALOGUE
         public int conversationProgress => (conversationQueue.IsEmpty() ? -1 : conversationQueue.top.GetProgress());
         private ConversationQueue conversationQueue;
 
-
         public ConversationManager(TextArchitect architect)
         {
             this.architect = architect;
@@ -70,14 +69,19 @@ namespace DIALOGUE
 
         IEnumerator RunningConversation()
         {
-            while(!conversationQueue.IsEmpty())
+            while (!conversationQueue.IsEmpty())
             {
                 Conversation currentConversation = conversation;
+
+                if (currentConversation.HasReachedEnd())
+                {
+                    conversationQueue.Dequeue();
+                    continue;
+                }
+
                 string rawLine = currentConversation.CurrentLine();
 
-                Debug.Log("rawLine" + rawLine);
-
-                //Skip empty lines
+                //Dont show any blank lines or try to run any logic on them.
                 if (string.IsNullOrWhiteSpace(rawLine))
                 {
                     TryAdvanceConversation(currentConversation);
@@ -94,29 +98,82 @@ namespace DIALOGUE
                 {
                     //Show dialogue
                     if (line.hasDialogue)
-                    {
                         yield return Line_RunDialogue(line);
-                    }
 
-                    //run commands
-                    if (line.hasCommands) yield return Line_RunCommands(line);
+                    //Run any commands
+                    if (line.hasCommands)
+                        yield return Line_RunCommands(line);
 
-                    //wait for user input if dialogue was in this line
+                    //Wait for user input if dialogue was in this line
                     if (line.hasDialogue)
                     {
+                        //Wait for user input
                         yield return WaitForUserInput();
+
                         CommandManager.instance.StopAllProcesses();
                     }
                 }
 
                 TryAdvanceConversation(currentConversation);
             }
+
             process = null;
         }
+
+        //IEnumerator RunningConversation()
+        //{
+        //    while(!conversationQueue.IsEmpty())
+        //    {
+        //        Conversation currentConversation = conversation;
+        //        string rawLine = currentConversation.CurrentLine();
+
+        //        Debug.Log("rawLine" + rawLine);
+
+        //        //Skip empty lines
+        //        if (string.IsNullOrWhiteSpace(rawLine))
+        //        {
+        //            TryAdvanceConversation(currentConversation);
+        //            continue;
+        //        }
+
+        //        DIALOGUE_LINES line = DialogueParser.Parse(rawLine);
+
+        //        if (logicalLineManager.TryGetLogic(line, out Coroutine logic))
+        //        {
+        //            yield return logic;
+        //        }
+        //        else
+        //        {
+        //            //Show dialogue
+        //            if (line.hasDialogue)
+        //            {
+        //                yield return Line_RunDialogue(line);
+        //            }
+
+        //            //run commands
+        //            if (line.hasCommands) yield return Line_RunCommands(line);
+
+        //            //wait for user input if dialogue was in this line
+        //            if (line.hasDialogue)
+        //            {
+        //                yield return WaitForUserInput();
+        //                CommandManager.instance.StopAllProcesses();
+        //            }
+        //        }
+
+        //        TryAdvanceConversation(currentConversation);
+        //    }
+        //    process = null;
+        //}
 
         private void TryAdvanceConversation(Conversation conversation)
         {
             conversation.IncrementProgress();
+
+            if(conversation != conversationQueue.top)
+            {
+                return;
+            }
 
             if (conversation.HasReachedEnd())
             {
