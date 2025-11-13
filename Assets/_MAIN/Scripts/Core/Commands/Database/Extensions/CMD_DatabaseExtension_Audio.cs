@@ -31,13 +31,13 @@ namespace COMMANDS
             parameters.TryGetValue(PARAM_SFX, out filepath);
 
             //get volume
-            parameters.TryGetValue(PARAM_VOLUME, out volume);
+            parameters.TryGetValue(PARAM_VOLUME, out volume, defaultValue: 1);
 
             //pitch
-            parameters.TryGetValue(PARAM_PITCH, out pitch);
+            parameters.TryGetValue(PARAM_PITCH, out pitch, defaultValue: 1);
 
             //sound loops
-            parameters.TryGetValue<bool>(PARAM_LOOP, out loop);
+            parameters.TryGetValue<bool>(PARAM_LOOP, out loop, defaultValue: false);
 
             //run logic
             AudioClip sound = Resources.Load<AudioClip>(FilePaths.GetPathToResource(FilePaths.resources_sfx, filepath));
