@@ -1,0 +1,4 @@
+SetLayerMedia(background Town)
+
+Raelin "Alright, here we are.{wc 0.5} What do you wanna do first?"
+

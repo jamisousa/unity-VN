@@ -8,26 +8,27 @@ narrator "Nice to meet you, <input>!"
 
 enter Raelin "Hey there!"
 
-choice "Lets start with a basic question"
+choice "Where would you like to go first?"
 {
-	-Not in the mood for that
-		Raelin "Why not?"
+	-I wanna go home
+		Raelin "Already? Why?"
 		<mainChar> "Just because."
 		Raelin "Ah, well alright."
+		Load(Chapter1_home -enqueue false)
 
-	-Sure
+	-Anywhere
 		Raelin "Good then!"
-		choice "Now a second question for u"
+		choice "How about the mall?"
 		{
-			-Nope
-				Raelin "You dont mind answering do you?"
+			-Maybe not. Pick somewhere else.
+				Raelin "You dont like there?"
 				<mainChar> "No."
 				Raelin "Ah, well okay."
 
 			-Okay!
 				Raelin "Good!"
+				Load(Chapter1_mall -enqueue true)
 		}
-		Raelin "Just testing here."
 }
 
 playsfx(-s thunder_01 -v 1 -p 1 -l false)
@@ -48,9 +49,10 @@ Generic as Guard "I agree.{c} But we need to stay focused on...{wa 1} the eviden
 
 Raelin at 1 [0:4,1:Raelin_10] "Right.{wc 0.5} Let's start by reviewing the crime scene photos again."
 
-
 enter Generic as Guard "Good idea.{wa 0.5} Maybe we'll notice something we missed before."
 
 Raelin at 0 [0:Raelin_2,1:Raelin_5] "Alright."
 
 SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
+
+wait(2)

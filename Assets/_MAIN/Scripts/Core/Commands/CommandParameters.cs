@@ -7,23 +7,23 @@ namespace COMMANDS
 
     //class that will be used as a helper to the database extensions to allow easy location of params within the data passed to commands
 
-    public class CommandParameters 
+    public class CommandParameters
     {
         private const char PARAMETER_IDENTIFIER = '-';
 
         private Dictionary<string, string> parameters = new Dictionary<string, string>();
-        private List<string> unlabeledParameters = new List<string>();
+        private List<string> unlabledParameters = new List<string>();
 
-        public CommandParameters(string[] parameterArray)
+        public CommandParameters(string[] parameterArray, int startingIndex = 0)
         {
-            for(int i = 0; i< parameterArray.Length; i++)
+            for (int i = startingIndex; i < parameterArray.Length; i++)
             {
                 if (parameterArray[i].StartsWith(PARAMETER_IDENTIFIER) && !float.TryParse(parameterArray[i], out _))
                 {
                     string pName = parameterArray[i];
                     string pValue = "";
 
-                    if(i+1 < parameterArray.Length && !parameterArray[i + 1].StartsWith(PARAMETER_IDENTIFIER))
+                    if (i + 1 < parameterArray.Length && !parameterArray[i + 1].StartsWith(PARAMETER_IDENTIFIER))
                     {
                         pValue = parameterArray[i + 1];
                         i++;
@@ -32,114 +32,73 @@ namespace COMMANDS
                     parameters.Add(pName, pValue);
                 }
                 else
-                {
-                    unlabeledParameters.Add(parameterArray[i]);
-                }
+                    unlabledParameters.Add(parameterArray[i]);
             }
         }
 
-        public bool TryGetValue<T>(string parameterName, out T value, T defaultValue = default(T)) => TryGetValue(new string[] {parameterName}, out value, defaultValue);
+        public bool TryGetValue<T>(string parameterName, out T value, T defaultValue = default(T)) => TryGetValue(new string[] { parameterName }, out value, defaultValue);
+
         public bool TryGetValue<T>(string[] parameterNames, out T value, T defaultValue = default(T))
         {
             foreach (string parameterName in parameterNames)
             {
-                if(parameters.TryGetValue(parameterName, out string parameterValue))
+                if (parameters.TryGetValue(parameterName, out string parameterValue))
                 {
-                    if(TryCastParameter(parameterValue, out value))
+                    if (TryCastParameter(parameterValue, out value))
                     {
                         return true;
                     }
                 }
-
             }
 
-
-            //if we reach this point no match was found, look for the unlabeled ones
-            foreach (string parameterName in parameterNames)
+            //if we reach here, no match was found in the identified parameters so search the unlabeled ones if present
+            foreach (string parameterName in unlabledParameters)
             {
-                 if (TryCastParameter(parameterName, out value))
-                 {
-                    unlabeledParameters.Remove(parameterName);  
+                if (TryCastParameter(parameterName, out value))
+                {
+                    unlabledParameters.Remove(parameterName);
                     return true;
-                 }
+                }
             }
+
             value = defaultValue;
             return false;
         }
 
         private bool TryCastParameter<T>(string parameterValue, out T value)
         {
-
-            switch (System.Type.GetTypeCode(typeof(T)))
+            if (typeof(T) == typeof(bool))
             {
-                case System.TypeCode.Boolean:
-                    if (bool.TryParse(parameterValue, out bool boolValue))
-                    {
-                        value = (T)(object)boolValue;
-                        return true;
-                    }
-                    break;
-
-                case System.TypeCode.Int32:
-                    if (int.TryParse(parameterValue, out int intValue))
-                    {
-                        value = (T)(object)intValue;
-                        return true;
-                    }
-                    break;
-
-                case System.TypeCode.Single:
-                    if (float.TryParse(parameterValue, out float floatValue))
-                    {
-                        value = (T)(object)floatValue;
-                        return true;
-                    }
-                    break;
-
-                case System.TypeCode.String:
-                    value = (T)(object)parameterValue;
+                if (bool.TryParse(parameterValue, out bool boolValue))
+                {
+                    value = (T)(object)boolValue;
                     return true;
+                }
+            }
+            else if (typeof(T) == typeof(int))
+            {
+                if (int.TryParse(parameterValue, out int intValue))
+                {
+                    value = (T)(object)intValue;
+                    return true;
+                }
+            }
+            else if (typeof(T) == typeof(float))
+            {
+                if (float.TryParse(parameterValue, out float floatValue))
+                {
+                    value = (T)(object)floatValue;
+                    return true;
+                }
+            }
+            else if (typeof(T) == typeof(string))
+            {
+                value = (T)(object)parameterValue;
+                return true;
             }
 
             value = default(T);
             return false;
-
-            //if(typeof(T) == typeof(bool))
-            //{
-            //    if(bool.TryParse(parameterValue, out bool boolValue))
-            //    {
-            //        value = (T)(object)boolValue;
-            //        return true;
-            //    }
-            //}
-
-            //else if (typeof(T) == typeof(int))
-            //{
-            //    if (int.TryParse(parameterValue, out int intValue))
-            //    {
-            //        value = (T)(object)intValue;
-            //        return true;
-            //    }
-            //}
-
-            //else if (typeof(T) == typeof(float))
-            //{
-            //    if (float.TryParse(parameterValue, out float floatValue))
-            //    {
-            //        value = (T)(object)floatValue;
-            //        return true;
-            //    }
-            //}
-
-
-            //else if (typeof(T) == typeof(string))
-            //{
-            //        value = (T)(object)parameterValue;
-            //        return true;
-            //}
-
-            //value = default(T);
-            //return false;
         }
 
 

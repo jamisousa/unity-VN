@@ -15,6 +15,8 @@ public class FilePaths
     public static readonly string resources_audio = "Audio/";
     public static readonly string resources_sfx = $"{resources_audio}SFX/";
 
+    public static readonly string resources_dialogueFiles = $"Dialogue Files/";
+
     public static string GetPathToResource(string defaultPath, string resourceName)
     {
         if(resourceName.StartsWith(HOME_DIRECTORY_SYMBOL)) return resourceName.Substring(HOME_DIRECTORY_SYMBOL.Length);
