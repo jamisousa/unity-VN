@@ -7,6 +7,11 @@ input "What is your name?"
 
 narrator "Nice to meet you, <input>!"
 
+$money = 50
+
+if($money >  50)
+	lines
+
 enter Raelin "Hey there!"
 
 choice "Where would you like to go first?"
