@@ -47,6 +47,7 @@ namespace DIALOGUE
         {
 
             StopConversation();
+            conversationQueue.Clear();
 
             Enqueue(conversation);
 
