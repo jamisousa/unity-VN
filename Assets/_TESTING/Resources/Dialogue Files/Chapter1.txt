@@ -1,11 +1,16 @@
 wait(2)
 playsfx(thunder_01)
 
+"My first variable is '$DB_Numbers.float1' and my seecond variable is <mainChar>."
+
 narrator "Enter your name please"
 
 input "What is your name?"
 
 narrator "Nice to meet you, <input>!"
+
+$variable = 10
+$variable += 10
 
 enter Raelin "Hey there!"
 
@@ -15,7 +20,7 @@ choice "Where would you like to go first?"
 		Raelin "Already? Why?"
 		<mainChar> "Just because."
 		Raelin "Ah, well alright."
-		Load(Chapter1_home -enqueue false)
+		Load(Chapter1_home -enqueue true)
 
 	-Anywhere
 		Raelin "Good then!"
@@ -28,8 +33,19 @@ choice "Where would you like to go first?"
 
 			-Okay!
 				Raelin "Good!"
-				Load(Chapter1_mall -enqueue true)
+				Load(Chapter1_mall -enqueue false)
 		}
+}
+
+if($pathTaken == mall)
+{
+	NARRATOR "You have taken the mall path"
+	Load(Chapter1_mall -enqueue true)
+}
+else
+{
+	NARRATOR "You have taken the home path"
+	Load(Chapter1_home -enqueue true)
 }
 
 
