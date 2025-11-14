@@ -6,25 +6,18 @@ using System.Text.RegularExpressions;
 //inject data into tags contained within dialogue files
 public class TagManager
 {
-    private readonly Dictionary<string, Func<string>> tags = new Dictionary<string, Func<string>>();
-    private readonly Regex tagRegex = new Regex("<\\w+>");
-
-    public TagManager()
+    private static readonly Dictionary<string, Func<string>> tags = new Dictionary<string, Func<string>>()
     {
-        InitializeTags();
-    }
+        { "<mainChar>", () => "Player"},
+        { "<time>", () => DateTime.Now.ToString("hh:mm tt")},
+        {"<playerLevel", ()=> "0" },
+        { "<tempVal1>", () => "0"},
+        { "<input>", () => InputPanel.instance.lastInput},
+    };
 
-    private void InitializeTags()
-    {
-        tags["<mainChar>"] = () => "Player";
-        tags["<time>"] = () => DateTime.Now.ToString("hh:mm tt");
-        tags["<playerLevel>"] = () => "15";
-        tags["<tempVal1>"] = () => "42";
-        tags["<input>"] = () => InputPanel.instance.lastInput;
-    }
+    private static readonly Regex tagRegex = new Regex("<\\w+>");
 
-
-    public string Inject(string text)
+    public static string Inject(string text)
     {
         if (tagRegex.IsMatch(text))
         {
