@@ -1,0 +1,18 @@
+$money = 50
+
+Narrator "Your money - give it to me now"
+
+$money += 55,35
+
+Narrator "You have '$money' money"
+
+$lightSwitch = true
+narrator "Flip light!"
+$lightSwitch = !$lightSwitch
+narrator "Is the light on? $lightSwitch"
+
+input "What is your name?"
+$name = "The amazing <input>"
+narrator "hey $name!"
+$name += " from outer space"
+narrator "hello $name!"
