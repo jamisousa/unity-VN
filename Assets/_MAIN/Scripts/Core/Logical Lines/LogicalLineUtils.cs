@@ -109,16 +109,16 @@ namespace DIALOGUE.LogicalLines
 
                     if (operatorString == "*" || operatorString == "/")
                     {
-                       double leftOperand = Convert.ToDouble(operands[i]);
-                        double rightOperand = Convert.ToDouble((operands[i + 1]));
+                        double leftOperand = Convert.ToDouble(operands[i]);
+                        double rightOperand = Convert.ToDouble(operands[i + 1]);
 
-                        if(operatorString == "*")
+                        if (operatorString == "*")
                         {
                             operands[i] = leftOperand * rightOperand;
                         }
                         else
                         {
-                            if(rightOperand == 0)
+                            if (rightOperand == 0)
                             {
                                 Debug.LogError("Cannot divide by zero.");
                                 return;
@@ -126,11 +126,13 @@ namespace DIALOGUE.LogicalLines
 
                             operands[i] = leftOperand / rightOperand;
                         }
+
+                        operands.RemoveAt(i + 1);
+                        operatorStrings.RemoveAt(i);
+                        i--;
                     }
 
-                    operands.RemoveAt(i + 1);
-                    operatorStrings.RemoveAt(i);
-                    i--;
+
                 }
             }
 
