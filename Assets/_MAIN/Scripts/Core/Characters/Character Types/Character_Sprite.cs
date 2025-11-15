@@ -76,6 +76,16 @@ namespace CHARACTERS
 
       public Sprite GetSprite(string spriteName)
         {
+            //this block use the serialized dictionary style
+            Debug.Log("sprites count on config" + config.sprites.Count);
+            if(config.sprites.Count > 0)
+            {
+                if(config.sprites.TryGetValue(spriteName, out Sprite sprite))
+                {
+                    return sprite;
+                }
+            }
+
             if(config.characterType == CharacterType.SpriteSheet)
             {
                 string[] data = spriteName.Split(SPRITESHEET_TEXT_SPRITE_DELIMITER);

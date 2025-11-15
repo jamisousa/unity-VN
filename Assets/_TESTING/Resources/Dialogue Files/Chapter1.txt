@@ -1,7 +1,8 @@
 wait(2)
 playsfx(thunder_01)
 
-"My first variable is '$DB_Numbers.float1' and my seecond variable is <mainChar>."
+enter Raelin "Hello."
+Raelin at 1 [0:R3,1:R4] "What is your name?"
 
 narrator "Enter your name please"
 
@@ -9,10 +10,6 @@ input "What is your name?"
 
 narrator "Nice to meet you, <input>!"
 
-$variable = 10
-$variable += 10
-
-enter Raelin "Hey there!"
 
 choice "Where would you like to go first?"
 {
