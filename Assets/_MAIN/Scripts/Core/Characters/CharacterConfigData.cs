@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using DIALOGUE;
 using TMPro;
 using UnityEngine;
@@ -24,6 +25,9 @@ namespace CHARACTERS
         public float namefontSize;
         public float dialoguefontSize;
 
+        [SerializedDictionary("Path / ID", "Sprite")]
+        public SerializedDictionary<string, Sprite> sprites = new SerializedDictionary<string, Sprite>();
+
         public CharacterConfigData Copy()
         {
             CharacterConfigData result = new CharacterConfigData();
@@ -39,6 +43,8 @@ namespace CHARACTERS
 
             result.dialoguefontSize = dialoguefontSize;
             result.namefontSize = namefontSize;
+
+            result.sprites = sprites;   
 
             return result;
         }

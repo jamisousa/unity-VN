@@ -22,6 +22,56 @@ MonoBehaviour:
     dialogueFont: {fileID: 11400000, guid: 63c0a3037e096854983fabbb910ce15d, type: 2}
     namefontSize: 18
     dialoguefontSize: 30
+    sprites:
+      _serializedList:
+      - Key: Raelin_0
+        Value: {fileID: -539901293, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_4
+        Value: {fileID: 877658820, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_1
+        Value: {fileID: 371039983, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_2
+        Value: {fileID: 2143271235, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_3
+        Value: {fileID: -984643779, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_5
+        Value: {fileID: 1533307292, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_6
+        Value: {fileID: -231494423, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_7
+        Value: {fileID: 455040721, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_8
+        Value: {fileID: -861763730, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_9
+        Value: {fileID: 1731016576, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_10
+        Value: {fileID: 1799884572, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_11
+        Value: {fileID: -1818594040, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_12
+        Value: {fileID: 752875108, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_13
+        Value: {fileID: -810301392, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_14
+        Value: {fileID: 1930344441, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_15
+        Value: {fileID: -1720575887, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_16
+        Value: {fileID: 1148731873, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_17
+        Value: {fileID: 2089198746, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_18
+        Value: {fileID: -819501888, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_19
+        Value: {fileID: -1330446141, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_20
+        Value: {fileID: -12134526, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_21
+        Value: {fileID: -899087398, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_22
+        Value: {fileID: -831843799, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
+      - Key: Raelin_23
+        Value: {fileID: 2079976379, guid: 418997cd131ebf84fac6b738543fe03f, type: 3}
   - name: Female Student 2
     alias: f
     characterType: 1
@@ -31,6 +81,8 @@ MonoBehaviour:
     dialogueFont: {fileID: 11400000, guid: 1f9987afb925cfc46ad034ca97acfba8, type: 2}
     namefontSize: 18
     dialoguefontSize: 20
+    sprites:
+      _serializedList: []
   - name: Generic
     alias: gen
     characterType: 2
@@ -40,3 +92,5 @@ MonoBehaviour:
     dialogueFont: {fileID: 11400000, guid: bc1aff5a11f4e29449e05565bfe84b3e, type: 2}
     namefontSize: 18
     dialoguefontSize: 20
+    sprites:
+      _serializedList: []
