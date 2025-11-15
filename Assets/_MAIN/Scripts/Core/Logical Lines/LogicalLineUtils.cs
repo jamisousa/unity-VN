@@ -294,7 +294,7 @@ namespace DIALOGUE.LogicalLines
             };
 
 
-            public static bool EvaluateExpression(string left, string op, string right)
+            private static bool EvaluateExpression(string left, string op, string right)
             {
 
                 if (bool.TryParse(left, out bool leftBool) && bool.TryParse(right, out bool rightBool))
@@ -308,7 +308,7 @@ namespace DIALOGUE.LogicalLines
 
                 if (float.TryParse(left, out float leftFloat) && float.TryParse(right, out float rightFloat))
                 {
-                    if (boolOperators.ContainsKey(op))
+                    if (floatOperators.ContainsKey(op))
                     {
                         return floatOperators[op](leftFloat, rightFloat);
                     }
@@ -317,7 +317,7 @@ namespace DIALOGUE.LogicalLines
 
                 if (int.TryParse(left, out int leftInt) && int.TryParse(right, out int rightInt))
                 {
-                    if (boolOperators.ContainsKey(op))
+                    if (intOperators.ContainsKey(op))
                     {
                         return intOperators[op](leftInt, rightInt);
                     }
