@@ -8,9 +8,9 @@ public class TagManager
 {
     private static readonly Dictionary<string, Func<string>> tags = new Dictionary<string, Func<string>>()
     {
-        { "<mainChar>",     () => "Avira" },
+        { "<mainChar>",     () => "Player" },
         { "<time>",         () => DateTime.Now.ToString("hh:mm tt")},
-        { "<playerLevel>",  () => "15"},
+        { "<playerLevel>",  () => "0"},
         { "<input>",        () => InputPanel.instance.lastInput}
     };
 
