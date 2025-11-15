@@ -20,6 +20,7 @@ namespace DIALOGUE.LogicalLines
                 public List<string> lines;
                 public int endingIndex;
                 public int startingIndex;
+                public bool isNull => lines == null;
             }
 
             private const char ENCAPSULATION_START = '{';
