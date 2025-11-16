@@ -33,6 +33,8 @@ namespace CHARACTERS
 
         [SerializeField] private RectTransform _characterPanel =  null;
         public RectTransform characterPanel => _characterPanel;
+        public Character[] allCharacters => characters.Values.ToArray();
+
 
         private void Awake()
         {
