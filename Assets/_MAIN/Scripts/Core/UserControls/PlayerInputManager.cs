@@ -27,7 +27,7 @@ namespace DIALOGUE
             actions.Add((input.actions["Next"], PromptAdvance));
             actions.Add((input.actions["HistoryBack"], OnHistoryBack));
             actions.Add((input.actions["HistoryForward"], OnHistoryForward));
-
+            actions.Add((input.actions["HistoryLogs"], OnHistoryToggleLog));
         }
 
         private void OnEnable()
@@ -62,6 +62,18 @@ namespace DIALOGUE
             HistoryManager.instance.GoForward();
         }
 
+        public void OnHistoryToggleLog(InputAction.CallbackContext c)
+        {
+            var logs = HistoryManager.instance.logManager;
+            if (!logs.isOpen)
+            {
+                HistoryManager.instance.logManager.Open();
+            }
+            else
+            {
+                logs.Close();
+            }
+        }
     }
 
 }
