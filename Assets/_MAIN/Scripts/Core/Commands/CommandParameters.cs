@@ -6,7 +6,6 @@ namespace COMMANDS
 {
 
     //class that will be used as a helper to the database extensions to allow easy location of params within the data passed to commands
-
     public class CommandParameters
     {
         private const char PARAMETER_IDENTIFIER = '-';

@@ -3,82 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CHARACTERS;
+using UnityEditor;
 using UnityEngine;
 
 namespace COMMANDS
 {
     public class CMD_DatabaseExtension_Characters : CMD_DatabaseExtension
     {
-        private static string[] PARAM_IMMEDIATE => new string[] { "-immediate", "-i" };
-        private static string[] PARAM_ENABLE => new string[] { "-enabled", "-e" };
+        private static string[] PARAM_ENABLE => new string[] { "-e", "-enable" };
+        private static string[] PARAM_IMMEDIATE => new string[] { "-i", "-immediate" };
+        private static string[] PARAM_SPEED => new string[] { "-spd", "-speed" };
+        private static string[] PARAM_SMOOTH => new string[] { "-sm", "-smooth" };
+
+       
         private static string PARAM_XPOS => "-x";
         private static string PARAM_YPOS => "-y";
-        private static string[] PARAM_SPEED => new string[] { "-speed", "-s" };
-        private static string[] PARAM_SMOOTH => new string[] { "-smooth", "-sm" };
-
 
         new public static void Extend(CommandDatabase database)
         {
-            database.AddCommand("show", new Func<string[], IEnumerator>(ShowAll));
-            database.AddCommand("hide", new Func<string[], IEnumerator>(HideAll));
             database.AddCommand("createcharacter", new Action<string[]>(CreateCharacter));
             database.AddCommand("movecharacter", new Func<string[], IEnumerator>(MoveCharacter));
 
             //Add commands to characters
             CommandDatabase baseCommands = CommandManager.instance.CreateSubDatabase(CommandManager.DATABASE_CHARACTERS_BASE);
             baseCommands.AddCommand("move", new Func<string[], IEnumerator>(MoveCharacter));
+            baseCommands.AddCommand("show", new Func<string[], IEnumerator>(Show));
+            baseCommands.AddCommand("hide", new Func<string[], IEnumerator>(Hide));
+            baseCommands.AddCommand("setpriority", new Action<string[]>(SetPriority));
+            baseCommands.AddCommand("setposition", new Action<string[]>(SetPosition));
             baseCommands.AddCommand("setColor", new Func<string[], IEnumerator>(SetColor));
 
+            //Add character specific databases
+            CommandDatabase spriteCommands = CommandManager.instance.CreateSubDatabase(CommandManager.DATABASE_CHARACTERS_SPRITE);
+            spriteCommands.AddCommand("setsprite", new Func<string[], IEnumerator>(SetSprite));
+            spriteCommands.AddCommand("animate", new Func<string[], IEnumerator>(AnimateWithDuration));
         }
 
-        private static IEnumerator MoveCharacter(string[] data)
-        {
-            string characterName = data[0];
-
-            Character character = CharacterManager.instance.GetCharacter(characterName, createIfDoesNotExist: false);
-            if (character == null)
-            {
-                yield break;
-            }
-
-            float x = 0, y = 0;
-            float speed = 1;
-            bool smooth = false;
-            bool immediate = false;
-
-            var parameters = ConvertDataToParameters(data);
-
-            //try to get the x axis position
-            parameters.TryGetValue(PARAM_XPOS, out x); 
-
-            //try to get the y position
-            parameters.TryGetValue(PARAM_YPOS, out y);
-
-            //get speed
-            parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1);
-
-            //get smooth
-            parameters.TryGetValue(PARAM_SMOOTH, out smooth, defaultValue: false);
-
-            //get immediate
-            parameters.TryGetValue<bool>(PARAM_IMMEDIATE, out immediate, defaultValue: false);
-
-            Vector2 position = new Vector2(x, y);
-
-            if (immediate)
-            {
-                character.SetPosition(position);
-            }
-            else
-            {
-                CommandManager.instance.AddTerminationActionToCurrentProcess(() => { character.SetPosition(position); });
-                yield return character.MoveToPosition(position, speed, smooth);
-            }
-
-
-        }
-
-        public static void CreateCharacter(string[] data)
+        private static void CreateCharacter(string[] data)
         {
             string characterName = data[0];
             bool enable = false;
@@ -89,134 +50,133 @@ namespace COMMANDS
             parameters.TryGetValue(PARAM_ENABLE, out enable, defaultValue: false);
             parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
 
-
-           Character character = CharacterManager.instance.CreateCharacter(characterName);
+            Character character = CharacterManager.instance.CreateCharacter(characterName);
 
             if (!enable)
-            {
                 return;
-            }
+
             if (immediate)
-            {
                 character.isVisible = true;
-            }
+            else
+                character.Show();
+
+        }
+
+        private static IEnumerator MoveCharacter(string[] data)
+        {
+            string characterName = data[0];
+            Character character = CharacterManager.instance.GetCharacter(characterName);
+
+            if (character == null)
+                yield break;
+
+            float x = 0, y = 0;
+            float speed = 1;
+            bool smooth = false;
+            bool immediate = false;
+
+            var parameters = ConvertDataToParameters(data);
+
+            //try to get the x axis position
+            parameters.TryGetValue(PARAM_XPOS, out x);
+
+            //try to get the y axis position
+            parameters.TryGetValue(PARAM_YPOS, out y);
+
+            //try to get the speed
+            parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1);
+
+            //try to get the smoothing
+            parameters.TryGetValue(PARAM_SMOOTH, out smooth, defaultValue: false);
+
+            //try to get imediate setting of position
+            parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
+
+            Vector2 position = new Vector2(x, y);
+
+            if (immediate)
+                character.SetPosition(position);
             else
             {
-                character.Show();
+                CommandManager.instance.AddTerminationActionToCurrentProcess(() => { character?.SetPosition(position); });
+                yield return character.MoveToPosition(position, speed, smooth);
             }
         }
 
-        //global - multiple characters shown
-        public static IEnumerator ShowAll(string[] data)
+        private static IEnumerator Show(string[] data)
         {
-            List<Character> characters = new List<Character>();
+            Character character = CharacterManager.instance.GetCharacter(data[0]);
+
+            if (character == null)
+                yield break;
+
             bool immediate = false;
-            float speed = 1f;
-
-
-            foreach (string name in data)
-            {
-                Character character = CharacterManager.instance.GetCharacter(name, createIfDoesNotExist: false);
-                if (character != null)
-                {
-                    characters.Add(character);
-                }
-            }
-
-            if(characters.Count == 0) yield break;
-
-            //convert the dara to a parameter container
             var parameters = ConvertDataToParameters(data);
 
-            parameters.TryGetValue<bool>(PARAM_IMMEDIATE, out immediate, defaultValue: false);
-            parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1f);
+            parameters.TryGetValue(new string[] { "-i", "-immediate" }, out immediate, defaultValue: false);
 
-            //Call the logic on all characters
-            foreach (Character character in characters)
+            if (immediate)
+                character.isVisible = true;
+            else
             {
-                if (immediate)
-                {
-                    character.isVisible = true;
-                }
-                else
-                {
-                    yield return character.Show();
-                }
+                CommandManager.instance.AddTerminationActionToCurrentProcess(() => { if (character != null) character.isVisible = true; });
+
+                yield return character.Show();
             }
-
-            if (!immediate)
-            {
-                CommandManager.instance.AddTerminationActionToCurrentProcess(() =>
-                {
-                    foreach(Character character in characters)
-                    {
-                        character.isVisible = true;
-                    }
-                });
-
-                while (characters.Any(c => c.isRevealing))
-                {
-                    yield return null;
-                }
-            }
-
         }
 
-        //global - multiple characters hidden
-        public static IEnumerator HideAll(string[] data)
+        private static IEnumerator Hide(string[] data)
         {
-            List<Character> characters = new List<Character>();
+            Character character = CharacterManager.instance.GetCharacter(data[0]);
+
+            if (character == null)
+                yield break;
+
             bool immediate = false;
-            float speed = 1f;
-
-            foreach (string name in data)
-            {
-                Character character = CharacterManager.instance.GetCharacter(name, createIfDoesNotExist: false);
-                if (character != null)
-                {
-                    characters.Add(character);
-                }
-            }
-
-            if (characters.Count == 0) yield break;
-
-            //convert the dara to a parameter container
             var parameters = ConvertDataToParameters(data);
 
-            parameters.TryGetValue<bool>(PARAM_IMMEDIATE, out immediate, defaultValue: false);
-            parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1f);
+            parameters.TryGetValue(new string[] { "-i", "-immediate" }, out immediate, defaultValue: false);
 
-            //Call the logic on all characters
-            foreach (Character character in characters)
+            if (immediate)
+                character.isVisible = false;
+            else
             {
-                if (immediate)
-                {
-                    character.isVisible = false;
-                }
-                else
-                {
-                    yield return character.Hide();
-                }
-            }
+                CommandManager.instance.AddTerminationActionToCurrentProcess(() => { if (character != null) character.isVisible = false; });
 
-            if (!immediate)
-            {
-                CommandManager.instance.AddTerminationActionToCurrentProcess(() =>
-                {
-                    foreach (Character character in characters)
-                    {
-                        character.isVisible = false;
-                    }
-                });
-
-                while (characters.Any(c => c.isHiding))
-                {
-                    yield return null;
-                }
+                yield return character.Hide();
             }
         }
 
-        //global - set color
+        public static void SetPosition(string[] data)
+        {
+            Character character = CharacterManager.instance.GetCharacter(data[0], createIfDoesNotExist: false);
+            float x = 0, y = 0;
+
+            if (character == null || data.Length < 2)
+                return;
+
+            var parameters = ConvertDataToParameters(data, 1);
+
+            parameters.TryGetValue(PARAM_XPOS, out x, defaultValue: 0);
+            parameters.TryGetValue(PARAM_YPOS, out y, defaultValue: 0);
+
+            character.SetPosition(new Vector2(x, y));
+        }
+
+        public static void SetPriority(string[] data)
+        {
+            Character character = CharacterManager.instance.GetCharacter(data[0], createIfDoesNotExist: false);
+            int priority;
+
+            if (character == null || data.Length < 2)
+                return;
+
+            if (!int.TryParse(data[1], out priority))
+                priority = 0;
+
+            character.SetPriority(priority);
+        }
+
         public static IEnumerator SetColor(string[] data)
         {
             Character character = CharacterManager.instance.GetCharacter(data[0], createIfDoesNotExist: false);
@@ -227,20 +187,15 @@ namespace COMMANDS
             if (character == null || data.Length < 2)
                 yield break;
 
-            //grab the extra parameters
-            var parameters = ConvertDataToParameters(data);
+            var parameters = ConvertDataToParameters(data, startingIndex: 1);
 
-            //try to get the color name
             parameters.TryGetValue(new string[] { "-c", "-color" }, out colorName);
-            //try to get the speed of the transition
             bool specifiedSpeed = parameters.TryGetValue(new string[] { "-spd", "-speed" }, out speed, defaultValue: 1f);
-            //try to get the instant value
             if (!specifiedSpeed)
                 parameters.TryGetValue(new string[] { "-i", "-immediate" }, out immediate, defaultValue: true);
             else
                 immediate = false;
 
-            //get the color value from the name
             Color color = Color.white;
             color = color.GetColorFromName(colorName);
 
@@ -254,6 +209,73 @@ namespace COMMANDS
 
             yield break;
         }
+
+        public static IEnumerator SetSprite(string[] data)
+        {
+            Character_Sprite character = CharacterManager.instance.GetCharacter(data[0], createIfDoesNotExist: false) as Character_Sprite;
+            int layer = 0;
+            string spriteName;
+            bool immediate = false;
+            float speed;
+
+            if (character == null || data.Length < 2)
+                yield break;
+
+            var parameters = ConvertDataToParameters(data, startingIndex: 1);
+
+            parameters.TryGetValue(new string[] { "-s", "-sprite" }, out spriteName);
+            parameters.TryGetValue(new string[] { "-l", "-layer" }, out layer, defaultValue: 0);
+
+            bool specifiedSpeed = parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 0.1f);
+
+            if (!specifiedSpeed)
+                parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: true);
+            Sprite sprite = character.GetSprite(spriteName);
+
+            if (sprite == null)
+                yield break;
+
+            if (immediate)
+            {
+                character.SetSprite(sprite, layer);
+            }
+            else
+            {
+                CommandManager.instance.AddTerminationActionToCurrentProcess(() => { character?.SetSprite(sprite, layer); });
+                yield return character.TransitionSprite(sprite, layer, speed);
+            }
+
+        }
+
+        private static IEnumerator AnimateWithDuration(string[] data)
+        {
+            Character_Sprite character = CharacterManager.instance
+                .GetCharacter(data[0], createIfDoesNotExist: false) as Character_Sprite;
+
+            if (character == null || data.Length < 2)
+                yield break;
+
+            string animationName = data[1];
+
+            bool refresh = false;
+            float duration = 0f;
+            var parameters = ConvertDataToParameters(data, startingIndex: 2);
+
+            parameters.TryGetValue(new string[] { "-r", "-refresh" }, out refresh, defaultValue: false);
+            parameters.TryGetValue(new string[] { "-d", "-duration" }, out duration, defaultValue: 0f);
+
+            if (refresh)
+                character.Animate(animationName, true);
+            else
+                character.Animate(animationName);
+
+            if (duration > 0f)
+            {
+                yield return new WaitForSeconds(duration);
+                character.StopAnimation(animationName, refresh);
+            }
+        }
+
 
 
     }
