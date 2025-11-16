@@ -21,7 +21,7 @@ namespace History
         [SerializeField] private GraphicRaycaster overlayRaycaster;
         [SerializeField] private CanvasGroup panelGroup;
 
-
+ 
         private float logScaling = 1f;
 
         //animator for fade-in fade-out
@@ -42,12 +42,11 @@ namespace History
             if (isOpen)
                 return;
 
+            anim.Play("Open");
             overlayRaycaster.enabled = true;
             panelGroup.interactable = true;
             panelGroup.blocksRaycasts = true;
             panelGroup.alpha = 1;
-
-            anim.Play("Open");
             isOpen = true;
         }
 
@@ -121,6 +120,9 @@ namespace History
 
             LayoutElement logLayout = log.container.GetComponent<LayoutElement>();
             float height = rect.rect.height;
+
+            Canvas.ForceUpdateCanvases();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
 
             float perc = height / LOG_DEFAULT_HEIGHT;
 
