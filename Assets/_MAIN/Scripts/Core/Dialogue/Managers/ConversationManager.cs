@@ -23,6 +23,8 @@ namespace DIALOGUE
         public int conversationProgress => (conversationQueue.IsEmpty() ? -1 : conversationQueue.top.GetProgress());
         private ConversationQueue conversationQueue;
 
+        public bool allowUserPrompts = true;
+
         public ConversationManager(TextArchitect architect)
         {
             this.architect = architect;
@@ -37,7 +39,10 @@ namespace DIALOGUE
 
         private void OnUserPrompt_Next()
         {
-            userPrompt = true;
+            if (allowUserPrompts)
+            {
+                userPrompt = true;
+            }
         }
 
         public Coroutine StartConversation(Conversation conversation)
@@ -109,6 +114,8 @@ namespace DIALOGUE
                         yield return WaitForUserInput();
 
                         CommandManager.instance.StopAllProcesses();
+
+                        dialogueSystem.OnSystemPrompt_Clear();
                     }
                 }
 
@@ -242,10 +249,18 @@ namespace DIALOGUE
             switch (segment.startSignal)
             {
                 case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.C:
+                    yield return WaitForUserInput();
+                    dialogueSystem.OnSystemPrompt_Clear();
+                    break;
                 case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.A:
                     yield return WaitForUserInput();
                     break;
                 case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.WC:
+                    isWaitingOnAutoTimer = true;
+                    yield return new WaitForSeconds(segment.signalDelay);
+                    isWaitingOnAutoTimer = false;
+                    dialogueSystem.OnSystemPrompt_Clear();
+                    break;
                 case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.WA:
                     isWaitingOnAutoTimer = true;
                     yield return new WaitForSeconds(segment.signalDelay);

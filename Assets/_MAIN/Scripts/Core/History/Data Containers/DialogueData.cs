@@ -59,7 +59,15 @@ namespace History
             dialogueText.fontSize = data.dialogueScale;
 
             nameText.text = data.currentSpeaker;
-            nameText.color = data.speakerNameColor;
+            if(nameText.text != string.Empty)
+            {
+                ds.dialogueContainer.nameContainer.Show();
+            }
+            else
+            {
+                ds.dialogueContainer.nameContainer.Hide();
+            }
+                nameText.color = data.speakerNameColor;
             nameText.fontSize = data.speakerScale;
 
             if(data.dialogueFont != dialogueText.font.name)

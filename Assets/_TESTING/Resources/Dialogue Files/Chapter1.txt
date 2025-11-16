@@ -4,6 +4,31 @@ enter Raelin "Hello."
 PlaySong(Calm)
 PlayAmbience("RainyMood")
 
+wait(5)
+
+<mainChar> "My name is <mainChar> I am <playerLevel> and now is <time>"
+
+enter Raelin "This changes everything.{a} We are dealing with a whole new level of evil here."
+
+[wait]HideUI(-spd 0.5 -i false)
+
+wait(2)
+
+[wait]ShowUI(-i true)
+
+Generic as Guard "I agree.{c} But we need to stay focused on...{wa 1} the evidence we have."
+
+Raelin at 1 [0:4,1:Raelin_10] "Right.{wc 0.5} Let's start by reviewing the crime scene photos again."
+
+enter Generic as Guard "Good idea.{wa 0.5} Maybe we'll notice something we missed before."
+
+Raelin at 0 [0:Raelin_2,1:Raelin_5] "Alright."
+
+SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
+
+wait(2)
+
+
 Raelin at 1 [0:R3,1:R4] "What is your name?"
 
 SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
@@ -55,28 +80,3 @@ else
 	NARRATOR "You have taken the home path"
 	Load(Chapter1_home -enqueue true)
 }
-
-
-wait(5)
-
-<mainChar> "My name is <mainChar> I am <playerLevel> and now is <time>"
-
-enter Raelin "This changes everything.{a} We are dealing with a whole new level of evil here."
-
-[wait]HideUI(-spd 0.5 -i false)
-
-wait(2)
-
-[wait]ShowUI(-i true)
-
-Generic as Guard "I agree.{c} But we need to stay focused on...{wa 1} the evidence we have."
-
-Raelin at 1 [0:4,1:Raelin_10] "Right.{wc 0.5} Let's start by reviewing the crime scene photos again."
-
-enter Generic as Guard "Good idea.{wa 0.5} Maybe we'll notice something we missed before."
-
-Raelin at 0 [0:Raelin_2,1:Raelin_5] "Alright."
-
-SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
-
-wait(2)

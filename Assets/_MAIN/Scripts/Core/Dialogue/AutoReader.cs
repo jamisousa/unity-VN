@@ -26,6 +26,7 @@ public class AutoReader : MonoBehaviour
     public bool isOn => co_running != null;
 
     [SerializeField] private TextMeshProUGUI statusText;
+    [HideInInspector] public bool allowToggle = true;
 
     public void Initialize(ConversationManager conversationManager)
     {
@@ -111,38 +112,65 @@ public class AutoReader : MonoBehaviour
     //auto and skip buttons handling
     public void Toggle_Auto()
     {
+        if (!allowToggle)
+        {
+            return;
+        }
+        bool prevState = skip;
         skip = false;
 
-        if (skip) Enable();
+        if (prevState) Enable();
 
-        else if (!isOn)
-        {
-            Enable();
-            statusText.text = STATUS_TEXT_AUTO;
-        }
         else
         {
-            Disable();
+            if (!isOn)
+            {
+                Enable();
+                statusText.text = STATUS_TEXT_AUTO;
+            }
+            else
+            {
+                Disable();
 
+            }
+        }
+
+        if (isOn)
+        {
+            statusText.text = STATUS_TEXT_AUTO;
         }
 
     }
 
     public void Toggle_Skip()
     {
+        if (!allowToggle)
+        {
+            return;
+        }
+        bool prevState = skip;
         skip = true;
 
-        if (!skip) Enable();
+        if (!prevState) Enable();
 
-        else if (!isOn)
-        {
-            Enable();
-            statusText.text = STATUS_TEXT_SKIP;
-        }
         else
         {
-            Disable();
+            if (!isOn)
+            {
+                Enable();
+                statusText.text = STATUS_TEXT_SKIP;
+            }
+            else
+            {
+                Disable();
+            }
         }
+
+        if (isOn)
+        {
+            statusText.text = STATUS_TEXT_SKIP;
+        }
+
     }
 
 }
