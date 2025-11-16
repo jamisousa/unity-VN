@@ -12,7 +12,7 @@ namespace History
 
         [SerializeField] private TextMeshProUGUI statusText;
 
-        HistoryManager manager = HistoryManager.instance;
+        HistoryManager manager => HistoryManager.instance;
         List<HistoryState> history => manager.history;
     
         HistoryState cachedState = null;

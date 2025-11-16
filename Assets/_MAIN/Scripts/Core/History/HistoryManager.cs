@@ -7,7 +7,6 @@ using UnityEngine;
 //saves all the history states the dialogue system tells it to cache
 namespace History
 {
-    [RequireComponent(typeof(HistoryNavigation))]
     public class HistoryManager : MonoBehaviour
     {
         public const int HISTORY_CACHE_LIMIT = 100;
