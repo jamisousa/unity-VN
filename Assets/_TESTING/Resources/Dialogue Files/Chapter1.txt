@@ -1,8 +1,20 @@
 wait(2)
 
-enter Raelin "Hello."
+CreateCharacter(Raelin)
+Raelin.Show()
+
+Raelin "Hello."
 PlaySong(Calm)
 PlayAmbience("RainyMood")
+
+[wait]Raelin.Animate("Shiver" -r true -d 3)
+
+wait(2)
+
+Raelin.SetSprite(Raelin_10 -l 1 -spd 1)
+
+Raelin.Animate("Hop")
+
 
 wait(5)
 

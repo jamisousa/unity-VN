@@ -19,9 +19,11 @@ namespace COMMANDS
             commandName = commandName.ToLower();
 
             if (!database.ContainsKey(commandName))
+            {
                 database.Add(commandName, command);
+            }
             else
-                Debug.LogWarning($"CommandDatabase: Command \"{commandName}\" already exists in the database!");
+                Debug.LogError($"Command already exists in the database '{commandName}'");
         }
 
         public Delegate GetCommand(string commandName)
@@ -30,12 +32,11 @@ namespace COMMANDS
 
             if (!database.ContainsKey(commandName))
             {
-                Debug.LogWarning($"CommandDatabase: Command \"{commandName}\" does not exist in the database!");
+                Debug.LogError($"Command '{commandName}' does not exist in the database!");
                 return null;
             }
 
             return database[commandName];
-
         }
     }
 }

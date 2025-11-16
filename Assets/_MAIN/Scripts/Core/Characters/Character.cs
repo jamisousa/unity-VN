@@ -376,12 +376,19 @@ namespace CHARACTERS
         {
             animator.SetTrigger(animation);
         }
-
+        
         public void Animate(string animation, bool state)
         {
             animator.SetBool(animation, state);
             animator.SetTrigger(ANIMATION_REFRESH_TRIGGER);
         }
+
+        public void StopAnimation(string animation, bool state)
+        {
+            animator.SetBool(animation, false);
+            animator.SetTrigger(ANIMATION_REFRESH_TRIGGER);
+        }
+
 
         public virtual void OnReceiveCastingExpression(int layer, string expression)
         {
