@@ -19,6 +19,9 @@ namespace History
         public bool isFacingLeft;
         public Vector2 position;
         public CharacterConfigCache characterConfig;
+        public Vector2 anchorMin;
+        public Vector2 anchorMax;
+
 
         public string dataJSON;
 
@@ -79,6 +82,8 @@ namespace History
                 entry.position = character.targetPosition;
                 entry.characterConfig = new CharacterConfigCache(character.config);
                 entry.isFacingLeft = character.isFacingLeft;
+                entry.anchorMin = character.root.anchorMin;
+                entry.anchorMax = character.root.anchorMax;
 
                 //only sprite and spritesheet are going to be used for now
                 switch (character.config.characterType)
@@ -137,7 +142,10 @@ namespace History
                 else
                     character.FaceRight(immediate: true);
 
-                character.SetPosition(characterData.position);
+                character.root.anchorMin = characterData.anchorMin;
+                character.root.anchorMax = characterData.anchorMax;
+
+                //character.SetPosition(characterData.position);
 
                 character.isVisible = characterData.enabled;
 
