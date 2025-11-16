@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CHARACTERS;
 using UnityEngine;
+using static History.CharacterData.AnimationData;
 
 namespace History
 {
@@ -22,8 +23,20 @@ namespace History
         public Vector2 anchorMin;
         public Vector2 anchorMax;
 
+        public string animationJSON;
 
         public string dataJSON;
+
+        [System.Serializable] public class AnimationData
+        {
+            public List<AnimationParameter> parameters = new List<AnimationParameter>();
+            [System.Serializable] public class AnimationParameter
+            {
+                public string name;
+                public string type;
+                public string value;
+            }
+        }
 
         [System.Serializable]
         public class CharacterConfigCache
@@ -84,6 +97,7 @@ namespace History
                 entry.isFacingLeft = character.isFacingLeft;
                 entry.anchorMin = character.root.anchorMin;
                 entry.anchorMax = character.root.anchorMax;
+                entry.animationJSON = GetAnimationData(character);
 
                 //only sprite and spritesheet are going to be used for now
                 switch (character.config.characterType)
@@ -114,6 +128,41 @@ namespace History
             }
 
             return characters;
+        }
+
+        private static string GetAnimationData(Character character)
+        {
+            Animator animator = character.animator;
+            AnimationData data = new AnimationData();
+
+            foreach(var param in animator.parameters)
+            {
+                if(param.type == AnimatorControllerParameterType.Trigger)
+                {
+                    continue;
+                }
+
+                AnimationParameter pData = new AnimationParameter { name = param.name };
+
+                switch (param.type)
+                {
+                    case AnimatorControllerParameterType.Bool:
+                        pData.type = "Bool";
+                        pData.value = animator.GetBool(param.name).ToString();
+                        break;
+                    case AnimatorControllerParameterType.Float:
+                        pData.type = "Float";
+                        pData.value = animator.GetFloat(param.name).ToString();
+                        break;
+                    case AnimatorControllerParameterType.Int:
+                        pData.type = "Int";
+                        pData.value = animator.GetInteger(param.name).ToString();
+                        break;
+                }
+
+                data.parameters.Add(pData);
+            }
+            return JsonUtility.ToJson(data);
         }
 
         public static void Apply(List<CharacterData> data)
@@ -148,6 +197,10 @@ namespace History
                 //character.SetPosition(characterData.position);
 
                 character.isVisible = characterData.enabled;
+
+                AnimationData animationData = JsonUtility.FromJson<AnimationData>(characterData.animationJSON);
+
+                ApplyAnimationData(character, animationData);
 
                 //get character type and reapply json data - only sprite and spritesheet for now
                 switch (character.config.characterType)
@@ -193,6 +246,28 @@ namespace History
                 }
             }
 
+        }
+
+        private static void ApplyAnimationData(Character character, AnimationData data)
+        {
+            Animator animator = character.animator;
+            foreach(var param in data.parameters)
+            {
+                switch (param.type)
+                {
+                    case "Bool":
+                        animator.SetBool(param.name, bool.Parse(param.value));
+                        break;
+                    case "Float":
+                        animator.SetFloat(param.name, float.Parse(param.value));
+                        break;
+                    case "Integer":
+                        animator.SetInteger(param.name, int.Parse(param.value));
+                        break;
+                }
+            }
+
+            animator.SetTrigger(Character.ANIMATION_REFRESH_TRIGGER);
         }
 
         [System.Serializable]

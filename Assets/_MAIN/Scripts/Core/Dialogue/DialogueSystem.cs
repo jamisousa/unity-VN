@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CHARACTERS;
+using History;
 using UnityEngine;
 
 //central dialogue system to manage conversations and dialogue display

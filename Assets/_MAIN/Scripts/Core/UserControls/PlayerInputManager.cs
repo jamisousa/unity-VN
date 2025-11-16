@@ -73,6 +73,7 @@ namespace DIALOGUE
             {
                 logs.Close();
             }
+            
         }
     }
 
