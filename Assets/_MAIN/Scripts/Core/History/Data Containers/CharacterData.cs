@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using CHARACTERS;
 using UnityEngine;
-using static History.CharacterData.CharacterConfigCache;
 
 namespace History
 {
@@ -79,6 +78,7 @@ namespace History
                 entry.isHighlighted = character.highlighted;
                 entry.position = character.targetPosition;
                 entry.characterConfig = new CharacterConfigCache(character.config);
+                entry.isFacingLeft = character.isFacingLeft;
 
                 //only sprite and spritesheet are going to be used for now
                 switch (character.config.characterType)
@@ -111,6 +111,81 @@ namespace History
             return characters;
         }
 
+        public static void Apply(List<CharacterData> data)
+        {
+            List<string> cache = new List<string>();
+            
+            foreach(CharacterData characterData in data)
+            {
+                Character character = CharacterManager.instance.GetCharacter(characterData.characterName, createIfDoesNotExist: true);
+                character.displayName = characterData.displayName;
+                character.SetColor(characterData.color);
+
+                if (characterData.isHighlighted)
+                {
+                    character.Highlight(immediate: true);
+                }
+                else
+                {
+                    character.Unhighlight(immediate: true);
+                }
+
+                character.SetPriority(characterData.priority);
+
+                if (characterData.isFacingLeft)
+                    character.FaceLeft(immediate: true);
+                else
+                    character.FaceRight(immediate: true);
+
+                character.SetPosition(characterData.position);
+
+                character.isVisible = characterData.enabled;
+
+                //get character type and reapply json data - only sprite and spritesheet for now
+                switch (character.config.characterType)
+                {
+                    case Character.CharacterType.Sprite:
+                    case Character.CharacterType.SpriteSheet:
+                        SpriteData sData = JsonUtility.FromJson<SpriteData>(characterData.dataJSON);
+                        Character_Sprite sc = character as Character_Sprite;
+
+                        for(int i = 0; i < sData.layers.Count; i++)
+                        {
+                            var layer = sData.layers[i];
+                            if (sc.layers[i].renderer.sprite != null && sc.layers[i].renderer.sprite.name != layer.spriteName)
+                            {
+                                Sprite sprite = sc.GetSprite(layer.spriteName);
+
+                                if(sprite != null)
+                                {
+                                    sc.SetSprite(sprite, i);
+                                }
+                                else
+                                {
+                                    Debug.Log($"history state could not load sprite {layer.spriteName}");
+                                }
+                            }
+                        }
+
+                        break;
+                    case Character.CharacterType.Model3D:
+                    case Character.CharacterType.Live2D:
+                        break;
+
+                }
+
+                cache.Add(character.name);
+            }
+
+            foreach(Character character in CharacterManager.instance.allCharacters)
+            {
+                if (!cache.Contains(character.name))
+                {
+                    character.isVisible = false;
+                }
+            }
+
+        }
 
         [System.Serializable]
         public class SpriteData

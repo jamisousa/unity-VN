@@ -23,12 +23,12 @@ public class GraphicLayer
             return null;
         }
 
-        return SetTexture(tex, transitionSpeed, blendingTexture, filePath);
+        return SetTexture(tex, transitionSpeed, blendingTexture, filePath, immediate);
     }
 
-    public Coroutine SetTexture(Texture tex, float transitionSpeed = 1f, Texture blendingTexture = null, string filepath = "", bool immediate = false)
+    public Coroutine SetTexture(Texture tex, float transitionSpeed = 1f, Texture blendingTexture = null, string filePath = "", bool immediate = false)
     {
-        return CreateGraphic(tex, transitionSpeed, filepath, blendingTexture: blendingTexture, immediate: immediate);
+        return CreateGraphic(tex, transitionSpeed, filePath, blendingTexture: blendingTexture, immediate: immediate);
     }
 
     public Coroutine SetVideo(string filePath, float transitionSpeed = 1f, bool useAudio = true, Texture blendingTexture = null, bool immediate = false)
@@ -44,9 +44,9 @@ public class GraphicLayer
         return SetVideo(clip, transitionSpeed, useAudio, blendingTexture, filePath);
     }
 
-    public Coroutine SetVideo(VideoClip video, float transitionSpeed = 1f, bool useAudio = true, Texture blendingTexture = null, string filepath = "", bool immediate = false)
+    public Coroutine SetVideo(VideoClip video, float transitionSpeed = 1f, bool useAudio = true, Texture blendingTexture = null, string filePath = "", bool immediate = false)
     {
-        return CreateGraphic(video, transitionSpeed, filepath, useAudio, blendingTexture, immediate);
+        return CreateGraphic(video, transitionSpeed, filePath, useAudio, blendingTexture, immediate);
     }
 
     private Coroutine CreateGraphic<T>(T graphicData, float transitionSpeed, string filePath, bool useAudioForVideo = true, Texture blendingTexture = null, bool immediate = false)

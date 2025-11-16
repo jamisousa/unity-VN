@@ -3452,16 +3452,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6657558ce5f4ff441a544f84e914264c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    currentDialogue: 
-    currentSpeaker: 
-    dialogueFont: 
-    dialogueColor: {r: 0, g: 0, b: 0, a: 0}
-    dialogueScale: 0
-    speakerFont: 
-    speakerNameColor: {r: 0, g: 0, b: 0, a: 0}
-    speakerScale: 0
-  audioData: []
+  state:
+    dialogue:
+      currentDialogue: 
+      currentSpeaker: 
+      dialogueFont: 
+      dialogueColor: {r: 0, g: 0, b: 0, a: 0}
+      dialogueScale: 0
+      speakerFont: 
+      speakerNameColor: {r: 0, g: 0, b: 0, a: 0}
+      speakerScale: 0
+    characters: []
+    audio: []
+    graphics: []
 --- !u!1 &942629624
 GameObject:
   m_ObjectHideFlags: 0
