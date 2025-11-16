@@ -6,6 +6,8 @@ PlayAmbience("RainyMood")
 
 Raelin at 1 [0:R3,1:R4] "What is your name?"
 
+SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
+
 
 narrator "Enter your name please"
 

@@ -25,10 +25,13 @@ namespace History
             return state;
         }
 
-        //load-reload data on screen
+        //load-reload data and apply on screen
         public void Load()
         {
-
+            DialogueData.Apply(dialogue);
+            CharacterData.Apply(characters);
+            AudioData.Apply(audio);
+            GraphicData.Apply(graphics);
         }
     }
 }

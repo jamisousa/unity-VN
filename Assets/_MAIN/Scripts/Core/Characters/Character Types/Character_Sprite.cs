@@ -21,9 +21,8 @@ namespace CHARACTERS
         }
 
         private const string SPRITE_RENDERED_PARENT_NAME = "Renderers";
-        private const string SPRITESHEET_DEFAULT_SHEET_NAME = "Default";
-        private const char SPRITESHEET_TEXT_SPRITE_DELIMITER = '-';
-
+        private const string SPRITESHEET_DEFAULT_SHEETNAME = "Default";
+        private const char SPRITESHEET_TEX_SPRITE_DELIMITTER = '-';
 
         public List<CharacterSpriteLayer> layers = new List<CharacterSpriteLayer>();
 
@@ -74,24 +73,14 @@ namespace CHARACTERS
             layers[layer].SetSprite(sprite);
         }
 
-      public Sprite GetSprite(string spriteName)
+        public Sprite GetSprite(string spriteName)
         {
-            //this block use the serialized dictionary style
-            Debug.Log("sprites count on config" + config.sprites.Count);
-            if(config.sprites.Count > 0)
+            if (config.characterType == CharacterType.SpriteSheet)
             {
-                if(config.sprites.TryGetValue(spriteName, out Sprite sprite))
-                {
-                    return sprite;
-                }
-            }
-
-            if(config.characterType == CharacterType.SpriteSheet)
-            {
-                string[] data = spriteName.Split(SPRITESHEET_TEXT_SPRITE_DELIMITER);
+                string[] data = spriteName.Split(SPRITESHEET_TEX_SPRITE_DELIMITTER);
                 Sprite[] spriteArray = new Sprite[0];
 
-                if(data.Length == 2)
+                if (data.Length == 2)
                 {
                     string textureName = data[0];
                     spriteName = data[1];
@@ -99,13 +88,11 @@ namespace CHARACTERS
                 }
                 else
                 {
-                    spriteArray = Resources.LoadAll<Sprite>($"{artAssetsDirectory}/{SPRITESHEET_DEFAULT_SHEET_NAME}");
+                    spriteArray = Resources.LoadAll<Sprite>($"{artAssetsDirectory}/{SPRITESHEET_DEFAULT_SHEETNAME}");
                 }
 
                 if (spriteArray.Length == 0)
-                {
-                    Debug.LogError($"Sprite Sheet {SPRITESHEET_DEFAULT_SHEET_NAME} not found in {artAssetsDirectory}");
-                }
+                    Debug.LogWarning($"Character '{name}' does not have a default art asset called '{SPRITESHEET_DEFAULT_SHEETNAME}'");
 
                 return Array.Find(spriteArray, sprite => sprite.name == spriteName);
             }
@@ -171,45 +158,44 @@ namespace CHARACTERS
         }
 
         //override the coroutine for highlighting for specific sprite type behavior
-        public override IEnumerator Highlighting(bool highlight, float speedMultiplier)
+        public override IEnumerator Highlighting(float speedMultiplier, bool immediate = false)
         {
             Color targetColor = displayColor;
 
             foreach (CharacterSpriteLayer layer in layers)
             {
-                layer.TransitionColor(targetColor, speedMultiplier);
+                if (immediate)
+                    layer.SetColor(displayColor);
+                else
+                    layer.TransitionColor(targetColor, speedMultiplier);
             }
+
 
             yield return null;
 
-
-            while (layers.Any(layer => layer.isChangingColor))
-            {
+            while (layers.Any(l => l.isChangingColor))
                 yield return null;
-            }
 
             co_highlighting = null;
-
         }
 
         //override face direction logic for sprite characters
         public override IEnumerator FaceDirection(bool faceLeft, float speedMultiplier, bool immediate)
         {
-            foreach(CharacterSpriteLayer layer in layers)
+            foreach (CharacterSpriteLayer layer in layers)
             {
                 if (faceLeft)
-                {
                     layer.FaceLeft(speedMultiplier, immediate);
-                }
-                layer.FaceRight(speedMultiplier, immediate);
+                else
+                    layer.FaceRight(speedMultiplier, immediate);
             }
 
             yield return null;
 
-            while(layers.Any(layer => layer.isFlipping))
-            {
+            while (layers.Any(l => l.isFlipping))
                 yield return null;
-            }   
+
+            co_flipping = null;
         }
 
         public override void OnReceiveCastingExpression(int layer, string expression)

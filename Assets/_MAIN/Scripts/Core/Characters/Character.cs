@@ -290,19 +290,21 @@ namespace CHARACTERS
         }
 
         //highlighting character - differentiate active speaker
-        public Coroutine Highlight(float speed = 1f)
+        public Coroutine Highlight(float speed = 1f, bool immediate = false)
         {
+
+
             if (isHighlighting || isUnhighlighting)
             {
                 characterManager.StopCoroutine(co_highlighting);
             }
 
             highlighted = true;
-            co_highlighting = characterManager.StartCoroutine(Highlighting(highlighted, speed));
+            co_highlighting = characterManager.StartCoroutine(Highlighting(speed, immediate));
             return co_highlighting;
         }
 
-        public Coroutine Unhighlight(float speed = 1f)
+        public Coroutine Unhighlight(float speed = 1f, bool immediate = false)
         {
             if (isUnhighlighting || isHighlighting)
             {
@@ -310,14 +312,13 @@ namespace CHARACTERS
             }
  
             highlighted = false;
-            co_highlighting = characterManager.StartCoroutine(Highlighting(highlighted, speed));
+            co_highlighting = characterManager.StartCoroutine(Highlighting(speed, immediate));
             return co_highlighting;
         }
 
-        public virtual IEnumerator Highlighting(bool highlight, float speedMultiplier)
+        public virtual IEnumerator Highlighting(float speedMultiplier, bool immediate = false)
         {
             Debug.Log("Highlighting is not available on this character type.");
-
             yield return null;
         }
 
@@ -333,23 +334,22 @@ namespace CHARACTERS
         public Coroutine FaceLeft(float speed = 1, bool immediate = false)
         {
             if (isFlipping)
-            {
                 characterManager.StopCoroutine(co_flipping);
-            }
 
             facingLeft = true;
             co_flipping = characterManager.StartCoroutine(FaceDirection(facingLeft, speed, immediate));
+
             return co_flipping;
         }
 
         public Coroutine FaceRight(float speed = 1, bool immediate = false)
         {
             if (isFlipping)
-            {
                 characterManager.StopCoroutine(co_flipping);
-            }
+
             facingLeft = false;
             co_flipping = characterManager.StartCoroutine(FaceDirection(facingLeft, speed, immediate));
+
             return co_flipping;
         }
 
