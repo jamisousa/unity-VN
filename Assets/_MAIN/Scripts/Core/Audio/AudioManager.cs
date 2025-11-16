@@ -157,4 +157,18 @@ public class AudioManager : MonoBehaviour
         c.StopTrack();
     }
 
+    public void StopTrack(string trackName)
+    {
+        trackName = trackName.ToLower();
+
+        foreach(var channel in channels.Values)
+        {
+            if(channel.activeTrack != null && channel.activeTrack.name.ToLower() == trackName)
+            {
+                channel.StopTrack();
+                return;
+            }
+        }
+    }
+
 }

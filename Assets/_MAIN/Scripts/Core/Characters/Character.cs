@@ -35,6 +35,8 @@ namespace CHARACTERS
         protected bool facingLeft = DEFAULT_ORIENTATION_IS_FACING_LEFT;
         public int priority { get; protected set; }
 
+        public Vector2 targetPosition { get; private set; }
+
         protected CharacterManager characterManager => CharacterManager.instance;
         public DialogueSystem dialogueSystem => DialogueSystem.instance;
 
@@ -190,6 +192,8 @@ namespace CHARACTERS
 
             root.anchorMin = minAnchorTarget;
             root.anchorMax = maxAnchorTarget;
+
+            targetPosition = position;
         }
 
 
@@ -207,6 +211,8 @@ namespace CHARACTERS
             }
 
             co_moving = characterManager.StartCoroutine(MovingToPosition(position, speed, smooth));
+
+            targetPosition = position;
 
             return co_moving;
         }

@@ -27,6 +27,8 @@ public class GraphicObject
     public VideoPlayer video = null;
     public AudioSource audio = null;
 
+    public bool useAudio => (audio != null ? !audio.mute : false);
+
     public string graphicPath = "";
     public string graphicName { get; private set; }
 

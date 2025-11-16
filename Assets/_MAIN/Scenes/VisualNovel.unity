@@ -3330,6 +3330,7 @@ GameObject:
   - component: {fileID: 937751884}
   - component: {fileID: 937751885}
   - component: {fileID: 937751886}
+  - component: {fileID: 937751887}
   m_Layer: 0
   m_Name: Command Testing
   m_TagString: Untagged
@@ -3439,6 +3440,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   var_int: 0
+--- !u!114 &937751887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937751878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6657558ce5f4ff441a544f84e914264c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    currentDialogue: 
+    currentSpeaker: 
+    dialogueFont: 
+    dialogueColor: {r: 0, g: 0, b: 0, a: 0}
+    dialogueScale: 0
+    speakerFont: 
+    speakerNameColor: {r: 0, g: 0, b: 0, a: 0}
+    speakerScale: 0
+  audioData: []
 --- !u!1 &942629624
 GameObject:
   m_ObjectHideFlags: 0
@@ -4169,7 +4192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6453b8605f74d2e498f31df4d46a1eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allPanels:
+  <allPanels>k__BackingField:
   - panelName: Background
     rootPanel: {fileID: 371346052}
   - panelName: Cinematic
@@ -5306,7 +5329,7 @@ MonoBehaviour:
     root: {fileID: 1436573567}
     nameContainer:
       root: {fileID: 287239366}
-      nameText: {fileID: 2058233671}
+      <nameText>k__BackingField: {fileID: 2058233671}
     dialogueText: {fileID: 1866066054}
   prompt: {fileID: 642918347}
   mainCanvas: {fileID: 1550581617}

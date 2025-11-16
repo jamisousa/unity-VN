@@ -1,14 +1,23 @@
 wait(2)
-playsfx(thunder_01)
 
 enter Raelin "Hello."
+PlaySong(Calm)
+PlayAmbience("RainyMood")
+
 Raelin at 1 [0:R3,1:R4] "What is your name?"
 
+
 narrator "Enter your name please"
+
+StopSong()
+
+StopAmbience("RainyMood")
+
 
 input "What is your name?"
 
 narrator "Nice to meet you, <input>!"
+playsfx(thunder_01)
 
 
 choice "Where would you like to go first?"
