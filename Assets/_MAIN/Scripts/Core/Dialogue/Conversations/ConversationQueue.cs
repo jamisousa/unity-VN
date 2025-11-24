@@ -38,5 +38,7 @@ namespace DIALOGUE
         public void Clear() => conversationQueue.Clear();
 
         public bool IsEmpty() => conversationQueue.Count == 0;
+
+        public Conversation[] GetReadOnly() => conversationQueue.ToArray();
     }
 }

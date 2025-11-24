@@ -4,6 +4,7 @@ using UnityEngine;
 
 using static DIALOGUE.LogicalLines.LogicalLineUtils.Encapsulation;
 using static DIALOGUE.LogicalLines.LogicalLineUtils.Conditions;
+using UnityEditor.Rendering;
 
 namespace DIALOGUE.LogicalLines
 {
@@ -24,7 +25,7 @@ namespace DIALOGUE.LogicalLines
             Conversation currentConversation = DialogueSystem.instance.conversationManager.conversation;
             int currentProgress = DialogueSystem.instance.conversationManager.conversationProgress;
 
-            EncapsulatedData ifData = RipEncapsulationData(currentConversation, currentProgress, ripHeaderAndEncapsulators: false);
+            EncapsulatedData ifData = RipEncapsulationData(currentConversation, currentProgress, ripHeaderAndEncapsulators: false, parentStartingIndex: currentConversation.fileStartIndex);
             EncapsulatedData elseData = new EncapsulatedData();
 
             if (ifData.endingIndex + 1 < currentConversation.Count)
@@ -32,17 +33,21 @@ namespace DIALOGUE.LogicalLines
                 string nextLine = currentConversation.GetLines()[ifData.endingIndex+1].Trim();
                 if(nextLine == ELSE)
                 {
-                    elseData = RipEncapsulationData(currentConversation, ifData.endingIndex + 1, ripHeaderAndEncapsulators: false);
+                    elseData = RipEncapsulationData(currentConversation, ifData.endingIndex + 1, ripHeaderAndEncapsulators: false, parentStartingIndex: currentConversation.fileStartIndex);
                     ifData.endingIndex = elseData.endingIndex;
                 }
             }
 
-            currentConversation.SetProgress(ifData.endingIndex);
+            currentConversation.SetProgress(elseData.isNull ? ifData.endingIndex : elseData.endingIndex);
             EncapsulatedData selData = conditionResult ? ifData: elseData;
 
             if (!selData.isNull && selData.lines.Count > 0)
             {
-                Conversation newConversation = new Conversation(selData.lines);
+                //remove the header and endcapsulator lines from the conversation indexes
+                selData.startingIndex += 2; //remove header and starting encapsulator
+                selData.endingIndex -= 1;   //remove ending encapsulator
+
+                Conversation newConversation = new Conversation(selData.lines, file: currentConversation.file, fileStartIndex: selData.startingIndex, fileEndIndex: selData.endingIndex);
                 DialogueSystem.instance.conversationManager.conversation.SetProgress(selData.endingIndex);
                 DialogueSystem.instance.conversationManager.EnqueuePriority(newConversation);
             }

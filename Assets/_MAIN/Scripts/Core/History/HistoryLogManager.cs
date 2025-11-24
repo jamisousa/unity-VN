@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DIALOGUE.LogicalLines;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -157,6 +158,15 @@ namespace History
 
             logs.Clear();
         }
+
+        public void Rebuild()
+        {
+            foreach(var state in manager.history)
+            {
+                CreateLog(state);
+            }
+        }
+
 
     }
 }

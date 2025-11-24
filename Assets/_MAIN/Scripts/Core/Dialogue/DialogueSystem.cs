@@ -148,11 +148,9 @@ namespace DIALOGUE
 
         }
 
-        public Coroutine Say(List<string> lines)
+        public Coroutine Say(List<string> lines, string filePath = "")
         {
-            Debug.Log("triggered say function with" + lines);
-
-           Conversation conversation = new Conversation(lines);
+           Conversation conversation = new Conversation(lines, file: filePath);
 
            return conversationManager.StartConversation(conversation);
         }

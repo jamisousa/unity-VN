@@ -4,8 +4,6 @@ CreateCharacter(Raelin)
 Raelin.Show()
 
 Raelin "Hello."
-PlaySong(Calm)
-PlayAmbience("RainyMood")
 
 [wait]Raelin.Animate("Shiver" -r true -d 3)
 
@@ -48,12 +46,12 @@ Raelin at 1 [0:R3,1:R4] "What is your name?"
 SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
 
 
-narrator "Enter your name please"
-
+PlaySong(Calm)
+PlayAmbience("RainyMood")
 StopSong()
-
 StopAmbience("RainyMood")
 
+narrator "Enter your name please"
 
 input "What is your name?"
 

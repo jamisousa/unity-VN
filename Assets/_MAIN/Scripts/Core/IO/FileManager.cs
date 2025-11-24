@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using History;
 using UnityEngine;
 
 public class FileManager
@@ -72,6 +74,68 @@ public class FileManager
         }
 
         return lines;
+    }
+
+    //create a directory if it does not exist for save files
+    public static bool TryCreateDirectoryFromPath(string path)
+    {
+        if (Directory.Exists(path) || File.Exists(path))
+        {
+            return true;
+        }
+
+        if (path.Contains("."))
+        {
+            path = Path.GetDirectoryName(path);
+            if (Directory.Exists(path)) {
+                return true;
+            }
+        }
+
+        if(path == string.Empty)
+        {
+            return false;
+        }
+
+        try
+        {
+            Directory.CreateDirectory(path);
+            return true;
+        }
+        catch(System.Exception e)
+        {
+            Debug.Log($"Could not create directory {path} - {e}");
+            return false;
+        }
+    }
+
+    public static void Save(string filePath, string JSONData)
+    {
+        if (!TryCreateDirectoryFromPath(filePath))
+        {
+            Debug.LogError($"Failed to save file {filePath}");
+            return;
+        }
+
+        StreamWriter sw = new StreamWriter(filePath);
+        sw.Write(JSONData);
+        sw.Close();
+
+        Debug.Log($"Saved data to file {filePath}");
+    }
+
+    public static T Load<T>(string filePath)
+    {
+        if (File.Exists(filePath))
+        {
+            string JSONData = File.ReadAllLines(filePath)[0];
+            return JsonUtility.FromJson<T>(JSONData);
+        }
+        else
+        {
+            Debug.LogError($"Failed to load file {filePath} - file does not exist!");
+            return default(T);
+        }
     }
 
 }
