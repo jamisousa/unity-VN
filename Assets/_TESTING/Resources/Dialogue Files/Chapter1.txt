@@ -15,10 +15,19 @@ Raelin.SetSprite(Raelin_10 -l 1 -spd 1)
 
 Raelin.Animate("Hop")
 
-
 wait(5)
 
-<mainChar> "My name is <mainChar> I am <playerLevel> and now is <time>"
+Raelin at 1 [0:R3,1:R4] "What is your name?"
+
+narrator "Enter your name please"
+
+input "What is your name?"
+
+SetPlayerName(<input>)
+
+narrator "Nice to meet you, <mainCharName>!"
+
+<mainCharName> "My name is <mainCharName> I am <playerLevel> and now is <time>"
 
 enter Raelin "This changes everything.{a} We are dealing with a whole new level of evil here."
 
@@ -43,25 +52,10 @@ SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hur
 wait(2)
 
 
-Raelin at 1 [0:R3,1:R4] "What is your name?"
-
 SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
 
 
-PlaySong(Calm)
-PlayAmbience("RainyMood")
-StopSong()
-StopAmbience("RainyMood")
-
-narrator "Enter your name please"
-
-input "What is your name?"
-
-narrator "Nice to meet you, <input>!"
-playsfx(thunder_01)
-
-
-choice "Where would you like to go first?"
+choice "Where would you like to go first <mainCharName>?"
 {
 	-I wanna go home
 		Raelin "Already? Why?"
