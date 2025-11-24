@@ -17,17 +17,16 @@ namespace COMMANDS
         {
             database.AddCommand("wait", new Func<string, IEnumerator>(Wait));
 
-            //Dialogue System Controls
+            //dialogue System Controls
             database.AddCommand("showui", new Func<string[], IEnumerator>(ShowDialogueSystem));
             database.AddCommand("hideui", new Func<string[], IEnumerator>(HideDialogueSystem));
 
-            //Dialogue Box Controls
+            //dialogue Box Controls
             database.AddCommand("showdb", new Func<string[], IEnumerator>(ShowDialogueBox));
             database.AddCommand("hidedb", new Func<string[], IEnumerator>(HideDialogueBox));
 
             //load a new dialogue file after a choice is made
             database.AddCommand("load", new Action<string[]>(LoadNewDialogueFile));
-
         }
 
         private static void LoadNewDialogueFile(string[] data)
@@ -124,5 +123,6 @@ namespace COMMANDS
 
             yield return DialogueSystem.instance.Hide(speed, immediate);
         }
+
     }
 }

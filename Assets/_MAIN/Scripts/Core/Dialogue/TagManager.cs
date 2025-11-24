@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
+using DIALOGUE;
+using VISUALNOVEL;
 
 public class TagManager
 {
     private static readonly Dictionary<string, Func<string>> tags = new Dictionary<string, Func<string>>()
     {
-        { "<mainChar>",     () => "Player" },
+        { "<mainCharName>",     () => VNGameSave.activeFile.playerName },
         { "<time>",         () => DateTime.Now.ToString("hh:mm tt")},
         { "<playerLevel>",  () => "0"},
         { "<input>",        () => InputPanel.instance.lastInput}

@@ -14,6 +14,9 @@ namespace VISUALNOVEL
         private void Awake()
         {
             instance = this;
+
+            VNDatabaseLinkSetup linkSetup = GetComponent<VNDatabaseLinkSetup>();
+            linkSetup.SetupExternalLinks();
         }
         public void LoadFile(string filePath)
         {
