@@ -36,7 +36,8 @@ namespace COMMANDS
             //Add character specific databases
             CommandDatabase spriteCommands = CommandManager.instance.CreateSubDatabase(CommandManager.DATABASE_CHARACTERS_SPRITE);
             spriteCommands.AddCommand("setsprite", new Func<string[], IEnumerator>(SetSprite));
-            spriteCommands.AddCommand("animate", new Func<string[], IEnumerator>(AnimateWithDuration));
+            spriteCommands.AddCommand("animate", new Func<string[], IEnumerator>(Animate));
+            spriteCommands.AddCommand("stopanimation", new Action<string[]>(StopAnimation));
         }
 
         private static void CreateCharacter(string[] data)
@@ -247,34 +248,42 @@ namespace COMMANDS
 
         }
 
-        private static IEnumerator AnimateWithDuration(string[] data)
+        private static IEnumerator Animate(string[] data)
         {
             Character_Sprite character = CharacterManager.instance
                 .GetCharacter(data[0], createIfDoesNotExist: false) as Character_Sprite;
 
-            if (character == null || data.Length < 2)
+            if (character == null)
                 yield break;
 
             string animationName = data[1];
 
             bool refresh = false;
-            float duration = 0f;
+            var parameters = ConvertDataToParameters(data, startingIndex: 2);
+
+            parameters.TryGetValue(new string[] { "-r", "-refresh" }, out refresh, defaultValue: true);
+
+            character.Animate(animationName, refresh);
+        }
+
+        private static void StopAnimation(string[] data)
+        {
+            Character_Sprite character = CharacterManager.instance
+                .GetCharacter(data[0], createIfDoesNotExist: false) as Character_Sprite;
+
+            if (character == null || data.Length < 2)
+                return;
+
+            string animationName = data[1];
+
+            bool refresh = false;
             var parameters = ConvertDataToParameters(data, startingIndex: 2);
 
             parameters.TryGetValue(new string[] { "-r", "-refresh" }, out refresh, defaultValue: false);
-            parameters.TryGetValue(new string[] { "-d", "-duration" }, out duration, defaultValue: 0f);
 
-            if (refresh)
-                character.Animate(animationName, true);
-            else
-                character.Animate(animationName);
-
-            if (duration > 0f)
-            {
-                yield return new WaitForSeconds(duration);
-                character.StopAnimation(animationName, refresh);
-            }
+            character.StopAnimation(animationName, refresh);
         }
+
 
 
 

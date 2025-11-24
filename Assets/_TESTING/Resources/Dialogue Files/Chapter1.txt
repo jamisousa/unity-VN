@@ -5,9 +5,11 @@ Raelin.Show()
 
 Raelin "Hello."
 
-[wait]Raelin.Animate("Shiver" -r true -d 3)
+Raelin.Animate("Shiver")
 
 wait(2)
+
+Raelin.StopAnimation("Shiver")
 
 Raelin.SetSprite(Raelin_10 -l 1 -spd 1)
 
