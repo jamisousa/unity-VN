@@ -2,55 +2,34 @@ using COMMANDS;
 using System.Collections.Generic;
 using DIALOGUE;
 using UnityEngine;
+using UnityEditor;
+using System.IO;
+using VISUALNOVEL;
 
 //testing script to read dialogue lines from a text file and start a conversation
 public class TestDialogueFiles : MonoBehaviour
 {
+
+
     [SerializeField] private TextAsset fileToRead = null;
     void Start()
     {
         StartConversation();
-
-        //string line = "Speaker \"Dialogue goes in here\" Command(arguments here)";
-        //string line = "Speaker \"Dialogue \\\"Goes in\\\" here! \" Command(arguments here)";
-        //DialogueParser.Parse(line);
     }
 
     void StartConversation()
     {
-        List<string> lines = FileManager.ReadTextAsset(fileToRead);
 
-        //foreach (string line in lines)
-        //{
-        //    if (string.IsNullOrEmpty(line)) continue;
+        string fullPath = AssetDatabase.GetAssetPath(fileToRead);
 
-        //    Debug.Log($"Segmenting line '{line}'");
-        //    DIALOGUE_LINES dlLine = DialogueParser.Parse(line);
+        int resourcesIndex = fullPath.IndexOf("Resources/");
 
-        //    int i = 0;
-        //    foreach (DL_DIALOGUE_DATA.DIALOGUE_SEGMENT segment in dlLine.dialogue.segments)
-        //    {
-        //        Debug.Log($"Segment [{i++}] = '{segment.dialogue}' [signal={segment.startSignal.ToString()}{(segment.signalDelay > 0 ? $" {segment.signalDelay}" : $"")}]");
-        //    }
-        //}
-
-        DialogueSystem.instance.Say(lines);
+        string relativePath = fullPath.Substring(resourcesIndex + 10);
 
 
-        //foreach (string line in lines)
-        //{
-        //    if (string.IsNullOrEmpty(line)) continue;
+        string filePath = Path.ChangeExtension(relativePath, null);
 
-        //    DIALOGUE_LINES dl = DialogueParser.Parse(line);
-
-        //    for(int i = 0; i < dl.commandData.commands.Count; i++)
-        //    {
-        //        DL_COMMAND_DATA.Command cmd = dl.commandData.commands[i];
-
-        //        Debug.Log($"Command [{i}] = '{cmd.name}' has these arguments [{string.Join(", ", cmd.arguments)}]");
-        //    }
-        //}
-
+        VNManager.instance.LoadFile(filePath);
 
     }
 }
