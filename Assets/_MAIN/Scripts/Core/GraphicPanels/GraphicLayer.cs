@@ -83,6 +83,16 @@ public class GraphicLayer
 
     public void Clear(float transitionSpeed = 1, Texture blendTexture = null, bool immediate = false)
     {
-        //TBD
+        if (currentGraphic == null)
+            return;
+
+        if (immediate)
+        {
+            Object.Destroy(currentGraphic.renderer.gameObject);
+            currentGraphic = null;
+            DestroyOldGraphics();
+            return;
+        }
     }
+
 }
