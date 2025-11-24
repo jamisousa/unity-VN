@@ -17,7 +17,8 @@ namespace VISUALNOVEL
         //extension for save file / vns for visual novel save
         public const string FILE_TYPE = ".vns";
         public const string SCREENSHOT_FILE_TYPE = ".jpeg";
-        public const bool ENCRYPT_FILES = false;
+        public const bool ENCRYPT_FILES = true;
+
 
         public string filePath => $"{FilePaths.gameSaves}{slotNumber}{FILE_TYPE}";
         public string screenshotPath => $"{FilePaths.gameSaves}{slotNumber}{SCREENSHOT_FILE_TYPE}";
@@ -29,6 +30,20 @@ namespace VISUALNOVEL
         public HistoryState activeState;
         public HistoryState[] historyLogs;
         public VN_VariableData[] variables;
+        
+        public static VNGameSave Load(string filePath, bool activateOnLoad = false)
+        {
+            VNGameSave save = FileManager.Load<VNGameSave>(filePath, encrypt: ENCRYPT_FILES);
+
+            activeFile = save;
+
+            if (activateOnLoad)
+            {
+                save.Activate();
+            }
+
+            return save;
+        }
 
         public void Save() {
             activeState = HistoryState.Capture();
@@ -37,10 +52,10 @@ namespace VISUALNOVEL
             variables = GetVariableData();
 
             string saveJSON = JsonUtility.ToJson(this);
-            FileManager.Save(filePath, saveJSON);
+            FileManager.Save(filePath, saveJSON, ENCRYPT_FILES);
         }
 
-        public void Load() { 
+        public void Activate() { 
             if(activeState != null)
             {
                 activeState.Load();
