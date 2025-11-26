@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace VISUALNOVEL
         public const string FILE_TYPE = ".vns";
         public const string SCREENSHOT_FILE_TYPE = ".jpeg";
         public const bool ENCRYPT_FILES = true;
-
+        public const float SCREENSHOT_DOWNSCALE_AMOUNT = 1f;
 
         public string filePath => $"{FilePaths.gameSaves}{slotNumber}{FILE_TYPE}";
         public string screenshotPath => $"{FilePaths.gameSaves}{slotNumber}{SCREENSHOT_FILE_TYPE}";
@@ -30,7 +31,8 @@ namespace VISUALNOVEL
         public HistoryState activeState;
         public HistoryState[] historyLogs;
         public VN_VariableData[] variables;
-        
+        public string timestamp;
+
         public static VNGameSave Load(string filePath, bool activateOnLoad = false)
         {
             VNGameSave save = FileManager.Load<VNGameSave>(filePath, encrypt: ENCRYPT_FILES);
@@ -50,6 +52,10 @@ namespace VISUALNOVEL
             historyLogs = HistoryManager.instance.history.ToArray();
             activeConversations = GetConversationData();
             variables = GetVariableData();
+
+            timestamp = DateTime.Now.ToString("yy-MM-dd HH:mm:ss");
+
+            ScreenshotMain.CaptureScreenshot(VNManager.instance.mainCamera, Screen.width, Screen.height, SCREENSHOT_DOWNSCALE_AMOUNT, screenshotPath);
 
             string saveJSON = JsonUtility.ToJson(this);
             FileManager.Save(filePath, saveJSON, ENCRYPT_FILES);
@@ -192,33 +198,37 @@ namespace VISUALNOVEL
             {
                 string val = variable.value;
 
-                switch (variable.type)
+                switch (variable.type.Trim().ToLowerInvariant())
                 {
-                    case "System.Boolean":
+                    case "system.boolean":
                         if (bool.TryParse(val, out bool b_val))
                         {
                             VariableStore.TrySetValue(variable.name, b_val);
                             continue;
                         }
                         break;
-                    case "System.Int32":
+
+                    case "system.int32":
                         if (int.TryParse(val, out int i_val))
                         {
                             VariableStore.TrySetValue(variable.name, i_val);
                             continue;
                         }
                         break;
-                    case "System.Single":
+
+                    case "system.single":
                         if (float.TryParse(val, out float f_val))
                         {
                             VariableStore.TrySetValue(variable.name, f_val);
                             continue;
                         }
                         break;
-                    case "System.String":
+
+                    case "system.string":
                         VariableStore.TrySetValue(variable.name, val);
                         continue;
                 }
+
 
                 Debug.LogError($"Could not interpret variable type {variable.name} = {variable.type}");
             }

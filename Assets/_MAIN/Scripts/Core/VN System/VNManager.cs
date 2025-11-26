@@ -9,6 +9,9 @@ namespace VISUALNOVEL
     //handles the VN startup and loading operations
     public class VNManager : MonoBehaviour
     {
+
+        public Camera mainCamera;
+
         public static VNManager instance { get; private set; }
 
         private void Awake()
@@ -17,6 +20,8 @@ namespace VISUALNOVEL
 
             VNDatabaseLinkSetup linkSetup = GetComponent<VNDatabaseLinkSetup>();
             linkSetup.SetupExternalLinks();
+
+            VNGameSave.activeFile = new VNGameSave();
         }
         public void LoadFile(string filePath)
         {

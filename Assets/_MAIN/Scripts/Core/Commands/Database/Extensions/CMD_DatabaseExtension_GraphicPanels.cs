@@ -90,15 +90,22 @@ namespace COMMANDS
             if (!immediate && blendTexName != string.Empty)
                 blendTex = Resources.Load<Texture>(FilePaths.resources_blendTextures + blendTexName);
 
-            //Lets try to get the layer to apply the media to
             GraphicLayer graphicLayer = panel.GetLayer(layer, createIfDoesNotExist: true);
 
             if (graphic is Texture)
             {
+                if (!immediate)
+                {
+                    CommandManager.instance.AddTerminationActionToCurrentProcess(()=> { graphicLayer?.SetTexture(graphic as Texture, filePath: pathToGraphic, immediate: true); });
+                }
                 yield return graphicLayer.SetTexture(graphic as Texture, transitionSpeed, blendTex, pathToGraphic, immediate);
             }
             else
             {
+                if (!immediate)
+                {
+                    CommandManager.instance.AddTerminationActionToCurrentProcess(()=> { graphicLayer?.SetVideo(graphic as VideoClip, useAudio: useAudio, filePath: pathToGraphic, immediate: true); });
+                }
                 yield return graphicLayer.SetVideo(graphic as VideoClip, transitionSpeed, useAudio, blendTex, pathToGraphic, immediate);
             }
         }
