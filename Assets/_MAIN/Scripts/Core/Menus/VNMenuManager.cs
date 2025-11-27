@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class VNMenuManager : MonoBehaviour
 {
     public static VNMenuManager instance;
@@ -16,6 +17,9 @@ public class VNMenuManager : MonoBehaviour
 
     private CanvasGroupController rootCG;
     [SerializeField] private GraphicRaycaster overlayRaycaster;
+
+    private UIConfirmationMenu uiChoiceMenu => UIConfirmationMenu.instance;
+
 
     private bool isOpen = false;
 
@@ -106,6 +110,13 @@ public class VNMenuManager : MonoBehaviour
 
     public void Click_Quit()
     {
-        Application.Quit();
+        if (overlayRaycaster != null)
+            overlayRaycaster.enabled = true;
+
+        uiChoiceMenu.Show(
+            "Quit to desktop?",
+            new UIConfirmationMenu.ConfirmationButton("Yes", () => Application.Quit()),
+            new UIConfirmationMenu.ConfirmationButton("No", null)
+        );
     }
 }
