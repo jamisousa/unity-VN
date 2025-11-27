@@ -53,6 +53,13 @@ public class VN_Configuration
         ui.SetButtonColors(ui.skippingContinue, ui.skippingStop, continueSkippingAfterChoice);
         ui.architectSpeed.value = dialogueTextSpeed;
         ui.autoReaderSpeed.value = dialogueAutoReadSpeed;
+
+        ui.musicVolume.value = musicVolume;
+        ui.sfxVolume.value = sfxVolume;
+        ui.voiceVolume.value = voicesVolume;
+        ui.musicMute.sprite = musicMute ? ui.mutedSymbol : ui.unmutedSymbol;
+        ui.sfxMute.sprite = sfxMute ? ui.mutedSymbol : ui.unmutedSymbol;
+        ui.voiceMute.sprite = voiceMute ? ui.mutedSymbol : ui.unmutedSymbol;
     }
 
     public void Save()

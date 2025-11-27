@@ -6,6 +6,11 @@ using UnityEngine.Rendering;
 //handles sound effects, voices, ambience and music
 public class AudioManager : MonoBehaviour
 {
+    public const string MUSIC_VOLUME_PARAMETER_NAME = "MusicVolume";
+    public const string SFX_VOLUME_PARAMETER_NAME = "SFXVolume";
+    public const string VOICE_VOLUME_PARAMETER_NAME = "VoiceVolume";
+    public const float MUTED_VOLUME_LEVEL = -80f;
+
     private const string SFX_PARENT_NAME = "SFX";
     private const string SFX_NAME_FORMAT = "SFX - [{0}]";
     public const float TRACK_TRANSITION_SPEED = 1f;
@@ -18,6 +23,8 @@ public class AudioManager : MonoBehaviour
     private Transform sfxRoot;
 
     public Dictionary<int, AudioChannel> channels = new Dictionary<int, AudioChannel>();
+
+    public AnimationCurve audioFalloffCurve;
 
     private void Awake()
     {
@@ -169,6 +176,24 @@ public class AudioManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void SetMusicVolume(float volume, bool muted)
+    {
+        volume = muted ? MUTED_VOLUME_LEVEL : audioFalloffCurve.Evaluate(volume);
+        musicMixer.audioMixer.SetFloat(MUSIC_VOLUME_PARAMETER_NAME, volume);
+    }
+
+    public void SetSFXVolume(float volume, bool muted)
+    {
+        volume = muted ? MUTED_VOLUME_LEVEL : audioFalloffCurve.Evaluate(volume);
+        sfxMixer.audioMixer.SetFloat(SFX_VOLUME_PARAMETER_NAME, volume);
+    }
+
+    public void SetVoicesVolume(float volume, bool muted)
+    {
+        volume = muted ? MUTED_VOLUME_LEVEL : audioFalloffCurve.Evaluate(volume);
+        voicesMixer.audioMixer.SetFloat(VOICE_VOLUME_PARAMETER_NAME, volume);
     }
 
 }
