@@ -5,11 +5,12 @@ Raelin.Show()
 
 Raelin "Hello."
 
+
+
 Raelin.Animate("Shiver")
 
 PlaySong(Calm)
 PlayAmbience("RainyMood")
-
 
 wait(2)
 
@@ -23,6 +24,10 @@ wait(1)
 
 Raelin at 1 [0:R3,1:R4] "What is your name?"
 
+ShowGalleryImage(20)
+
+HideGalleryImage(-speed 0.1f)
+
 narrator "Enter your name please"
 
 input "What is your name?"
@@ -30,6 +35,8 @@ input "What is your name?"
 SetPlayerName(<input>)
 
 narrator "Nice to meet you, <mainCharName>!"
+
+
 
 <mainCharName> "My name is <mainCharName> I am <playerLevel> and now is <time>"
 

@@ -104,6 +104,8 @@ public class VNMenuManager : MonoBehaviour
 
     public void Click_Home()
     {
+        VN_Configuration.activeConfig.Save();
+
         AudioManager.instance.StopAllAudio();
         UnityEngine.SceneManagement.SceneManager.LoadScene(MainMenu.MAIN_MENU_SCENE);
     }

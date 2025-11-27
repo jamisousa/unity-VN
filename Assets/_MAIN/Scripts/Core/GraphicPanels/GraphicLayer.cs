@@ -13,6 +13,7 @@ public class GraphicLayer
     public GraphicObject currentGraphic = null;
     public List<GraphicObject> oldGraphics = new List<GraphicObject>();
 
+  
     public Coroutine SetTexture(string filePath, float transitionSpeed = 1f, Texture blendingTexture = null, bool immediate = false)
     {
         Texture tex = Resources.Load<Texture2D>(filePath);

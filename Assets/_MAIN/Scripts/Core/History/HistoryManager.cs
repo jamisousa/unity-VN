@@ -4,6 +4,7 @@ using System.Linq;
 using DIALOGUE;
 using UnityEngine;
 
+
 //saves all the history states the dialogue system tells it to cache
 namespace History
 {
@@ -14,6 +15,8 @@ namespace History
         public const int HISTORY_CACHE_LIMIT = 100;
         public static HistoryManager instance { get; private set; }
         public List<HistoryState> history = new List<HistoryState>();
+
+        public bool isViewingHistory => navigation.isViewingHistory;
 
         private HistoryNavigation navigation;
         public HistoryLogManager logManager {  get; private set; }
