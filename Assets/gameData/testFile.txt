@@ -1,7 +1,0 @@
-Detective: "This changes everything.{a} We are dealing with a whole new level of evil here."
-
-Partner: "I agree.{c} But we need to stay focused on...{wa 1} the evidence we have."
-
-Detective: "Right.{wc 0.5} Let's start by reviewing the crime scene photos again."
-
-Partner: "Good idea.{wa 0.5} Maybe we'll notice something we missed before."

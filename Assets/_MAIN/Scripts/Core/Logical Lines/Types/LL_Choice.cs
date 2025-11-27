@@ -42,6 +42,16 @@ namespace DIALOGUE.LogicalLines
             Conversation newConversation = new Conversation(selectedChoice.resultLines, file: currentConversation.file, fileStartIndex: selectedChoice.startIndex, fileEndIndex: selectedChoice.endIndex);
             DialogueSystem.instance.conversationManager.conversation.SetProgress(data.endingIndex - currentConversation.fileStartIndex);
             DialogueSystem.instance.conversationManager.EnqueuePriority(newConversation);
+
+            AutoReader autoReader = DialogueSystem.instance.autoReader;
+
+            if (autoReader != null && autoReader.isOn && autoReader.skip)
+            {
+                if (VN_Configuration.activeConfig != null && !VN_Configuration.activeConfig.continueSkippingAfterChoice)
+                {
+                    autoReader.Disable();
+                }
+            }
         }
   
 
