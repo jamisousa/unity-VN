@@ -59,6 +59,7 @@ public class MainMenu : MonoBehaviour
             yield return null;
         }
 
+        VN_Configuration.activeConfig.Save();
         UnityEngine.SceneManagement.SceneManager.LoadScene("VisualNovel");
     }
 
