@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using CHARACTERS;
-using History;
 using UnityEngine;
 
 //central dialogue system to manage conversations and dialogue display
@@ -18,7 +17,7 @@ namespace DIALOGUE
 
         private TextArchitect architect;
 
-        private AutoReader autoReader;
+        public AutoReader autoReader { get; private set; }
 
         public bool isRunningConversation => conversationManager.isRunning;
 
@@ -62,7 +61,9 @@ namespace DIALOGUE
 
             dialogueContainer.Initialize();
 
-            if(TryGetComponent(out autoReader))
+            autoReader = GetComponent<AutoReader>();
+
+            if (autoReader != null)
             {
                 autoReader.Initialize(conversationManager);
             }
