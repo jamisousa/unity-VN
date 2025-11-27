@@ -6,6 +6,7 @@ using DIALOGUE;
 using DIALOGUE.LogicalLines;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class ConfigMenu : MenuPage
@@ -102,15 +103,27 @@ public class ConfigMenu : MenuPage
         [SerializeField] private Color text_selectedColor = Color.white;
         [SerializeField] private Color text_unselectedColor = Color.white;
 
+        [Header("General")]
         public Button fullscreen;
         public Button windowed;
         public TMP_Dropdown resolutions;
         public Button skippingContinue, skippingStop;
         public Slider architectSpeed, autoReaderSpeed;
 
+        [Header("Audio")]
         public Slider musicVolume;
         public Slider sfxVolume;
         public Slider voiceVolume;
+        public Color musicOnColor = new Color(0.45f, 0f, 0f, 1f);
+        public Color musicOffColor = Color.white;
+        public Sprite mutedSymbol;
+        public Sprite unmutedSymbol;
+        public Image musicMute;
+        public Image sfxMute;
+        public Image voiceMute;
+        public Image musicFill;
+        public Image sfxFill;
+        public Image voicesFill;
 
         public void SetButtonColors(Button A, Button B, bool selectedA)
         {
@@ -167,5 +180,59 @@ public class ConfigMenu : MenuPage
         {
             autoReader.speed = config.dialogueAutoReadSpeed;
         }
+    }
+
+    public void SetMusicVolume()
+    {
+        config.musicVolume = ui.musicVolume.value;
+
+        AudioManager.instance.SetMusicVolume(config.musicVolume, config.musicMute);
+
+        ui.musicFill.color = config.musicMute ? ui.musicOffColor : ui.musicOnColor;
+
+    }
+    public void SetSFXVolume()
+    {
+        config.sfxVolume = ui.sfxVolume.value;
+
+        AudioManager.instance.SetSFXVolume(config.sfxVolume, config.sfxMute);
+
+        ui.sfxFill.color = config.sfxMute ? ui.musicOffColor : ui.musicOnColor;
+    }
+    public void SetVoicesVolume()
+    {
+        config.voicesVolume = ui.voiceVolume.value;
+
+        AudioManager.instance.SetVoicesVolume(config.voicesVolume, config.voiceMute);
+
+        ui.voicesFill.color = config.voiceMute ? ui.musicOffColor : ui.musicOnColor;
+    }
+
+    public void SetMusicMute()
+    {
+        config.musicMute = !config.musicMute;
+        ui.musicVolume.fillRect.GetComponent<Image>().color = config.musicMute ? ui.musicOffColor : ui.musicOnColor;
+        ui.musicMute.sprite = config.musicMute ? ui.mutedSymbol : ui.unmutedSymbol;
+
+        AudioManager.instance.SetMusicVolume(config.musicVolume, config.musicMute);
+    }
+
+    public void SetSFXMute()
+    {
+        config.sfxMute = !config.sfxMute;
+        ui.sfxVolume.fillRect.GetComponent<Image>().color = config.sfxMute ? ui.musicOffColor : ui.musicOnColor;
+        ui.sfxMute.sprite = config.sfxMute ? ui.mutedSymbol : ui.unmutedSymbol;
+
+        AudioManager.instance.SetSFXVolume(config.sfxVolume, config.sfxMute);
+
+    }
+
+    public void SetVoiceMute()
+    {
+        config.voiceMute = !config.voiceMute;
+        ui.voiceVolume.fillRect.GetComponent<Image>().color = config.voiceMute ? ui.musicOffColor : ui.musicOnColor;
+        ui.voiceMute.sprite = config.voiceMute ? ui.mutedSymbol : ui.unmutedSymbol;
+
+        AudioManager.instance.SetVoicesVolume(config.voicesVolume, config.voiceMute);
     }
 }

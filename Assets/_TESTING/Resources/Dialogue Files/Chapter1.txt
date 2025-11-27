@@ -7,6 +7,10 @@ Raelin "Hello."
 
 Raelin.Animate("Shiver")
 
+PlaySong(Calm)
+PlayAmbience("RainyMood")
+
+
 wait(2)
 
 Raelin.StopAnimation("Shiver")
@@ -15,7 +19,7 @@ Raelin.SetSprite(Raelin_10 -l 1 -spd 1)
 
 Raelin.Animate("Hop")
 
-wait(5)
+wait(1)
 
 Raelin at 1 [0:R3,1:R4] "What is your name?"
 
@@ -46,6 +50,9 @@ Raelin at 1 [0:4,1:Raelin_10] "Right.{wc 0.5} Let's start by reviewing the crime
 enter Generic as Guard "Good idea.{wa 0.5} Maybe we'll notice something we missed before."
 
 Raelin at 0 [0:Raelin_2,1:Raelin_5] "Alright."
+
+StopSong()
+StopAmbience("RainyMood")
 
 SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
 
