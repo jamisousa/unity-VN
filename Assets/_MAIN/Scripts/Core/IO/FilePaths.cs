@@ -24,6 +24,9 @@ public class FilePaths
 
     public static readonly string resources_dialogueFiles = $"Dialogue Files/";
 
+    //Gallery
+    public static readonly string resources_gallery = $"{resources_graphics}Gallery/";
+
     public static string GetPathToResource(string defaultPath, string resourceName)
     {
         if(resourceName.StartsWith(HOME_DIRECTORY_SYMBOL)) return resourceName.Substring(HOME_DIRECTORY_SYMBOL.Length);
