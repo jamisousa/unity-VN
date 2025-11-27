@@ -61,6 +61,11 @@ namespace DIALOGUE
 
             dialogueContainer.Initialize();
 
+            //hide when coming from main menu until dialogue is built properly
+            dialogueContainer.dialogueText.text = "";
+            dialogueContainer.nameContainer.nameText.text = "";
+            HideSpeakerName();
+
             autoReader = GetComponent<AutoReader>();
 
             if (autoReader != null)

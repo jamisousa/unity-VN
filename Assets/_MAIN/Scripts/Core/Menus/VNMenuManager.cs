@@ -97,4 +97,15 @@ public class VNMenuManager : MonoBehaviour
         var page = GetPage(MenuPage.PageType.Help);
         OpenPage(page);
     }
+
+    public void Click_Home()
+    {
+        AudioManager.instance.StopAllAudio();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(MainMenu.MAIN_MENU_SCENE);
+    }
+
+    public void Click_Quit()
+    {
+        Application.Quit();
+    }
 }

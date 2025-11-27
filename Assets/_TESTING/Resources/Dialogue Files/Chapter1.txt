@@ -76,7 +76,7 @@ choice "Where would you like to go first <mainCharName>?"
 		{
 			-Maybe not. Pick somewhere else.
 				Raelin "You dont like there?"
-				<mainChar> "No."
+				<mainCharName> "No."
 				Raelin "Ah, well okay."
 
 			-Okay!
@@ -85,13 +85,3 @@ choice "Where would you like to go first <mainCharName>?"
 		}
 }
 
-if($pathTaken == mall)
-{
-	NARRATOR "You have taken the mall path"
-	Load(Chapter1_mall -enqueue true)
-}
-else
-{
-	NARRATOR "You have taken the home path"
-	Load(Chapter1_home -enqueue true)
-}
