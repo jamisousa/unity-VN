@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using VISUALNOVEL;
 
 
@@ -14,6 +15,9 @@ public class MainMenu : MonoBehaviour
     public CanvasGroup mainPanel;
     private CanvasGroupController mainCG;
 
+    private UIConfirmationMenu uiChoiceMenu => UIConfirmationMenu.instance;
+    [SerializeField] private GraphicRaycaster overlayRaycaster;
+
     private void Awake()
     {
         instance = this;
@@ -24,6 +28,19 @@ public class MainMenu : MonoBehaviour
         AudioManager.instance.PlayTrack(menuMusic, channel:0, startingVolume: 1);
 
         mainCG = new CanvasGroupController(this, mainPanel);
+    }
+
+
+    public void Click_StartNewGame()
+    {
+        if (overlayRaycaster != null)
+            overlayRaycaster.enabled = true;
+
+        uiChoiceMenu.Show(
+            "Start a new game?",
+            new UIConfirmationMenu.ConfirmationButton("Yes", StartNewGame),
+            new UIConfirmationMenu.ConfirmationButton("No", null)
+        );
     }
 
     public void StartNewGame()
