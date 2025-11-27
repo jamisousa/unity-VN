@@ -196,4 +196,24 @@ public class AudioManager : MonoBehaviour
         voicesMixer.audioMixer.SetFloat(VOICE_VOLUME_PARAMETER_NAME, volume);
     }
 
+    public void StopAllTracks()
+    {
+        foreach (var channel in channels.Values)
+        {
+            channel.StopTrack();
+        }
+    }
+
+    public void StopAllAudio()
+    {
+        StopAllTracks();
+
+        AudioSource[] sources = sfxRoot.GetComponentsInChildren<AudioSource>();
+        foreach (var source in sources)
+        {
+            Destroy(source.gameObject);
+        }
+    }
+
+
 }

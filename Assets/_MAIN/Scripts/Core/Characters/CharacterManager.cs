@@ -18,7 +18,7 @@ namespace CHARACTERS
 
         //config casting for more than one character with the same properties (eg. generic chars)
         //Example: CreateCharacter(Guard as Generic) -> "Guard" will use the config for "Generic"
-        private const string CHARACTER_CASTING_ID = " as ";
+        public const string CHARACTER_CASTING_ID = " as ";
 
         //paths for prefabs
         private const string CHARACTER_NAME_ID = "<characterName>";
@@ -72,6 +72,11 @@ namespace CHARACTERS
             CHARACTER_INFO info = GetCharacterInfo(characterName);
 
             Character character = CreateCharacterFromInfo(info);
+
+            if(info.castingName != info.name)
+            {
+              character.castingName = info.castingName;
+            }
 
             characters.Add(info.name.ToLower(), character);
 

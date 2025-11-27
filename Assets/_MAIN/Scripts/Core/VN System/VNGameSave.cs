@@ -33,6 +33,8 @@ namespace VISUALNOVEL
         public VN_VariableData[] variables;
         public string timestamp;
 
+        public bool newGame = true;
+
         public static VNGameSave Load(string filePath, bool activateOnLoad = false)
         {
             VNGameSave save = FileManager.Load<VNGameSave>(filePath, encrypt: ENCRYPT_FILES);
@@ -48,6 +50,7 @@ namespace VISUALNOVEL
         }
 
         public void Save() {
+            newGame = false;
             activeState = HistoryState.Capture();
             historyLogs = HistoryManager.instance.history.ToArray();
             activeConversations = GetConversationData();
