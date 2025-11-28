@@ -3441,7 +3441,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.042224918, y: 0.88743454}
   m_AnchorMax: {x: 0.98100007, y: 1}
-  m_AnchoredPosition: {x: -0.987183, y: -4.970001}
+  m_AnchoredPosition: {x: -0.9871832, y: -4.970001}
   m_SizeDelta: {x: 2.0200005, y: -13.299999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &253471222
@@ -5060,7 +5060,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ee891f54af89e0b49ad007c03825b500, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 458c8377a55a1644d8ffb99e40e328d3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5155,7 +5155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.7992652}
   m_AnchorMax: {x: 0.99600005, y: 0.8823507}
-  m_AnchoredPosition: {x: -0.07928467, y: -7.5099945}
+  m_AnchoredPosition: {x: -0.0793457, y: -7.51001}
   m_SizeDelta: {x: 0.16467, y: 7.53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &338603616
@@ -5802,7 +5802,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.8546408}
-  m_AnchoredPosition: {x: 0, y: -26.136993}
+  m_AnchoredPosition: {x: 0, y: -26.136963}
   m_SizeDelta: {x: 0, y: -52.275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &369291624
@@ -6879,7 +6879,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.004638672, y: -0.0014648438}
+  m_AnchoredPosition: {x: 0.0018920898, y: 0.10333252}
   m_SizeDelta: {x: -0.0065918, y: 562.95}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &462855225
@@ -13261,7 +13261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.16133171, y: 0.88500005}
   m_AnchorMax: {x: 0.83400005, y: 0.97159755}
-  m_AnchoredPosition: {x: 14.800476, y: -1.7799988}
+  m_AnchoredPosition: {x: 14.800476, y: -1.7800293}
   m_SizeDelta: {x: -738.4, y: 4.010002}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1093219338
@@ -17015,8 +17015,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 29354528}
   m_HandleRect: {fileID: 29354527}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.99999785
+  m_Value: 0.01668653
+  m_Size: 0.9998181
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -18136,7 +18136,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ee891f54af89e0b49ad007c03825b500, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 458c8377a55a1644d8ffb99e40e328d3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19498,7 +19498,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.99489427, y: 0.8925323}
-  m_AnchoredPosition: {x: 2.4960327, y: 19.306992}
+  m_AnchoredPosition: {x: 2.4960938, y: 19.307007}
   m_SizeDelta: {x: 4.29, y: 37.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1531769050
@@ -19721,7 +19721,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.002380371, y: -46.328003}
+  m_AnchoredPosition: {x: 0.002319336, y: -46.328003}
   m_SizeDelta: {x: 0, y: -92.653}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1551996965
@@ -20840,7 +20840,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.16145836, y: 0.121375725}
   m_AnchorMax: {x: 0.84164584, y: 0.88600004}
-  m_AnchoredPosition: {x: -3.000183, y: -3.5012207}
+  m_AnchoredPosition: {x: -3.0002441, y: -3.5012207}
   m_SizeDelta: {x: -0.42993164, y: 11.52002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1697558812
@@ -22780,7 +22780,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.8676408}
   m_AnchorMax: {x: 1, y: 0.9617598}
-  m_AnchoredPosition: {x: 2.3618774, y: -2.7799988}
+  m_AnchoredPosition: {x: 2.3619385, y: -2.7800293}
   m_SizeDelta: {x: -1109.6, y: 0.9000015}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1826100544
@@ -23273,7 +23273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1852717176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23392,9 +23392,9 @@ RectTransform:
   - {fileID: 1021868118}
   m_Father: {fileID: 1272581662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 652.48, y: -22.123165}
   m_SizeDelta: {x: 60.77, y: 35.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1879147790
@@ -23434,7 +23434,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.12875, y: 0.15466578}
   m_AnchorMax: {x: 0.90856254, y: 0.8437041}
-  m_AnchoredPosition: {x: 0.43804932, y: 1.8449097}
+  m_AnchoredPosition: {x: 0.43798828, y: 1.8449097}
   m_SizeDelta: {x: -0.88733, y: -3.6835}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1879147792
@@ -23764,7 +23764,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.12766667, y: 0.15814674}
   m_AnchorMax: {x: 0.9056042, y: 0.8428533}
-  m_AnchoredPosition: {x: 0.0025634766, y: 5.970001}
+  m_AnchoredPosition: {x: 0.0025634766, y: 5.9699707}
   m_SizeDelta: {x: -97.66, y: -85.83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1920294427
@@ -23883,7 +23883,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 986916839}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.99999803
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -25956,6 +25956,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UIConfirmationMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121593110294644439, guid: 76bc3da18c35cc84ca4813b32038cbfb,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.6085205
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

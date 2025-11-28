@@ -1,93 +1,12 @@
 wait(2)
 
-CreateCharacter(Raelin)
-Raelin.Show()
+CreateCharacter(KMainChar)
+KMainChar.Show()
 
-Raelin "Hello."
+KMainChar as ??? "Hello."
 
+SetLayerMedia(background MainRoom_Day)
 
-
-Raelin.Animate("Shiver")
-
-PlaySong(Calm)
-PlayAmbience("RainyMood")
-
-wait(2)
-
-Raelin.StopAnimation("Shiver")
-
-Raelin.SetSprite(Raelin_10 -l 1 -spd 1)
-
-Raelin.Animate("Hop")
-
-wait(1)
-
-Raelin at 1 [0:R3,1:R4] "What is your name?"
-
-ShowGalleryImage(20)
-
-HideGalleryImage(-speed 0.1f)
-
-narrator "Enter your name please"
-
-input "What is your name?"
-
-SetPlayerName(<input>)
-
-narrator "Nice to meet you, <mainCharName>!"
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
 
 
-
-<mainCharName> "My name is <mainCharName> I am <playerLevel> and now is <time>"
-
-enter Raelin "This changes everything.{a} We are dealing with a whole new level of evil here."
-
-[wait]HideUI(-spd 0.5 -i false)
-
-wait(2)
-
-[wait]ShowUI(-i true)
-
-Generic as Guard "I agree.{c} But we need to stay focused on...{wa 1} the evidence we have."
-
-Generic as Guard "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum "
-
-Raelin at 1 [0:4,1:Raelin_10] "Right.{wc 0.5} Let's start by reviewing the crime scene photos again."
-
-enter Generic as Guard "Good idea.{wa 0.5} Maybe we'll notice something we missed before."
-
-Raelin at 0 [0:Raelin_2,1:Raelin_5] "Alright."
-
-StopSong()
-StopAmbience("RainyMood")
-
-SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
-
-wait(2)
-
-
-SetLayerMedia(-p background -m "Fantasy Landscape" -aud true -spd 0.1 -blend hurricane -i true)
-
-
-choice "Where would you like to go first <mainCharName>?"
-{
-	-I wanna go home
-		Raelin "Already? Why?"
-		<mainChar> "Just because."
-		Raelin "Ah, well alright."
-		Load(Chapter1_home -enqueue true)
-
-	-Anywhere
-		Raelin "Good then!"
-		choice "How about the mall?"
-		{
-			-Maybe not. Pick somewhere else.
-				Raelin "You dont like there?"
-				<mainCharName> "No."
-				Raelin "Ah, well okay."
-
-			-Okay!
-				Raelin "Good!"
-				Load(Chapter1_mall -enqueue false)
-		}
-}
