@@ -36,7 +36,7 @@ public class SaveLoadSlot : MonoBehaviour
     {
         if(file == null)
         {
-            titleText.text = $"{fileNumber}. Empty File";
+            titleText.text = $"Empty File";
             deleteButton.gameObject.SetActive(false);
             loadButton.gameObject.SetActive(false);
             saveButton.gameObject.SetActive(function == SaveAndLoadMenu.MenuFunction.save);
@@ -44,7 +44,7 @@ public class SaveLoadSlot : MonoBehaviour
         }
         else
         {
-            titleText.text = $"{fileNumber}. {file.timestamp}";
+            titleText.text = $"{file.timestamp}";
             deleteButton.gameObject.SetActive(true);
             loadButton.gameObject.SetActive(function == SaveAndLoadMenu.MenuFunction.load);
             saveButton.gameObject.SetActive(function == SaveAndLoadMenu.MenuFunction.save);
