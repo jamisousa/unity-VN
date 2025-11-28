@@ -1,15 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using History;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class FileManager
 {
-    //This function will read a text file from the specified path
     public static List<string> ReadTextFile(string path, bool includeBlankLines = true)
     {
 
@@ -42,7 +38,6 @@ public class FileManager
         return lines;
     }
 
-    //This function will read a TextAsset from the Resources folder
     public static List<string> ReadTextAsset(string path, bool includeBlankLines = true)
     {
         TextAsset asset = Resources.Load<TextAsset>(path);
@@ -64,7 +59,6 @@ public class FileManager
 
         using (StringReader sr = new StringReader(asset.text))
         {
-            //this lets us peek at the next character without consuming it
             while (sr.Peek() > -1)
             {
                 string line = sr.ReadLine();
@@ -78,7 +72,6 @@ public class FileManager
         return lines;
     }
 
-    //create a directory if it does not exist for save files
     public static bool TryCreateDirectoryFromPath(string path)
     {
         if (Directory.Exists(path) || File.Exists(path))

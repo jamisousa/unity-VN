@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using CHARACTERS;
 using UnityEngine;
@@ -7,7 +6,6 @@ using static History.CharacterData.AnimationData;
 namespace History
 {
 
-    //all the data related to the characters on screen at this time
     [System.Serializable]
     public class CharacterData
     {
@@ -67,11 +65,6 @@ namespace History
 
                 nameFont = FilePaths.resources_font + reference.nameFont.name;
                 dialogueFont = FilePaths.resources_font + reference.dialogueFont.name;
-
-                //TODO: add font and dialogue scale to character config data
-                //nameFontScale = reference.nameFontScale;
-                //dialogueFontScale = reference.dialogueFontScale;
-
             }
         }
 
@@ -101,7 +94,6 @@ namespace History
                 entry.anchorMax = character.root.anchorMax;
                 entry.animationJSON = GetAnimationData(character);
 
-                //only sprite and spritesheet are going to be used for now
                 switch (character.config.characterType)
                 {
                     case Character.CharacterType.Sprite:
@@ -212,7 +204,6 @@ namespace History
                 character.root.anchorMin = characterData.anchorMin;
                 character.root.anchorMax = characterData.anchorMax;
 
-                //character.SetPosition(characterData.position);
 
                 character.isVisible = characterData.enabled;
 
@@ -220,7 +211,6 @@ namespace History
 
                 ApplyAnimationData(character, animationData);
 
-                //get character type and reapply json data - only sprite and spritesheet for now
                 switch (character.config.characterType)
                 {
                     case Character.CharacterType.Sprite:

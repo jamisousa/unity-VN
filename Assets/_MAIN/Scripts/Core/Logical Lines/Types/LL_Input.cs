@@ -1,11 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace DIALOGUE.LogicalLines
 {
 
-    //the logical line for accepting user input into the VN
     public class LL_Input : ILogicalLine
     {
         public string keyword => "input";

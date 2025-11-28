@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using DIALOGUE.LogicalLines;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +6,6 @@ using UnityEngine.UI;
 namespace History
 {
 
-    //keeps track of history logs and updates the screen display with all logs
     public class HistoryLogManager : MonoBehaviour
     {
         private const float LOG_STARTING_HEIGHT = 2f;
@@ -25,7 +22,6 @@ namespace History
  
         private float logScaling = 1f;
 
-        //animator for fade-in fade-out
         [SerializeField] private Animator anim;
         [SerializeField] private GameObject logPrefab;
 

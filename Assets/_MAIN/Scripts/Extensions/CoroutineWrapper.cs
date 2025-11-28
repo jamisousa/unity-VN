@@ -1,6 +1,5 @@
 using UnityEngine;
 
-//used for instead of yielding until the end of the coroutine, loop until the wrapper tells its done
 public class CoroutineWrapper
 {
     private MonoBehaviour owner;

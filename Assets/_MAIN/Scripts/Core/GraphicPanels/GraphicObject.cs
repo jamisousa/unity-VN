@@ -1,10 +1,8 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-//the object containing the image or video on a single graphic layer
 
 public class GraphicObject
 {
@@ -14,7 +12,6 @@ public class GraphicObject
 
     private const string NAME_FORMAT = "Graphic - [{0}]";
     private const string MATERIAL_PATH = "Materials/layerTransitionMaterial";
-    //private const string MATERIAL_FIELD_COLOR = "_Color";
     private const string MATERIAL_FIELD_MAINTEX = "_MainTex";
     private const string MATERIAL_FIELD_BLENDTEX = "_BlendTex";
     private const string MATERIAL_FIELD_BLEND = "_Blend";

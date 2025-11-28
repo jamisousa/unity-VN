@@ -1,11 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace COMMANDS
 {
-
-    //class that will be used as a helper to the database extensions to allow easy location of params within the data passed to commands
     public class CommandParameters
     {
         private const char PARAMETER_IDENTIFIER = '-';
@@ -50,7 +46,6 @@ namespace COMMANDS
                 }
             }
 
-            //if we reach here, no match was found in the identified parameters so search the unlabeled ones if present
             foreach (string parameterName in unlabledParameters)
             {
                 if (TryCastParameter(parameterName, out value))

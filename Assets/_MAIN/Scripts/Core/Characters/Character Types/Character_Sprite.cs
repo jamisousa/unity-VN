@@ -7,10 +7,6 @@ using UnityEngine.UI;
 
 namespace CHARACTERS
 {
-
-    //character that uses sprites or sprite sheets to render its display
-
-
     public class Character_Sprite : Character
     {
 
@@ -41,7 +37,6 @@ namespace CHARACTERS
             Debug.Log("Created Sprite Character: " + name);
         }
 
-        //evaluate prefab structure and get layers accordingly
         private void GetLayers()
         {
             Transform rendererRoot = animator.transform.Find(SPRITE_RENDERED_PARENT_NAME);
@@ -54,7 +49,6 @@ namespace CHARACTERS
 
             for(int i = 0; i < rendererRoot.transform.childCount; i++)
             {
-                //find each child of the root object
                 Transform child = rendererRoot.GetChild(i);
 
                 Image rendererImage = child.GetComponentInChildren<Image>();
@@ -101,15 +95,12 @@ namespace CHARACTERS
                 return Resources.Load<Sprite>($"{artAssetsDirectory}/{spriteName}");
             }
         }
-
-        //gradually change an image through the layers
         public Coroutine TransitionSprite(Sprite sprite, int layer = 0, float speed = 1)
         {
             CharacterSpriteLayer spriteLayer = layers[layer];
 
             return spriteLayer.TransitionSprite(sprite, speed);
         }
-
         public override IEnumerator ShowingOrHiding(bool show, float speedMultiplier = 1f)
         {
             float targetAlpha = show ? 1f : 0f;
@@ -178,8 +169,6 @@ namespace CHARACTERS
 
             co_highlighting = null;
         }
-
-        //override face direction logic for sprite characters
         public override IEnumerator FaceDirection(bool faceLeft, float speedMultiplier, bool immediate)
         {
             foreach (CharacterSpriteLayer layer in layers)

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using DIALOGUE;
 using TMPro;
 using UnityEngine;
@@ -7,7 +5,6 @@ using UnityEngine;
 namespace History
 {
 
-    //contains all data for the dialogue at this point in time
     [System.Serializable]
     public class DialogueData
     {
@@ -15,7 +12,6 @@ namespace History
         public string currentDialogue = "";
         public string currentSpeaker = "";
 
-        //we cant save the font itself bc its not serializable, load by name
         public string dialogueFont;
         public Color dialogueColor;
         public float dialogueScale;
@@ -24,14 +20,12 @@ namespace History
         public Color speakerNameColor;
         public float speakerScale;
 
-        //look at the scene and take data
         public static DialogueData Capture()
         {
             DialogueData data = new DialogueData();
 
             var ds = DialogueSystem.instance;
 
-            //pull dialogue and name text caching them
             var dialogueText = ds.dialogueContainer.dialogueText;
             var nameText = ds.dialogueContainer.nameContainer.nameText;
 

@@ -1,14 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 using static DIALOGUE.LogicalLines.LogicalLineUtils.Encapsulation;
 
 namespace DIALOGUE.LogicalLines
 {
-    //controls what happens when a choice is encountered in dialogue files
     public class LL_Choice : ILogicalLine
     {
         public string keyword => "choice";
@@ -73,7 +70,6 @@ namespace DIALOGUE.LogicalLines
                 resultLines = new List<string>(),
             };
 
-            //foreach(var line in data.lines.Skip(1))
             int choiceIndex = 0, i = 0;
             for(i = 1; i < data.lines.Count; i++)
             {

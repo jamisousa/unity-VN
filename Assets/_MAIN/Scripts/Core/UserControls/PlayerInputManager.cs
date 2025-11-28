@@ -4,9 +4,6 @@ using History;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
-//capture player input to control dialogue progression
-
 namespace DIALOGUE
 {
     public class PlayerInputManager : MonoBehaviour

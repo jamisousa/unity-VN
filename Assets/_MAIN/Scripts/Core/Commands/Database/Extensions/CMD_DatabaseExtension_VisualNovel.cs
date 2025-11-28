@@ -1,15 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace COMMANDS
 {
     public class CMD_DatabaseExtension_VisualNovel : CMD_DatabaseExtension
     {
         new public static void Extend(CommandDatabase database)
         {
-            //variable assignment
             database.AddCommand("setplayername", new Action<string>(SetPlayerNameVariable));
         }
 

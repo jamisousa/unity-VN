@@ -17,15 +17,12 @@ namespace COMMANDS
         {
             database.AddCommand("wait", new Func<string, IEnumerator>(Wait));
 
-            //dialogue System Controls
             database.AddCommand("showui", new Func<string[], IEnumerator>(ShowDialogueSystem));
             database.AddCommand("hideui", new Func<string[], IEnumerator>(HideDialogueSystem));
 
-            //dialogue Box Controls
             database.AddCommand("showdb", new Func<string[], IEnumerator>(ShowDialogueBox));
             database.AddCommand("hidedb", new Func<string[], IEnumerator>(HideDialogueBox));
 
-            //load a new dialogue file after a choice is made
             database.AddCommand("load", new Action<string[]>(LoadNewDialogueFile));
         }
 
@@ -59,7 +56,6 @@ namespace COMMANDS
             }
             else
             {
-                //this ends the current conversation and clears out queue
                 DialogueSystem.instance.conversationManager.StartConversation(newConversation);
             }
         }

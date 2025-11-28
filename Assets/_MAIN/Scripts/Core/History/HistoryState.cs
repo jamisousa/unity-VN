@@ -1,11 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace History
 {
 
-    //a snasphot of data at a given time in the visual novel
     [System.Serializable]
     public class HistoryState 
     {
@@ -25,7 +22,6 @@ namespace History
             return state;
         }
 
-        //load-reload data and apply on screen
         public void Load()
         {
             DialogueData.Apply(dialogue);

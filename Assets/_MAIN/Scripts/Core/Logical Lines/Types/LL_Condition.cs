@@ -1,15 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 using static DIALOGUE.LogicalLines.LogicalLineUtils.Encapsulation;
 using static DIALOGUE.LogicalLines.LogicalLineUtils.Conditions;
-using UnityEditor.Rendering;
 
 namespace DIALOGUE.LogicalLines
 {
 
-    //logical line to evaluate conditions and execute lines of dialogue
     public class LL_Condition : ILogicalLine
     {
         public string keyword => "if";
@@ -18,7 +13,6 @@ namespace DIALOGUE.LogicalLines
 
         public IEnumerator Execute(DIALOGUE_LINES line)
         {
-
             string rawCondition = ExtractCondition(line.rawData.Trim());
             bool conditionResult = EvaluateCondition(rawCondition);
 
@@ -43,9 +37,8 @@ namespace DIALOGUE.LogicalLines
 
             if (!selData.isNull && selData.lines.Count > 0)
             {
-                //remove the header and endcapsulator lines from the conversation indexes
-                selData.startingIndex += 2; //remove header and starting encapsulator
-                selData.endingIndex -= 1;   //remove ending encapsulator
+                selData.startingIndex += 2; 
+                selData.endingIndex -= 1;  
 
                 Conversation newConversation = new Conversation(selData.lines, file: currentConversation.file, fileStartIndex: selData.startingIndex, fileEndIndex: selData.endingIndex);
                 DialogueSystem.instance.conversationManager.conversation.SetProgress(selData.endingIndex);

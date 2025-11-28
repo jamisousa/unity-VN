@@ -1,15 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DIALOGUE.LogicalLines
 {
 
-    //provides shared variable and method access to logical line classes
     public static class LogicalLineUtils
     {
         public static class Encapsulation

@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace History
 {
 
-    //all the data for each audio channel active in the visual novel
     [System.Serializable]
     public class AudioData
     {
@@ -55,7 +53,6 @@ namespace History
         {
             List<int> cache = new List<int>();
 
-            //go through every channel
             foreach(var channelData in data)
             {
                 AudioChannel channel = AudioManager.instance.TryGetChannel(channelData.channel, createIfDoesNotExist: true);

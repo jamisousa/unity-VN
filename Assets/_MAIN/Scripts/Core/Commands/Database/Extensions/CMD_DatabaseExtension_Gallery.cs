@@ -1,8 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using UnityEditor.Media;
 using UnityEngine;
 
 namespace COMMANDS
@@ -28,7 +25,6 @@ namespace COMMANDS
             string blendTexName = "";
             Texture blendTex = null;
 
-            //Now get the parameters
             var parameters = ConvertDataToParameters(data);
 
             parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);

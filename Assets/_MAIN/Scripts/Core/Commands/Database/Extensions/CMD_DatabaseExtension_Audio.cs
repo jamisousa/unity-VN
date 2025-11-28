@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace COMMANDS
@@ -37,19 +35,11 @@ namespace COMMANDS
 
             var parameters = ConvertDataToParameters(data);
 
-            //try to get the name or path to the sound effect
             parameters.TryGetValue(PARAM_SFX, out filepath);
-
-            //get volume
             parameters.TryGetValue(PARAM_VOLUME, out volume, defaultValue: 1);
-
-            //pitch
             parameters.TryGetValue(PARAM_PITCH, out pitch, defaultValue: 1);
-
-            //sound loops
             parameters.TryGetValue<bool>(PARAM_LOOP, out loop, defaultValue: false);
 
-            //run logic
             AudioClip sound = Resources.Load<AudioClip>(FilePaths.GetPathToResource(FilePaths.resources_sfx, filepath));
 
 
@@ -69,7 +59,6 @@ namespace COMMANDS
 
         }
 
-        //TODO: play ambience would be identical to this one
         private static void PlaySong(string[] data)
         {
             string filePath;
@@ -99,7 +88,6 @@ namespace COMMANDS
 
             PlayTrack(filePath, channel, parameters);
         }
-
 
 
         private static void PlayTrack(string filepath, int channel, CommandParameters parameters)

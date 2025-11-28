@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,14 +8,12 @@ public class VN_Configuration
 
     public static string filePath => $"{FilePaths.root}vnconfig.cfg";
 
-    //General settings
     public bool display_fullscreen = true;
     public string display_resolution = "1920 x 1080";
     public bool continueSkippingAfterChoice = false;
     public float dialogueTextSpeed = 1f;
     public float dialogueAutoReadSpeed = 1f;
 
-    //Audio settings
     public float musicVolume = 1f;
     public float sfxVolume = 1f;
     public float voicesVolume = 1f;
@@ -25,18 +21,15 @@ public class VN_Configuration
     public bool sfxMute = false;
     public bool voiceMute = false;
 
-    //Other settings
     public float historyLogScale = 1f;
 
     public void Load()
     {
         var ui = ConfigMenu.instance.ui;
 
-        //apply general settings
         ConfigMenu.instance.SetDisplayToFullscreen(display_fullscreen);
         ui.SetButtonColors(ui.fullscreen, ui.windowed, display_fullscreen);
 
-        //screen resolution
         int res_index = 0;
         for(int i = 0; i < ui.resolutions.options.Count; i++)
         {

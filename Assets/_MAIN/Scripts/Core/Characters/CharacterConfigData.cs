@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using DIALOGUE;
 using TMPro;
@@ -10,8 +8,6 @@ namespace CHARACTERS
     [System.Serializable]
     public class CharacterConfigData
     {
-        //data container that defines the config params for a character
-
         public string name;
         public string alias;
         public Character.CharacterType characterType;

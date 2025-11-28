@@ -1,4 +1,0 @@
-SetLayerMedia(background kitchen)
-
-Raelin at 1 [0:4,1:Raelin_10] "Home sweet home.{wc 0.5} What do you wanna do first?"
-

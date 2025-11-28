@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using DIALOGUE;
 using UnityEngine;
 
 public class CanvasGroupController

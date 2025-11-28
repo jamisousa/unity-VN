@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 public class ChoicePanel : MonoBehaviour
 {
@@ -32,7 +31,6 @@ public class ChoicePanel : MonoBehaviour
         instance = this;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         cg = new CanvasGroupController(this, canvasGroup);
