@@ -12,6 +12,8 @@ namespace DIALOGUE.LogicalLines
 
         private const char CHOICE_IDENTIFIER = '-';
 
+        private const string EMPTY_CHOICE_TITLE_PLACEHOLDER = "empty";
+
         private bool IsChoiceStart(string line) => line.Trim().StartsWith(CHOICE_IDENTIFIER);
 
         public IEnumerator Execute(DIALOGUE_LINES line)
@@ -26,6 +28,11 @@ namespace DIALOGUE.LogicalLines
             ChoicePanel panel = ChoicePanel.instance;
 
             string[] choiceTitles = choices.Select(c => c.title).ToArray();
+
+            if (string.IsNullOrWhiteSpace(title) || title == EMPTY_CHOICE_TITLE_PLACEHOLDER)
+            {
+                title = "";
+            }
 
             panel.Show(title, choiceTitles);
 
