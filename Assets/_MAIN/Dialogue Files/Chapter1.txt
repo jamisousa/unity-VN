@@ -8,5 +8,3 @@ KMainChar as ??? "Hello."
 SetLayerMedia(background MainRoom_Day)
 
 KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
-
-
