@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using System.Text.RegularExpressions;
+
+
 public class InputRestriction : MonoBehaviour
 {
     [SerializeField] private TMP_InputField inputField;

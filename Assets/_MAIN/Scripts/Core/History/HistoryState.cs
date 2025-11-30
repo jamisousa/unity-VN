@@ -10,6 +10,7 @@ namespace History
         public List<CharacterData> characters;
         public List<AudioData> audio;
         public List<GraphicData> graphics;
+        public HeartsData hearts;
 
         public static HistoryState Capture()
         {
@@ -18,6 +19,7 @@ namespace History
             state.characters = CharacterData.Capture();
             state.audio = AudioData.Capture();
             state.graphics = GraphicData.Capture();
+            state.hearts = HeartsData.Capture();
 
             return state;
         }
@@ -28,6 +30,7 @@ namespace History
             CharacterData.Apply(characters);
             AudioData.Apply(audio);
             GraphicData.Apply(graphics);
+            HeartsData.Apply(hearts);
         }
     }
 }

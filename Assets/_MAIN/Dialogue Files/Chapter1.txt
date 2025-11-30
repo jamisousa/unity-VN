@@ -1,2 +1,46 @@
 wait(2)
 
+CreateCharacter(KMainChar)
+KMainChar.Show()
+
+KMainChar as ??? "Hello."
+
+
+KMainChar.Animate("Hop")
+
+SetLayerMedia(background MainRoom_Day)
+
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+
+narrator "Enter your name please"
+
+input "What is your name?"
+
+SetPlayerName(<input>)
+
+SetAffinity(4)
+
+narrator "Nice to meet you, <mainCharName>!"
+
+choice "Are we just testing choices now?"
+{
+	-Yes we are! And this is a very very very long choice button! And this is a very very very long choice button! And this is a very very very long choice button!
+		KMainChar "Goodie!"
+		SetAffinity(6)
+		<mainCharName> "Just because."
+		KMainChar "That is fine by me."
+
+	-Well duh.
+		KMainChar "Come on, dont be so mean."
+
+		choice "empty"
+		{
+			-My bad.
+				KMainChar "It's alright."
+				<mainCharName> "Are we good then?."
+				KMainChar "Of course we are."
+
+			-I'll think about it!
+				KMainChar "You infuriate me."
+		}
+}

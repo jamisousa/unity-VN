@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace COMMANDS
 {
-
-    //a base class used to extend the available commands in the command database
 
     public abstract class CMD_DatabaseExtension
     {

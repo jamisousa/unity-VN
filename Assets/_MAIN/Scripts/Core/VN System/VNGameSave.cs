@@ -5,6 +5,7 @@ using DIALOGUE;
 using History;
 using UnityEngine;
 
+
 namespace VISUALNOVEL
 {
 
@@ -29,6 +30,8 @@ namespace VISUALNOVEL
         public HistoryState[] historyLogs;
         public VN_VariableData[] variables;
         public string timestamp;
+
+        public int affinity;
 
         public bool newGame = true;
 
@@ -135,7 +138,6 @@ namespace VISUALNOVEL
                         {
                             TextAsset file = Resources.Load<TextAsset>(compressedData.fileName);
 
-                            //extract the lines depending if it is a subconversation - isolate the needed ones
                             int count = compressedData.endIndex - compressedData.startIndex;
 
                             List<string> lines = FileManager.ReadTextAsset(file).Skip(compressedData.startIndex).Take(count + 1).ToList();
@@ -148,7 +150,6 @@ namespace VISUALNOVEL
                         }
                     }
 
-                    //go through every conversation added, start a new conversation with 1st element and enqueue the rest
                     if (conversation != null && conversation.GetLines().Count > 0) { 
                         if(i == 0)
                         {
