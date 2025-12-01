@@ -24,6 +24,9 @@ public class AudioManager : MonoBehaviour
 
     public AnimationCurve audioFalloffCurve;
 
+    [Header("Typing SFX")]
+    public AudioClip typingClip1;
+
     private void Awake()
     {
         if(instance == null)

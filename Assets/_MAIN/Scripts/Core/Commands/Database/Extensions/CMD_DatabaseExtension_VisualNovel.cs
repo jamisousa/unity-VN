@@ -18,15 +18,34 @@ namespace COMMANDS
 
         private static void SetAffinity(string data)
         {
-            if (!int.TryParse(data, out int value))
+            int valueChange = 0;
+
+            if (data.StartsWith("+") || data.StartsWith("-"))
             {
-                UnityEngine.Debug.LogError($"[SetAffinity] Invalid value: {data}");
-                return;
+                if (!int.TryParse(data, out valueChange))
+                {
+                    UnityEngine.Debug.LogError($"[SetAffinity] Invalid value: {data}");
+                    return;
+                }
+
+                VNGameSave.activeFile.affinity += valueChange; 
+            }
+            else
+            {
+                if (!int.TryParse(data, out valueChange))
+                {
+                    UnityEngine.Debug.LogError($"[SetAffinity] Invalid value: {data}");
+                    return;
+                }
+
+                VNGameSave.activeFile.affinity = valueChange;
             }
 
-            VNGameSave.activeFile.affinity = value;
+            if (VNGameSave.activeFile.affinity < 0)
+                VNGameSave.activeFile.affinity = 0;
 
-            HeartsManager.instance.SetHearts(value);
+            HeartsManager.instance.SetHearts(VNGameSave.activeFile.affinity);
         }
+
     }
 }

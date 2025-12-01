@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TextArchitect
 {
+
     private TextMeshProUGUI tmpro_UI;
     private TextMeshPro tmpro_world;
 
@@ -181,16 +182,35 @@ public class TextArchitect
         tmpro.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
     }
 
-    private IEnumerator Build_Typewriter() { 
-    
-       while(tmpro.maxVisibleCharacters < tmpro.textInfo.characterCount)
+    private IEnumerator Build_Typewriter()
+    {
+        float soundInterval = 0.05f; 
+        float soundTimer = 0f;
+
+        while (tmpro.maxVisibleCharacters < tmpro.textInfo.characterCount)
         {
-            tmpro.maxVisibleCharacters +=  hurryText ? charactersPerCycle * 5 : charactersPerCycle;
+            int previous = tmpro.maxVisibleCharacters;
+            tmpro.maxVisibleCharacters += hurryText ? charactersPerCycle * 5 : charactersPerCycle;
+            int lettersAdded = tmpro.maxVisibleCharacters - previous;
+
+            soundTimer += 0.015f / speed;
+
+            if (soundTimer >= soundInterval && AudioManager.instance != null && lettersAdded > 0)
+            {
+                soundTimer = 0f;
+
+                if (AudioManager.instance.typingClip1 != null)
+                {
+                    AudioManager.instance.PlaySoundEffect(AudioManager.instance.typingClip1,
+                                                          AudioManager.instance.sfxMixer, 0.5f, 1f, false);
+                }
+            }
 
             yield return new WaitForSeconds(0.015f / speed);
         }
-
     }
+
+
 
     private IEnumerator Build_Fade() {
 

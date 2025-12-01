@@ -1,46 +1,620 @@
 wait(2)
 
+<mainCharName> as narrator "It's just another normal day in your life. {wc 1} After a long and tiring day at work, you boot up your laptop."
+
+<mainCharName> as narrator "It wouldn't hurt, right? {wa 1} Watching some silly videos or maybe trying to reconnect with a friend after so long. {wc 1} Adult life keeps you busy enough anyway."
+
+SetLayerMedia(cinematic WebBrowser -l 1)
+
+<mainCharName> as narrator "You open your web browser and log into an old site you used to use for chatting and video calls. {wc 1} Then, a notification pops up from someone you haven't talked to in months."
+
+<mainCharName> as narrator "Without a second thought, you accept the video call. But something strange happens right away."
+
+[wait]ClearLayerMedia(cinematic 1 -i true)
+
 CreateCharacter(KMainChar)
+
+wait(2)
+
+PlaySFX(Glitch)
+PlaySFX(ErrorGlitch)
+
+
+[wait]HideUI(-spd 0.5 -i false)
+
 KMainChar.Show()
 
-KMainChar as ??? "Hello."
+SetLayerMedia(background MainRoom_Day -l 0 -i true)
+KMainChar.SetColor(black)
+ClearLayerMedia(background 0 -i true)
 
+PlaySFX(Glitch)
+
+SetLayerMedia(background MainRoom_Day -l 0)
+KMainChar.SetColor(white)
+
+[wait]ShowUI(-i true)
+
+PlaySFX(Glitch)
+
+SetLayerMedia(background MainRoom_Day -l 0 -i true)
+KMainChar.SetColor(black)
+ClearLayerMedia(background 0 -i true)
+
+SetLayerMedia(background MainRoom_Day -l 0)
+
+KMainChar.SetSprite(KMainChar_ClosedEyes -l 0 -spd 1)
+
+KMainChar.SetColor(white)
+
+KMainChar.SetColor(red)
+
+KMainChar.SetColor(black)
+
+KMainChar.SetColor(white)
 
 KMainChar.Animate("Hop")
 
-SetLayerMedia(background MainRoom_Day)
+<mainCharName> as narrator "The screen flickers for a moment, and suddenly, a figure appears on the other side. {wc 4} Someone you don't recognize at all."
+
+KMainChar.SetSprite(KMainChar_Surprised -l 0 -spd 1)
+KMainChar.Animate("Hop")
+
+KMainChar as ??? "What the hell? {wa 1} Who are you supposed to be?"
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+
+<mainCharName> as You "That's what I should be asking! I was expecting a call from my friend."
+
+wait(2)
+
+PlaySFX(Glitch)
+PlaySFX(ErrorGlitch)
+
+SetLayerMedia(background MainRoom_Day -l 0 -i true)
+KMainChar.SetColor(black)
+ClearLayerMedia(background 0 -i true)
+
+wait(1)
+
+SetLayerMedia(background MainRoom_Day -l 0)
+KMainChar.SetColor(white)
+
+Playsong(CalmNight)
+
+KMainChar.Animate("Hop")
+KMainChar as ??? "Huh. . . {wa 1} weird. {wc 1} Really weird. {wa 1} That was not supposed to happen."
+
+<mainCharName> as You "And what exactly was supposed to happen?"
+
+KMainChar.Animate("Hop")
+KMainChar.SetSprite(KMainChar_Surprised -l 0 -spd 1)
+KMainChar as ??? "For starters, not you. {wa 0.5} Definitely not a stranger blinking into my screen like some low-budget horror intro."
+
+<mainCharName> as You "Hey, I'm not the one who jumped."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "I did not jump. {wa 1} I simply reacted in a normal, rational way to a visual anomaly."
+
+<mainCharName> as You "A normal reaction would've been waving. Or saying hi."
+
+KMainChar.Animate("Hop")
+KMainChar.SetSprite(KMainChar_Angry -l 0 -spd 1)
+KMainChar as ??? "A wave? What are you, a customer service tutorial? No. Glitch appears, I react. End of story."
+
+<mainCharName> as You "So you're saying I'm a glitch?"
+
+KMainChar.SetSprite(KMainChar_ClosedEyes -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "You're something. The system basically threw you at me like a digital brick. I'm still processing."
+ 
+<mainCharName> as You "Well, I didn't ask to be tossed anywhere, thanks."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "Yeah. . . I figured. You don't exactly look thrilled."
+
+narrator "He leans a little closer to the screen, narrowing his eyes like he's trying to read invisible text floating around you."
+
+KMainChar.SetSprite(KMainChar_Surprised -l 0 -spd 1)
+KMainChar as ??? "Hold on. Did your screen glitch too? Mine froze for a second before you showed up."
+
+<mainCharName> as You "It did flicker. I just thought it was the site being old."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "Old, yes. Capable of summoning strangers into video calls? Not so much."
+
+KMainChar.Animate("Hop")
+KMainChar as ??? "Okay, listen. I was poking around the system a bit. . . {wa 1} testing things, not summoning people, before you say anything."
+
+<mainCharName> as You "Testing what exactly?"
+
+KMainChar.Animate("Hop")
+KMainChar.SetSprite(KMainChar_Surprised -l 0 -spd 1)
+KMainChar as ??? "Not this! Not. . . whatever this is! You weren't even on my contact list. The site shouldn’t have matched us at all."
+
+<mainCharName> as You "So you're calling me a glitch and an accident. Great."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "Look, I'm calling the situation weird, not you. Mostly."
+
+<mainCharName> as You "Mostly?"
 
 KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "Yeah. I mean, who accepts random calls on dead websites? That's kinda weird."
 
-narrator "Enter your name please"
+<mainCharName> as You "I wasn't expecting *this*! I clicked because I thought it was my friend!"
+
+KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "Okay, okay! Don't yell at me. I'm just trying to make sense of the fact that someone literally phased into my screen."
+
+narrator "He rubs the back of his neck, clearly frustrated but also trying to look composed."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "Anyway. . . {wa 1} look, I don't really know how to explain this properly, but. . . {wc 1} I think we got stuck in some kind of system glitch."
+
+choice "empty"
+{
+    - "I mean, it could be worse. You don't look like a psycho or something."
+        KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+        KMainChar.Animate("Hop")
+        KMainChar as ??? "Oh wow. . . finally, someone actually tries to be polite. Not bad."
+        narrator "His voice sounds so sarcastic it makes you cringe."
+        KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+        <mainCharName> as You "I notice him holding back a laugh."
+        <mainCharName> as You "Sorry, I didn't mean it like that. . . {wa 1} you know. . ."
+        SetAffinity(+1)
+        PlaySFX(HeartUp)
+        KMainChar as ??? "It's alright, for God's sake. But. . ."
+
+    - "I guess I understand. Anyway, why am I even here? Can you fix it?"
+        KMainChar.Animate("Hop")
+        KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+        KMainChar as ??? "I suppose not. That kind of system glitch isn't exactly my top priority."
+
+        choice "empty"
+        {
+            - "How come? Aren't you some kind of tech guy?"
+                KMainChar.Animate("Hop")
+                KMainChar.SetSprite(KMainChar_Angry -l 0 -spd 1)
+                KMainChar as ??? "Oh, you're like those people. . . Tech guy, can you fix my air conditioner? Tech guy, fix my printer!"
+                <mainCharName> as You "No, not really. But let's be real, you admitted you were messing around with the system. How can you not do anything about it?"
+                KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+                KMainChar.Animate("Hop")
+                KMainChar as ??? "Yeah, sure, I did all that, but. . . there's a reason."
+
+            - "Just get me out of here."
+                KMainChar.Animate("Hop")
+                KMainChar.SetSprite(KMainChar_Angry -l 0 -spd 1)
+                KMainChar as ??? "Do I look like a miracle worker to you?"
+                <mainCharName> as You "No, but you just admitted you were messing around with the system. So. . . fix it."
+                SetAffinity(0)
+                PlaySFX(HeartDown)
+        }
+}
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? ". . .Anyway. Since we're both stuck here, might as well try not to make it awkward."
+<mainCharName> as You "Pretty sure we passed that point a few minutes ago."
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "Fair. Very fair."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "But seriously. . . most people would be yelling, freaking out, threatening to sue me. . ."
+<mainCharName> as You "Do people really do that?"
+KMainChar.SetSprite(KMainChar_ClosedEyes -l 0 -spd 1)
+KMainChar as ??? "Yeah, they do. Why wouldn't they? {wa 1} And honestly. . . I'm surprised you haven't turned your computer off yet."
+KMainChar as ??? "This is. . . kind of new to me."
+
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar as ??? "I guess what I'm saying is. . . thanks for not making this worse than it is?"
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "I'm still trying to figure out how the glitch pulled you in. It's like the system recognized you as. . . something it could latch onto."
+
+<mainCharName> as You "Is that a good thing?"
+KMainChar.SetSprite(KMainChar_ClosedEyes -l 0 -spd 1)
+KMainChar as ??? "Depends."
+KMainChar as ??? "You're talking back. You're calm. You're. . . present."
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "Most people would've disappeared the second they got scared."
+
+<mainCharName> as You "I don't reeeally understand what is going on here. . ."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "I'll humour you. {wa 1} Maybe you deserve to know why this is happening, since you're sticking around."
+KMainChar as ??? "It's not as simple as it sounds. Basically, I work with bug bounty."
+KMainChar as ??? "In simpler terms, I get paid to find system vulnerabilities. And this site is pretty old, not gonna lie. {wa 1} It definitely has issues."
+
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar as ??? "The fact that you're here right now is. . . well, solid evidence."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+<mainCharName> as You "So you're like a hunter? Uh. . . a digital. . . hunter. {wa 1} Or something."
+
+narrator "You hear him chuckle, even though it's subtle."
+
+KMainChar.Animate("Hop")
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar as ??? "Yeah. Something like that. {wc 2} You just made my job sound way cooler than it actually is."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "I mean. . . 'digital hunter' does sound badass."
+KMainChar as ??? "Makes me feel like I should start wearing a leather jacket and fighting cyber-demons or something."
+
+KMainChar as ??? "But really? Most days it's just me, my screen, and enough caffeine to kill time."
+KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+KMainChar as ??? "Not exactly glamorous."
+
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar as ??? "Still. . . it's funny."
+KMainChar as ??? "You fall straight into my screen just like that, and suddenly the whole thing feels. . . less boring."
+
+<mainCharName> as You "Are you saying I improved your day?"
+
+KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "I'm saying I wasn't expecting someone like you to show up out of nowhere."
+KMainChar as ??? "In my room. On my screen. Wherever you technically are."
+
+choice "empty"
+{
+    - "Well. . . I guess there are worse places to end up. You don't seem that bad."
+        KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+        KMainChar.Animate("Hop")
+        KMainChar as ??? "What are you even saying. . .?"
+        <mainCharName> as You "I'm just saying. . . you could've been rude. But you're not. Not really."
+        KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+        KMainChar as ??? "You're way too trusting for someone who literally fell into a stranger's screen."
+        <mainCharName> as You "Maybe. But you don't feel like a threat."
+        KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+        KMainChar as ??? "God. . . don't say things like that out of nowhere."
+        SetAffinity(+1)
+        PlaySFX(HeartUp)
+        KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+        KMainChar as ??? "Anyway. . . if we're stuck here for a bit, then. . . fine. I can deal with you."
+
+        <mainCharName> as You "I can just leave the call and let you deal with this alone!"
+        KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+        KMainChar as ??? "Wait, hold on! I didn't say I wanted you gone."
+        KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+        KMainChar as ??? "Just. . . don't hang up yet. Okay?"
+
+    - "So. . . what now? Do we just stay like this until the system stops freaking out?"
+        KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+        KMainChar.Animate("Hop")
+        KMainChar as ??? "Pretty much. I could try something, but I'd probably break ten other things in the process."
+        <mainCharName> as You "That doesn't sound very professional."
+        KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+        KMainChar as ??? "I'm not being paid for professionalism right now."
+        <mainCharName> as You "Fair enough."
+        KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+        KMainChar as ??? "Guess we're stuck as temporary chat buddies."
+        SetAffinity(+1)
+
+        <mainCharName> as You "I can just leave the call and let you deal with this alone!"
+        KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+        KMainChar.Animate("Hop")
+        KMainChar as ??? "You could. But you won't."
+        <mainCharName> as You "Oh? Confident, aren't you?"
+        KMainChar as ??? "Just realistic. You're curious. And I'm. . . not the worst company."
+        KMainChar.Animate("Hop")
+
+    - "Okay, but seriously. This is getting annoying. Find a way to send me back already. I wanna talk to my friend."
+        KMainChar.SetSprite(KMainChar_Angry -l 0 -spd 1)
+        KMainChar.Animate("Hop")
+        KMainChar as ??? "Are you always this impatient? Or is it just with me?"
+        <mainCharName> as You "I just don't like being dragged somewhere without a warning."
+        KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+        KMainChar as ??? "Yeah? Well, neither do I. But here we are."
+        <mainCharName> as You "So fix it."
+        KMainChar.SetSprite(KMainChar_Angry -l 0 -spd 1)
+        KMainChar as ??? "I'm not a magician!"
+        PlaySFX(HeartDown)
+        SetAffinity(-2)
+
+        KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+        KMainChar as ??? "Tch. . . whatever. I'll see what I can do later."
+
+        <mainCharName> as You "I can just leave the call and let you deal with this alone!"
+        KMainChar.SetSprite(KMainChar_Angry -l 0 -spd 1)
+        KMainChar as ??? "Oh? I thought you were staying? {wc 2} Go ahead, then. Not like this is my fault. . . {wc 1} entirely my fault, at least."
+
+        <mainCharName> as You "You're seriously pushing me away right now? You sounded sweet like a minute ago."
+        KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+        KMainChar as ??? "And you sounded patient a minute ago. People shift. I get it."
+        <mainCharName> as You "So. . . that's it?"
+        KMainChar as ??? "No. I didn't say that."
+
+        narrator "There's a tension neither of you quite knows how to navigate. You're irritated. He's defensive. Neither one wants to end the call first."
+
+        KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+        KMainChar.Animate("Hop")
+        KMainChar as ??? ". . . Okay. Look."
+        KMainChar as ??? "I didn't mean to snap at you. Not exactly."
+        <mainCharName> as You "You sounded pretty close to meaning it."
+        KMainChar.SetSprite(KMainChar_Angry -l 0 -spd 1)
+        KMainChar as ??? "Yeah, well. . . sometimes I talk before I think."
+        KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+        KMainChar as ??? "I'm better with code than people. With code, when something breaks, I know why. With people. . ."
+        KMainChar as ??? ". . . I just make it worse without realizing."
+
+        narrator "His tone softens. Not fully apologetic — he doesn't seem like the type — but honest."
+
+        <mainCharName> as You "So you didn't actually want me to leave?"
+        KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+        KMainChar.Animate("Hop")
+        KMainChar as ??? "No. I didn't."
+        KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+        KMainChar as ??? "I just got frustrated. With the glitch. With myself. With. . . everything."
+
+        narrator "The call feels strangely quiet now, but not uncomfortable. Just real — two people calming down after crossing wires."
+
+        KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+        KMainChar as ??? ". . . You know, it's strange."
+        KMainChar as ??? "I've talked to people online before. But this. . . feels different."
+}
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? ". . . You know, it's strange."
+KMainChar as ??? "I've talked to people online before. But this. . . feels different."
+
+<mainCharName> as You "Different how?"
+
+KMainChar.Animate("Hop")
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar as ??? "Like you're actually here. Not just another username on a screen."
+
+narrator "His voice drops a little, softer, almost careful."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "And the way you talk to me. . . I don't know. It feels real."
+
+<mainCharName> as You "It *is* real. I'm right here, aren't I?"
+
+KMainChar.Animate("Hop")
+KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+KMainChar as ??? "Yeah. That's the problem."
+
+narrator "He runs a hand through his hair, looking anywhere but at you."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "I don't usually talk to people that much. Not even online. Especially not online."
+
+<mainCharName> as You "But you're letting me in."
+
+KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "Don't make it sound weird. I just. . ."
+KMainChar as ??? "I think I want to know more about you."
+
+narrator "His eyes finally meet yours again. For once, there's no sarcasm, no teasing. {wc 1} Just honesty."
+
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar as ??? "So. . . can I ask you something?"
+KMainChar as ??? "Your name. I want to know your name."
+
+<mainCharName> as You "You want mine, but you won't give yours?"
+
+KMainChar.SetSprite(KMainChar_ClosedEyes -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "It's not that I don't want to."
+KMainChar as ??? "It's just. . . my name isn't something I'm comfortable with."
+
+narrator "His tone shifts quieter. {wa 1} Heavier, like he's revealing something he usually keeps locked away."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "Someone I used to live with chose it. {wa 1} Someone I don't want tied to me anymore."
+KMainChar as ??? "Every time I say it out loud, it feels like I'm back in that house. {wc 1} Inside that version of me I'm trying to forget."
+
+KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+KMainChar as ??? "So. . . I'd rather keep it to myself for now. If that's okay."
+
+<mainCharName> as You "You don't have to explain more than that. I get it."
+
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "Thanks. Really."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "But your name. . ."
+KMainChar as ??? "I want to call you something real. Not just 'you'."
+KMainChar as ??? "So. . . would you tell me?"
 
 input "What is your name?"
-
 SetPlayerName(<input>)
 
-SetAffinity(4)
+KMainChar.SetSprite(KMainChar_ClosedEyes -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? ". . . <mainCharName>."
+KMainChar as ??? "Huh. That sounds. . . {wa 1} nicer than I expected."
 
-narrator "Nice to meet you, <mainCharName>!"
+KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+KMainChar as ??? "It fits you. {wa 1} Somehow."
 
-choice "Are we just testing choices now?"
+<mainCharName> "Is that a compliment, or are you messing with me again?"
+
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "If it were an insult, you'd know. I'm not subtle."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "But no. I meant it."
+KMainChar as ??? "Feels. . . grounding, I guess. {wa 1} Having something real to call you."
+
+narrator "He shifts slightly, like he's trying to hide the softness in his tone."
+
+KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+KMainChar as ??? "Sorry. I'm not used to this. Talking like this. Saying things that aren't. . . {wa 1} jokes."
+KMainChar as ??? "And you're still here. {a} So. . ."
+
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar as ??? "Guess you deserve a little honesty back, don't you think?"
+
+<mainCharName> "Then be honest with me now."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "Alright. Honest version?"
+KMainChar as ??? "I'm. . . glad you're here, I think. Even if this whole thing makes zero sense. {wc 1} I wouldn't have anyone else to talk about this."
+
+KMainChar.SetSprite(KMainChar_ClosedEyes -l 0 -spd 1)
+KMainChar as ??? "And yeah. . . your name makes it feel a bit less like I'm talking to a ghost in my machine. {wa 1} Or just a random curious person."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "So. . . <mainCharName>."
+KMainChar as ??? "Since we're stuck together for a while. . ."
+
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar as ??? "What do you want to know about me?"
+
+choice "empty"
 {
-	-Yes we are! And this is a very very very long choice button! And this is a very very very long choice button! And this is a very very very long choice button!
-		KMainChar "Goodie!"
-		SetAffinity(6)
-		<mainCharName> "Just because."
-		KMainChar "That is fine by me."
+    - "Can you tell me something you actually like? Something that makes you feel happy?"
+        KMainChar.SetSprite(KMainChar_Surprised -l 0 -spd 1)
+        KMainChar as ??? ". . . Huh. {wa 1} Didn't expect you to jump straight into that."
 
-	-Well duh.
-		KMainChar "Come on, dont be so mean."
+        KMainChar.SetSprite(KMainChar_ClosedEyes -l 0 -spd 1)
+        KMainChar as ??? "I guess... quiet things."
+        KMainChar as ??? "Late nights. {a} Screens humming. {a} Rain tapping on the window."
+        KMainChar as ??? "That moment when the whole world finally shuts up for five minutes."
 
-		choice "empty"
-		{
-			-My bad.
-				KMainChar "It's alright."
-				<mainCharName> "Are we good then?."
-				KMainChar "Of course we are."
+        KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+        KMainChar as ??? "It's silly, right? {a} But it makes everything feel a little less heavy."
 
-			-I'll think about it!
-				KMainChar "You infuriate me."
-		}
+        KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+        KMainChar as ??? "And it's been a while since anyone asked what I like, so... {a} thanks, <mainCharName>."
+
+        SetAffinity(+1)
+        PlaySFX(HeartUp)
+
+    - "So how does your job actually work? What's a normal day for a bug hunter?"
+        KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+        KMainChar.Animate("Hop")
+        KMainChar as ??? "Curious, huh? Fine, fine. {a} Honestly, it's not that different from what I told you earlier."
+
+        KMainChar.SetSprite(KMainChar_ClosedEyes -l 0 -spd 1)
+        KMainChar as ??? "Most days I sit at my desk and stare at the screen for a bit. Break old systems or poke at random websites."
+        KMainChar as ??? "Just like this one. Newer sites are great too, finding a vulnerability usually gets me a nice payout."
+        KMainChar as ??? "Sometimes it feels like the sites are plotting to ruin my day. {a} Other times I feel like the smartest nerd alive."
+
+        KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+        KMainChar as ??? "But solving things feels good. Like winning a fight nobody else saw."
+
+        SetAffinity(+1)
 }
+
+PlaySFX(Glitch)
+PlaySFX(ErrorGlitch)
+
+[wait]HideUI(-spd 0.5 -i false)
+
+SetLayerMedia(background MainRoom_Day -l 0 -i true)
+KMainChar.SetColor(black)
+ClearLayerMedia(background 0 -i true)
+
+PlaySFX(Glitch)
+
+SetLayerMedia(background MainRoom_Day -l 0)
+KMainChar.SetColor(white)
+
+[wait]ShowUI(-i true)
+
+PlaySFX(Glitch)
+
+SetLayerMedia(background MainRoom_Day -l 0 -i true)
+KMainChar.SetColor(black)
+ClearLayerMedia(background 0 -i true)
+
+SetLayerMedia(background MainRoom_Day -l 0)
+KMainChar.SetColor(white)
+
+KMainChar.SetColor(red)
+
+KMainChar.SetColor(black)
+
+KMainChar.SetColor(white)
+
+KMainChar.SetSprite(KMainChar_Surprised -l 0 -spd 1)
+KMainChar.Animate("Hop")
+
+<mainCharName> "Hold on. . . what was that? That wasn't me."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "The site’s throwing a fit. Something on their end is trying to force a reset."
+
+<mainCharName> "Meaning. . .?"
+
+KMainChar.SetSprite(KMainChar_Angry -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "Meaning it's about to kick you out. Fantastic. Because of course it would happen now."
+
+PlaySFX(Glitch)
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "Listen— I can’t stop the re—set, but I can follow whatever th—read pul—led y—ou in."
+
+KMainChar.SetSprite(KMainChar_Happy -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "Worst case, I —— this prehistoric ——— of a sys—tem again."
+
+<mainCharName> "You'll find me again?"
+
+KMainChar.SetSprite(KMainChar_HeavyBlush -l 0 -spd 1)
+KMainChar.Animate("Hop")
+KMainChar as ??? "Yeah. I will."
+KMainChar as ??? "I already flagged the ——— that dragged you to me."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "Next time — I’ll pull you back from my side. No surprises."
+
+KMainChar.SetSprite(KMainChar_ClosedEyes -l 0 -spd 1)
+KMainChar as ??? "So just stay ar—ound, okay? Don’t va—nish on me. I'd be pretty piss—d. {wa 1} Especial—ly now that I just got to know you."
+
+KMainChar.SetSprite(KMainChar_Default -l 0 -spd 1)
+KMainChar as ??? "Here comes the reset. . ."
+
+PlaySFX(ErrorGlitch)
+KMainChar.Hide()
+
+PlaySFX(Glitch)
+PlaySFX(ErrorGlitch)
+
+SetLayerMedia(background MainRoom_Day -l 0 -i true)
+KMainChar.SetColor(black)
+ClearLayerMedia(background 0 -i true)
+
+PlaySFX(Glitch)
+
+SetLayerMedia(background MainRoom_Day -l 0)
+KMainChar.SetColor(white)
+
+PlaySFX(Glitch)
+
+SetLayerMedia(background MainRoom_Day -l 0 -i true)
+KMainChar.SetColor(black)
+ClearLayerMedia(background 0 -i true)
+
+SetLayerMedia(background MainRoom_Day -l 0)
+KMainChar.SetColor(white)
+
+KMainChar.SetColor(red)
+
+KMainChar.SetColor(black)
+
+KMainChar.SetColor(white)
+
+
+[wait]HideUI(-spd 0.5 -i false)
+
+wait(2)
+
+[wait]ShowUI(-i true)
+
+[wait]HideUI(-spd 0.5 -i false)
