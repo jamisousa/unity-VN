@@ -6,37 +6,31 @@ using UnityEngine;
 
 namespace DIALOGUE.LogicalLines
 {
-
     public static class LogicalLineUtils
     {
         public static class Encapsulation
         {
-
             public struct EncapsulatedData
             {
                 public List<string> lines;
-                public int endingIndex;
                 public int startingIndex;
-                public bool isNull => lines == null;
+                public int endingIndex;
             }
 
             private const char ENCAPSULATION_START = '{';
             private const char ENCAPSULATION_END = '}';
 
-
-            public static EncapsulatedData RipEncapsulationData(Conversation conversation, int startingIndex, bool ripHeaderAndEncapsulators = false, int parentStartingIndex = 0)
+            public static EncapsulatedData RipEncapsulationData(Conversation conversation, int startingIndex, bool ripHeaderAndEncapsulators = false)
             {
                 int encapsulationDepth = 0;
-                EncapsulatedData data = new EncapsulatedData { lines = new List<string>(), startingIndex = (startingIndex + parentStartingIndex), endingIndex = 0 };
+                EncapsulatedData data = new EncapsulatedData { lines = new List<string>(), startingIndex = startingIndex, endingIndex = 0 };
 
                 for (int i = startingIndex; i < conversation.Count; i++)
                 {
                     string line = conversation.GetLines()[i];
 
                     if (ripHeaderAndEncapsulators || (encapsulationDepth > 0 && !IsEncapsulationEnd(line)))
-                    {
                         data.lines.Add(line);
-                    }
 
                     if (IsEncapsulationStart(line))
                     {
@@ -47,10 +41,9 @@ namespace DIALOGUE.LogicalLines
                     if (IsEncapsulationEnd(line))
                     {
                         encapsulationDepth--;
-
                         if (encapsulationDepth == 0)
                         {
-                            data.endingIndex = (i+parentStartingIndex);
+                            data.endingIndex = i;
                             break;
                         }
                     }
@@ -102,7 +95,8 @@ namespace DIALOGUE.LogicalLines
 
             private static void CalculateValue_DivisionAndMultiplication(List<string> operatorStrings, List<object> operands)
             {
-                for (int i = 0; i < operatorStrings.Count; i++) {
+                for (int i = 0; i < operatorStrings.Count; i++)
+                {
                     string operatorString = operatorStrings[i];
 
                     if (operatorString == "*" || operatorString == "/")
@@ -111,26 +105,24 @@ namespace DIALOGUE.LogicalLines
                         double rightOperand = Convert.ToDouble(operands[i + 1]);
 
                         if (operatorString == "*")
-                        {
                             operands[i] = leftOperand * rightOperand;
-                        }
                         else
                         {
                             if (rightOperand == 0)
                             {
-                                Debug.LogError("Cannot divide by zero.");
-                                return;
+                                if (rightOperand == 0) // Check for division by zero
+                                {
+                                    Debug.LogError("Cannot divide by zero!");
+                                    return;
+                                }
+                                operands[i] = leftOperand / rightOperand;
                             }
-
-                            operands[i] = leftOperand / rightOperand;
                         }
 
                         operands.RemoveAt(i + 1);
                         operatorStrings.RemoveAt(i);
                         i--;
                     }
-
-
                 }
             }
 
@@ -143,16 +135,12 @@ namespace DIALOGUE.LogicalLines
                     if (operatorString == "+" || operatorString == "-")
                     {
                         double leftOperand = Convert.ToDouble(operands[i]);
-                        double rightOperand = Convert.ToDouble((operands[i + 1]));
+                        double rightOperand = Convert.ToDouble(operands[i + 1]);
 
                         if (operatorString == "+")
-                        {
                             operands[i] = leftOperand + rightOperand;
-                        }
                         else
-                        {
-                            operands[i] = rightOperand - leftOperand;
-                        }
+                            operands[i] = leftOperand - rightOperand;
 
                         operands.RemoveAt(i + 1);
                         operatorStrings.RemoveAt(i);
@@ -174,25 +162,21 @@ namespace DIALOGUE.LogicalLines
                 if (value.StartsWith(VariableStore.VARIABLE_ID))
                 {
                     string variableName = value.TrimStart(VariableStore.VARIABLE_ID);
-
-                    if (!VariableStore.HasVariable(variableName)) {
-
-                        Debug.Log($"Variable {variableName} does not exist.");
+                    if (!VariableStore.HasVariable(variableName))
+                    {
+                        Debug.LogError($"Variable {variableName} does not exist!");
+                        return null;
                     }
 
                     VariableStore.TryGetValue(variableName, out object val);
 
-                    if(val is bool boolVal && negate)
-                    {
+                    if (val is bool boolVal && negate)
                         return !boolVal;
-                    }
 
                     return val;
                 }
-
                 else if (value.StartsWith('\"') && value.EndsWith('\"'))
                 {
-
                     value = TagManager.Inject(value, injectTags: true, injectVariables: true);
                     return value.Trim('"');
                 }
@@ -219,7 +203,6 @@ namespace DIALOGUE.LogicalLines
             }
         }
 
-
         public static class Conditions
         {
             public static readonly string REGEX_CONDITIONAL_OPERATORS = @"(==|!=|<=|>=|<|>|&&|\|\|)";
@@ -231,34 +214,29 @@ namespace DIALOGUE.LogicalLines
                 string[] parts = Regex.Split(condition, REGEX_CONDITIONAL_OPERATORS)
                     .Select(p => p.Trim()).ToArray();
 
-                for (int i = 0; i < parts.Length; i++) {
-
+                for (int i = 0; i < parts.Length; i++)
+                {
                     if (parts[i].StartsWith("\"") && parts[i].EndsWith("\""))
-                    {
                         parts[i] = parts[i].Substring(1, parts[i].Length - 2);
-                    }
                 }
 
-                if(parts.Length == 1)
+                if (parts.Length == 1)
                 {
                     if (bool.TryParse(parts[0], out bool result))
-                    {
                         return result;
-                    }
                     else
                     {
-                        Debug.LogError($"Could not parse condition {condition}");
+                        Debug.LogError($"Could not parse condition: {condition}");
                         return false;
                     }
                 }
-
-                else if(parts.Length == 3)
+                else if (parts.Length == 3)
                 {
                     return EvaluateExpression(parts[0], parts[1], parts[2]);
                 }
                 else
                 {
-                    Debug.LogError($"Unsupported condition format {condition}");
+                    Debug.LogError($"Unsupported condition format: {condition}");
                     return false;
                 }
             }
@@ -267,73 +245,50 @@ namespace DIALOGUE.LogicalLines
 
             private static Dictionary<string, OperatorFunc<bool>> boolOperators = new Dictionary<string, OperatorFunc<bool>>()
             {
-                {"&&", (left, right) => left && right },
-                {"||", (left, right) => left || right },
-                {"==", (left, right) => left == right },
-                {"!=", (left, right) => left != right },
+                { "&&", (left, right) => left && right },
+                { "||", (left, right) => left || right },
+                { "==", (left, right) => left == right },
+                { "!=", (left, right) => left != right }
             };
 
             private static Dictionary<string, OperatorFunc<float>> floatOperators = new Dictionary<string, OperatorFunc<float>>()
             {
-                {"==", (left, right) => left == right },
-                {"!=", (left, right) => left != right },
-                {">", (left, right) => left > right },
-                {">=", (left, right) => left >= right },
-                {"<", (left, right) => left < right },
-                {"<=", (left, right) => left <= right },
+                { "==", (left, right) => left == right },
+                { "!=", (left, right) => left != right },
+                { ">", (left, right) => left > right },
+                { ">=", (left, right) => left != right },
+                { "<", (left, right) => left < right },
+                { "<=", (left, right) => left <= right }
             };
 
             private static Dictionary<string, OperatorFunc<int>> intOperators = new Dictionary<string, OperatorFunc<int>>()
             {
-                {"==", (left, right) => left == right },
-                {"!=", (left, right) => left != right },
-                {">", (left, right) => left > right },
-                {">=", (left, right) => left >= right },
-                {"<", (left, right) => left < right },
-                {"<=", (left, right) => left <= right },
+                { "==", (left, right) => left == right },
+                { "!=", (left, right) => left != right },
+                { ">", (left, right) => left > right },
+                { ">=", (left, right) => left != right },
+                { "<", (left, right) => left < right },
+                { "<=", (left, right) => left <= right }
             };
-
 
             private static bool EvaluateExpression(string left, string op, string right)
             {
-
                 if (bool.TryParse(left, out bool leftBool) && bool.TryParse(right, out bool rightBool))
-                {
-                    if (boolOperators.ContainsKey(op))
-                    {
-                        return boolOperators[op](leftBool, rightBool);
-                    }
-                }
-
+                    return boolOperators[op](leftBool, rightBool);
 
                 if (float.TryParse(left, out float leftFloat) && float.TryParse(right, out float rightFloat))
-                {
-                    if (floatOperators.ContainsKey(op))
-                    {
-                        return floatOperators[op](leftFloat, rightFloat);
-                    }
-                }
+                    return floatOperators[op](leftFloat, rightFloat);
 
-
-                if (int.TryParse(left, out int leftInt) && int.TryParse(right, out int rightInt))
-                {
-                    if (intOperators.ContainsKey(op))
-                    {
-                        return intOperators[op](leftInt, rightInt);
-                    }
-                }
+                if (int.TryParse(left, out int leftInt) && int.TryParse(right, out int rightint))
+                    return intOperators[op](leftInt, rightint);
 
                 switch (op)
                 {
                     case "==": return left == right;
                     case "!=": return left != right;
-                    default: throw new InvalidOperationException($"Unsupported operation {op}");
+                    default: throw new InvalidOperationException($"Unsupported Operation: {op}");
                 }
-
             }
-
         }
-
-
     }
 }

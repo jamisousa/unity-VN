@@ -8,6 +8,7 @@ namespace History
 
     public class HistoryLogManager : MonoBehaviour
     {
+
         private const float LOG_STARTING_HEIGHT = 2f;
         private const float LOG_HEIGHT_PER_LINE = 2f;
         private const float LOG_DEFAULT_HEIGHT = 1f;
@@ -24,6 +25,7 @@ namespace History
 
         [SerializeField] private Animator anim;
         [SerializeField] private GameObject logPrefab;
+        [SerializeField] private Transform logsParent;
 
         HistoryManager manager => HistoryManager.instance;
         private List<HistoryLog> logs = new List<HistoryLog>();
@@ -77,7 +79,7 @@ namespace History
         {
             HistoryLog log = new HistoryLog();
 
-            log.container = Instantiate(logPrefab, logPrefab.transform.parent);
+            log.container = Instantiate(logPrefab, logsParent);
 
             log.container.SetActive(true);
 

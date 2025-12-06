@@ -3549,7 +3549,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.042224918, y: 0.88743454}
   m_AnchorMax: {x: 0.98100007, y: 1}
-  m_AnchoredPosition: {x: -0.987183, y: -4.970001}
+  m_AnchoredPosition: {x: -0.98718303, y: -4.970001}
   m_SizeDelta: {x: 2.0200005, y: -13.299999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &253471222
@@ -6716,7 +6716,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: 0.0008239746}
+  m_AnchoredPosition: {x: 0.005554199, y: 0.000091552734}
   m_SizeDelta: {x: -0.0065918, y: 562.95}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &462855225
@@ -12816,7 +12816,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.99489427, y: 0.8925323}
-  m_AnchoredPosition: {x: 2.4976807, y: 31.462997}
+  m_AnchoredPosition: {x: 2.4976807, y: 31.462982}
   m_SizeDelta: {x: 4.29, y: 61.841}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &934306171
@@ -14258,7 +14258,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music Volume
+  m_text: 'Music / Ambience Volume
 
 '
   m_isRightToLeft: 0
@@ -17182,8 +17182,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 29354528}
   m_HandleRect: {fileID: 29354527}
   m_Direction: 2
-  m_Value: 0.9999912
-  m_Size: 0.8770131
+  m_Value: 1
+  m_Size: 0.9999976
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -23665,8 +23665,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 986916840}
   m_HandleRect: {fileID: 986916839}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.99999857
+  m_Value: 0
+  m_Size: 0.9999993
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

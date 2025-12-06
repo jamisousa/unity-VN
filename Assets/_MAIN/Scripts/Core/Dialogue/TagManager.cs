@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
-using DIALOGUE;
 using VISUALNOVEL;
 
 public class TagManager
@@ -13,7 +11,16 @@ public class TagManager
         { "<mainCharName>",     () => VNGameSave.activeFile.playerName },
         { "<time>",         () => DateTime.Now.ToString("hh:mm tt")},
         { "<playerLevel>",  () => "0"},
-        { "<input>",        () => InputPanel.instance.lastInput}
+        { "<input>",        () => InputPanel.instance.lastInput},
+        { "<KMainCharData>", () =>
+        {
+            int[] chars = { 75,105,101,114,97,110,32,69,108,108,101,114,121 };
+            return new string(chars.Select(c => (char)c).ToArray());
+        }},
+        { "<affinity>", () => HeartsManager.instance != null
+            ? HeartsManager.instance.CurrentHearts.ToString()
+            : "0"
+        },
     };
 
     private static readonly Regex tagRegex = new Regex("<\\w+>");

@@ -9,61 +9,36 @@ namespace DIALOGUE.LogicalLines
     public class LL_Choice : ILogicalLine
     {
         public string keyword => "choice";
-
         private const char CHOICE_IDENTIFIER = '-';
-
-        private const string EMPTY_CHOICE_TITLE_PLACEHOLDER = "empty";
-
-        private bool IsChoiceStart(string line) => line.Trim().StartsWith(CHOICE_IDENTIFIER);
 
         public IEnumerator Execute(DIALOGUE_LINES line)
         {
             var currentConversation = DialogueSystem.instance.conversationManager.conversation;
             var progress = DialogueSystem.instance.conversationManager.conversationProgress;
-            EncapsulatedData data = RipEncapsulationData(currentConversation, progress, ripHeaderAndEncapsulators: true, parentStartingIndex: currentConversation.fileStartIndex);
-
+            EncapsulatedData data = RipEncapsulationData(currentConversation, progress, ripHeaderAndEncapsulators: true);
             List<Choice> choices = GetChoicesFromData(data);
 
-            string title = line.dialogueData.rawData;
+            //string title = line.dialogueData.rawData;
+            string title = line.dialogueData?.rawData ?? "";
             ChoicePanel panel = ChoicePanel.instance;
-
             string[] choiceTitles = choices.Select(c => c.title).ToArray();
-
-            if (string.IsNullOrWhiteSpace(title) || title == EMPTY_CHOICE_TITLE_PLACEHOLDER)
-            {
-                title = "";
-            }
 
             panel.Show(title, choiceTitles);
 
             while (panel.isWaitingOnUserChoice)
-            {
                 yield return null;
-            }
 
             Choice selectedChoice = choices[panel.lastDecision.answerIndex];
 
-            Conversation newConversation = new Conversation(selectedChoice.resultLines, file: currentConversation.file, fileStartIndex: selectedChoice.startIndex, fileEndIndex: selectedChoice.endIndex);
-            DialogueSystem.instance.conversationManager.conversation.SetProgress(data.endingIndex - currentConversation.fileStartIndex);
+            Conversation newConversation = new Conversation(selectedChoice.resultLines);
+            DialogueSystem.instance.conversationManager.conversation.SetProgress(data.endingIndex);
             DialogueSystem.instance.conversationManager.EnqueuePriority(newConversation);
-
-            AutoReader autoReader = DialogueSystem.instance.autoReader;
-
-            if (autoReader != null && autoReader.isOn && autoReader.skip)
-            {
-                if (VN_Configuration.activeConfig != null && !VN_Configuration.activeConfig.continueSkippingAfterChoice)
-                {
-                    autoReader.Disable();
-                }
-            }
         }
-  
 
         public bool Matches(DIALOGUE_LINES line)
         {
             return (line.hasSpeaker && line.speakerData.name.ToLower() == keyword);
         }
-
 
         private List<Choice> GetChoicesFromData(EncapsulatedData data)
         {
@@ -77,52 +52,42 @@ namespace DIALOGUE.LogicalLines
                 resultLines = new List<string>(),
             };
 
-            int choiceIndex = 0, i = 0;
-            for(i = 1; i < data.lines.Count; i++)
+            foreach (var line in data.lines.Skip(1))
             {
-                var line = data.lines[i];
-                if(IsChoiceStart(line) && encapsulationDepth == 1)
+                if (IsChoiceStart(line) && encapsulationDepth == 1)
                 {
-                    if(!isFirstChoice)
+                    if (!isFirstChoice)
                     {
-                     choice.startIndex = data.startingIndex + (choiceIndex + 1);
-                     choice.endIndex = data.startingIndex + (i - 1);
-                     choices.Add(choice);
-                     choice = new Choice
-                            {
-                                title = string.Empty,
-                                resultLines = new List<string>(),
-                            };
+                        choices.Add(choice);
+                        choice = new Choice
+                        {
+                            title = string.Empty,
+                            resultLines = new List<string>(),
+                        };
                     }
 
-                   choiceIndex = i;
-                   choice.title = line.Trim().Substring(1);
-                   isFirstChoice = false;
-                   continue;
-                    
+                    choice.title = line.Trim().Substring(1);
+                    isFirstChoice = false;
+                    continue;
                 }
 
                 AddLineToResults(line, ref choice, ref encapsulationDepth);
             }
+
             if (!choices.Contains(choice))
-            {
-                choice.startIndex = data.startingIndex + (choiceIndex + 1);
-                choice.endIndex = data.startingIndex + (i - 2);
                 choices.Add(choice);
-            }
+
             return choices;
         }
 
         private void AddLineToResults(string line, ref Choice choice, ref int encapsulationDepth)
         {
             line.Trim();
+
             if (IsEncapsulationStart(line))
             {
-                if(encapsulationDepth > 0)
-                {
+                if (encapsulationDepth > 0)
                     choice.resultLines.Add(line);
-                }
-
                 encapsulationDepth++;
                 return;
             }
@@ -131,10 +96,8 @@ namespace DIALOGUE.LogicalLines
             {
                 encapsulationDepth--;
 
-                if(encapsulationDepth > 0)
-                {
+                if (encapsulationDepth > 0)
                     choice.resultLines.Add(line);
-                }
 
                 return;
             }
@@ -142,13 +105,12 @@ namespace DIALOGUE.LogicalLines
             choice.resultLines.Add(line);
         }
 
+        private bool IsChoiceStart(string line) => line.Trim().StartsWith(CHOICE_IDENTIFIER);
 
         private struct Choice
         {
             public string title;
             public List<string> resultLines;
-            public int startIndex;
-            public int endIndex;
         }
     }
 }

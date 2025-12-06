@@ -27,7 +27,8 @@ namespace COMMANDS
             database.AddCommand("stopambience", new Action<string>(StopAmbience));
         }
 
-        private static void PlaySFX(string[] data) {
+        private static void PlaySFX(string[] data)
+        {
 
             string filepath;
             float volume, pitch;
@@ -42,21 +43,17 @@ namespace COMMANDS
 
             AudioClip sound = Resources.Load<AudioClip>(FilePaths.GetPathToResource(FilePaths.resources_sfx, filepath));
 
-
-            if(sound == null)
+            if (sound == null)
             {
                 return;
             }
-
 
             AudioManager.instance.PlaySoundEffect(sound, volume: volume, pitch: pitch, loop: loop);
         }
 
         private static void StopSFX(string data)
         {
-
             AudioManager.instance.StopSoundEffect(data);
-
         }
 
         private static void PlaySong(string[] data)
@@ -89,7 +86,6 @@ namespace COMMANDS
             PlayTrack(filePath, channel, parameters);
         }
 
-
         private static void PlayTrack(string filepath, int channel, CommandParameters parameters)
         {
             bool loop;
@@ -106,7 +102,7 @@ namespace COMMANDS
 
             AudioClip sound = Resources.Load<AudioClip>(filepath);
 
-            if(sound == null)
+            if (sound == null)
             {
                 Debug.Log("Unble to load sound");
                 return;
@@ -115,10 +111,9 @@ namespace COMMANDS
             AudioManager.instance.PlayTrack(sound, channel, loop, startVolume, volumeCap, pitch, filepath);
         }
 
-
         private static void StopTrack(string data)
         {
-            if(int.TryParse(data, out int channel))
+            if (int.TryParse(data, out int channel))
             {
                 AudioManager.instance.StopTrack(channel);
             }
@@ -128,10 +123,9 @@ namespace COMMANDS
             }
         }
 
-        
         private static void StopSong(string data)
         {
-            if(data == string.Empty)
+            if (data == string.Empty)
             {
                 StopTrack("1");
             }

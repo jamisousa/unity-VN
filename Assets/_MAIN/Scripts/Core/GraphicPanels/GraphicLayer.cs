@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
+
 public class GraphicLayer
 {
     public const string LAYER_OBJECT_NAME_FORMAT = "Layer: {0}";

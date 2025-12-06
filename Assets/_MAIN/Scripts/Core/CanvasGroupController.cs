@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class CanvasGroupController
 {
     private const float DEFAULT_FADE_SPEED = 3f;

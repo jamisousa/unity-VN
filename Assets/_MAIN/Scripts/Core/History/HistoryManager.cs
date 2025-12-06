@@ -9,7 +9,7 @@ namespace History
     [RequireComponent(typeof(HistoryNavigation))]
     public class HistoryManager : MonoBehaviour
     {
-        public const int HISTORY_CACHE_LIMIT = 100;
+        public const int HISTORY_CACHE_LIMIT = 15;
         public static HistoryManager instance { get; private set; }
         public List<HistoryState> history = new List<HistoryState>();
 

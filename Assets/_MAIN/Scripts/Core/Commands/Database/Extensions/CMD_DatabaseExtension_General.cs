@@ -1,4 +1,5 @@
 using DIALOGUE;
+using DIALOGUE.LogicalLines;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace COMMANDS
             string filePath = FilePaths.GetPathToResource(FilePaths.resources_dialogueFiles, fileName);
             TextAsset file = Resources.Load<TextAsset>(filePath);
 
-            Debug.Log("filePath found" + filePath);
+            Debug.Log("filePath found " + filePath);
 
             if(file == null)
             {
