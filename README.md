@@ -77,11 +77,10 @@ The game build is located in the Build folder. Simply open the executable to pla
 
 ## Resources Credits
 
-Credits for each image and sound used in the game can be found in the path below:
+Credits for each image, video and sound used in the game can be found in the file below:
+ResourcesCredits.md
 
-Assets/_Main/ResourcesCredits.md
-
-Please refer to the [respective folder](https://github.com/jamisousa/unity-VN/blob/refactor/cleanup/Assets/_MAIN/ResourcesCredits.md) for full attribution details and original sources.
+Please refer to the [respective file](https://github.com/jamisousa/unity-VN/blob/refactor/cleanup/ResourcesCredits.md) for full attribution details and original sources.
 
 ---
 
