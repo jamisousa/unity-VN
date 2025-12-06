@@ -1,69 +1,44 @@
-\############################################
+# Resources Credits
 
-Menu
+This document lists all the images, UI elements, music, and sounds used in the project, along with their original creators and sources. A big thanks to all creators!
 
-Black Folded Way in Red Background - vectorcorp
+---
 
-\############################################
+## Menu Backgrounds
 
-\############################################
+- [VectorCorp](https://www.freepik.com/author/vectorcorp)
 
-General UI
+---
 
-OArielG
+## General UI
 
-Music Icons
+- [OArielG](https://assetstore.unity.com/publishers/34878) – Unity UI buttons and heart icons  
+- [Becris](https://www.flaticon.com/authors/becris) & [Yaicon](https://www.flaticon.com/authors/Yaicon) – Music icons  
+- [Creative Avenue](https://www.flaticon.com/authors/creative-avenue) – Dialog icon
 
-Becris \& yaicon
+---
 
-Dialog Icon
-Creative Avenue
+## Music and Sound Effects
 
-\############################################
+Used music tracks and SFX from the following creators:  
 
-Music
+- [kuzu420](https://pixabay.com/users/kuzu420-42489797/)  
+- [38165424](https://pixabay.com/users/38165424/?tab=sound-effects&order=latest&pagi=1)  
+- [lesiakower](https://pixabay.com/users/lesiakower-25701529/)  
+- [kakaist](https://pixabay.com/users/kakaist-48093450/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=312910)  
+- [alexis_gaming_cam](https://pixabay.com/users/alexis_gaming_cam-50011695/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=394926)  
+- [xmersounds](https://pixabay.com/users/xmersounds-50703818/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=416828)  
+- [freesound_community](https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=47985)  
+- [dragon-studio](https://pixabay.com/users/dragon-studio-38165424/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=444802)
 
-Used:
+---
 
-https://pixabay.com/users/kuzu420-42489797/
+## Image Overlays
 
-https://pixabay.com/users/38165424/?tab=sound-effects\&order=latest\&pagi=1
+- **UI Overlay Browser** – [upklyak](https://www.freepik.com/author/upklyak)
 
-https://pixabay.com/users/lesiakower-25701529/
+---
 
-https://pixabay.com/users/kakaist-48093450/?utm\_source=link-attribution\&utm\_medium=referral\&utm\_campaign=music\&utm\_content=312910
+## Video Overlays
 
-https://pixabay.com/users/alexis\_gaming\_cam-50011695/?utm\_source=link-attribution\&utm\_medium=referral\&utm\_campaign=music\&utm\_content=394926
-
-https://pixabay.com/users/xmersounds-50703818/?utm\_source=link-attribution\&utm\_medium=referral\&utm\_campaign=music\&utm\_content=416828
-
-https://pixabay.com/users/freesound\_community-46691455/?utm\_source=link-attribution\&utm\_medium=referral\&utm\_campaign=music\&utm\_content=47985
-
-https://pixabay.com/users/dragon-studio-38165424/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=444802
-
-Not used yet:
-
-https://pixabay.com/users/uniquecreativeaudio-7672706/
-
-https://pixabay.com/users/universfield-28281460/
-
-https://pixabay.com/users/viramiller-43490215/?utm\_source=link-attribution\&utm\_medium=referral\&utm\_campaign=music\&utm\_content=263098
-
-
-
-
-
-UI Overlay Call
-
-rawpixel.com
-
-
-
-UI Overlay Browser
-
-upklyak
-
-
-Glitch overlay Video
-Video by Luis Quintero: https://www.pexels.com/video/abstract-video-4990233/
-
+- **Glitch Overlay Video** – Video by Luis Quintero: [Pexels](https://www.pexels.com/video/abstract-video-4990233/)
