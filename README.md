@@ -81,7 +81,7 @@ Credits for each image and sound used in the game can be found in the path below
 
 Assets/_Main/ResourcesCredits.md
 
-Please refer to the respective folders for full attribution details and original sources.
+Please refer to the [respective folder](https://github.com/jamisousa/unity-VN/blob/refactor/cleanup/Assets/_MAIN/ResourcesCredits.md) for full attribution details and original sources.
 
 ---
 
