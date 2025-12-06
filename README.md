@@ -2,9 +2,14 @@
 
 This Unity-based visual novel introduces a mysterious character whose true identity you must uncover. Engage through dialogue choices, explore his personality, and make decisions that shape the story as it unfolds. Will you take the time to get to know him and discover more?
 
+<div align="center">
+  <img alt="Unity" height="30" src="https://img.shields.io/badge/unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white&color=black">
+  <img alt="Unity" height="30" src="https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white&color=black">
+</div>
+
 ---
 
-## Game Features
+##  Game Features
 
 - Interactive dialogue system with branching choices
 - Character animations and expressions using sprite layers
