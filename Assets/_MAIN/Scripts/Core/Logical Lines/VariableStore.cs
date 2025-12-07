@@ -75,7 +75,6 @@ public class VariableStore
     }
 
     public static Database GetDatabase(string name) {
-        Debug.Log($"Getdatabase name received {name}");
         if(name == string.Empty)
         {
             return defaultDatabase;
@@ -83,7 +82,6 @@ public class VariableStore
 
         if (!databases.ContainsKey(name))
         {
-            Debug.Log("Creating database");
             CreateDatabase(name);
         }
 
@@ -106,8 +104,6 @@ public class VariableStore
     public static bool TryGetValue(string name, out object variable)
     {
         (string[] parts, Database db, string variableName) = ExtractInfo(name);
-
-        Debug.Log($"Variable name is now {variableName} and db variables are ${db.variables.Keys}");
 
         if (!db.variables.ContainsKey(variableName))
         {
@@ -196,8 +192,6 @@ public class VariableStore
         {
             string variableName = variablePair.Key;
             object variableValue = variablePair.Value.Get();
-            Debug.Log($"Database: {database.name} variable name: {variableName} value: {variableValue}");
-
         }
     }
 }

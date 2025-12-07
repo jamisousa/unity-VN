@@ -104,7 +104,7 @@ namespace COMMANDS
 
             if (sound == null)
             {
-                Debug.Log("Unble to load sound");
+                Debug.Log("Unable to load sound");
                 return;
             }
 
