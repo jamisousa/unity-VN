@@ -10,9 +10,8 @@ This Unity-based visual novel introduces a mysterious character whose true ident
 <br>
 
 <div align="center">
-  <img width="300" height="300" alt="VNChar3" src="https://github.com/user-attachments/assets/42d8ada9-39ad-427a-87d5-fb44a31bf520" />
-  <img width="300" height="300" alt="VNChar" src="https://github.com/user-attachments/assets/a60ef101-4bcb-414f-9cdf-2ef800d27e92" />
-  <img width="300" height="300" alt="VNChar2" src="https://github.com/user-attachments/assets/e9919d97-0074-4070-a3e3-c647d00c58fe" />
+  <img width="350" height="350" alt="VNChar3" src="https://github.com/user-attachments/assets/42d8ada9-39ad-427a-87d5-fb44a31bf520" />
+  <img width="350" height="350" alt="VNChar" src="https://github.com/user-attachments/assets/a60ef101-4bcb-414f-9cdf-2ef800d27e92" />
 </div>
 
 ---
