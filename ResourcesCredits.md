@@ -4,6 +4,11 @@ This document lists all the images, UI elements, music, and sounds used in the p
 
 ---
 
+## Game Icon Placeholder
+- [Freepik](https://www.flaticon.com/authors/freepik)
+  
+---
+
 ## Menu Backgrounds
 
 - [VectorCorp](https://www.freepik.com/author/vectorcorp)
