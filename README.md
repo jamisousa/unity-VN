@@ -76,7 +76,7 @@ A huge thanks to [Stellar Studio](https://www.youtube.com/@stellarstudio5495) fo
 
 The game build is located in the Build folder. Simply open the executable to play.
 
-// TODO: add folder path
+To download and play the latest version of the game, please check [the release page](https://github.com/jamisousa/unity-VN/releases/tag/v1.0)
 
 ---
 
