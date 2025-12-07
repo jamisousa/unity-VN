@@ -81,11 +81,12 @@ public class ConfigMenu : MenuPage
     private void SetAvailableResolutions()
     {
         Resolution[] resolutions = Screen.resolutions;
-        List<string> options = new List<string>();
+        List<string> options = new();
 
-        for(int i = resolutions.Length - 1; i >= 0 ; i--)
+        for (int i = resolutions.Length - 1; i >= 0; i--)
         {
-            options.Add($"{resolutions[i].width} x {resolutions[i].height}");
+            string res = $"{resolutions[i].width} x {resolutions[i].height} @ {resolutions[i].refreshRateRatio.value}Hz";
+            options.Add(res);
         }
 
         ui.resolutions.ClearOptions();
