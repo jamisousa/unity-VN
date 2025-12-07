@@ -21,7 +21,7 @@ This Unity-based visual novel introduces a mysterious character whose true ident
     - Audio settings: disable music, ambience, SFX, and voice
     - General settings: resolution, fullscreen/windowed mode, auto read, and text building speed
 - Help menu with game controls
-
+- Input system
 ---
 
 ## Extra Code Features
@@ -105,4 +105,12 @@ If you'd like to clone this repository for reference or to create your own proje
 
 ## Game Demonstrations
 
-//TODO: add game demo
+
+<img width="800" height="607" alt="Image" src="https://github.com/user-attachments/assets/a562a371-a6b0-4aeb-aae5-8ecba1811a73" /> 
+<img width="800" height="607" alt="Image" src="https://github.com/user-attachments/assets/4909a4c4-ff7d-4e35-9a73-e998bf6cf27c" /> 
+<img width="800" height="607" alt="image" src="https://github.com/user-attachments/assets/38c58a66-f6e8-4d64-8142-bb36c15aa271" /> 
+<img width="800" height="607" alt="Image" src="https://github.com/user-attachments/assets/12ff5e0a-d716-4d5d-bb52-f9dfbeec7764" /> 
+<img width="800" height="607" alt="Image" src="https://github.com/user-attachments/assets/940d32c8-2fe2-4edd-9662-42276aab24a0" /> 
+<img width="800" height="607" alt="Image" src="https://github.com/user-attachments/assets/20e83af7-1afb-4382-afe8-966aa83d702d" /> 
+<img width="800" height="607" alt="image" src="https://github.com/user-attachments/assets/f1751285-6cf0-4f6f-996f-918811e348cb" /> 
+<img width="800" height="607" alt="image" src="https://github.com/user-attachments/assets/59e7f547-c58f-4f40-9aa1-e36e7b91a7f0" />

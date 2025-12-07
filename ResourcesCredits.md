@@ -30,7 +30,7 @@ Used music tracks and SFX from the following creators:
 - [xmersounds](https://pixabay.com/users/xmersounds-50703818/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=416828)  
 - [freesound_community](https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=47985)  
 - [dragon-studio](https://pixabay.com/users/dragon-studio-38165424/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=444802)
-
+- [SamuelFJohanns](https://pixabay.com/users/samuelfjohanns-1207793/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=276821)
 ---
 
 ## Image Overlays
