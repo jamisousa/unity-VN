@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-//contains layers that can be assigned images and videos on the UI
 
 [System.Serializable]
 public class GraphicPanel

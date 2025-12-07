@@ -1,18 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DIALOGUE;
 using UnityEngine;
 
 
-//saves all the history states the dialogue system tells it to cache
 namespace History
 {
     [RequireComponent(typeof(HistoryLogManager))]
     [RequireComponent(typeof(HistoryNavigation))]
     public class HistoryManager : MonoBehaviour
     {
-        public const int HISTORY_CACHE_LIMIT = 100;
+        public const int HISTORY_CACHE_LIMIT = 15;
         public static HistoryManager instance { get; private set; }
         public List<HistoryState> history = new List<HistoryState>();
 
@@ -31,7 +28,6 @@ namespace History
         }
 
 
-        // Start is called before the first frame update
         void Start()
         {
             DialogueSystem.instance.onClear += LogCurrentState;

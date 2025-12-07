@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.STP;
 
 public class ConfigMenu : MenuPage
 {
@@ -81,16 +82,15 @@ public class ConfigMenu : MenuPage
     private void SetAvailableResolutions()
     {
         Resolution[] resolutions = Screen.resolutions;
+
         List<string> options = new List<string>();
 
-        for(int i = resolutions.Length - 1; i >= 0 ; i--)
+        for (int i = resolutions.Length - 1; i >= 0; i--)
         {
             options.Add($"{resolutions[i].width} x {resolutions[i].height}");
         }
-
-        ui.resolutions.ClearOptions();
-        ui.resolutions.AddOptions(options);
     }
+
 
     [System.Serializable]
     public class UI_ITEMS
@@ -136,7 +136,6 @@ public class ConfigMenu : MenuPage
     }
 
 
-    //UI callable functions
     public void SetDisplayToFullscreen(bool fullscreen)
     {
         Screen.fullScreen = fullscreen;

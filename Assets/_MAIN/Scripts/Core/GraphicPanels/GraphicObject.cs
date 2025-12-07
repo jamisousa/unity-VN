@@ -1,10 +1,8 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-//the object containing the image or video on a single graphic layer
 
 public class GraphicObject
 {
@@ -14,7 +12,6 @@ public class GraphicObject
 
     private const string NAME_FORMAT = "Graphic - [{0}]";
     private const string MATERIAL_PATH = "Materials/layerTransitionMaterial";
-    //private const string MATERIAL_FIELD_COLOR = "_Color";
     private const string MATERIAL_FIELD_MAINTEX = "_MainTex";
     private const string MATERIAL_FIELD_BLENDTEX = "_BlendTex";
     private const string MATERIAL_FIELD_BLEND = "_Blend";
@@ -153,6 +150,8 @@ public class GraphicObject
         bool isBlending = blend != null;
         bool fadingIn = target > 0;
 
+        if (renderer == null) yield break;
+
         if (renderer.material.name == DEFAULT_UI_MATERIAL)
         {
             Texture tex = renderer.material.GetTexture(MATERIAL_FIELD_MAINTEX);
@@ -181,13 +180,25 @@ public class GraphicObject
         co_fadingOut = null;
 
         if (target == 0)
+        {
+            co_fadingIn = null;
+            co_fadingOut = null;
+
             Destroy();
+            yield break; 
+        }
+
         else
         {
             DestroyBackgroundGraphicsOnLayer();
-            renderer.texture = renderer.material.GetTexture(MATERIAL_FIELD_MAINTEX);
-            renderer.material = null;
+
+            if (renderer != null && renderer.material != null)
+            {
+                renderer.texture = renderer.material.GetTexture(MATERIAL_FIELD_MAINTEX);
+                renderer.material = null;
+            }
         }
+
     }
 
     public void Destroy()
@@ -196,12 +207,15 @@ public class GraphicObject
             layer.currentGraphic = null;
 
         if (layer.oldGraphics.Contains(this))
-        {
             layer.oldGraphics.Remove(this);
-        }
 
-        Object.Destroy(renderer.gameObject);
+        if (renderer != null)
+        {
+            renderer.gameObject.SetActive(false);
+            Object.Destroy(renderer.gameObject);
+        }
     }
+
 
     private void DestroyBackgroundGraphicsOnLayer()
     {

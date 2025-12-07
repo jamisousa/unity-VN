@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,6 @@ using UnityEngine;
 namespace COMMANDS
 {
 
-    //a database of all commands that are available for the command manager to use
     public class CommandDatabase
     {
         private Dictionary<string, Delegate> database = new Dictionary<string, Delegate>();

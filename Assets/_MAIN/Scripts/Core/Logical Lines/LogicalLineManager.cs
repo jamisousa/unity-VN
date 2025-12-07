@@ -7,7 +7,6 @@ using System.Linq;
 namespace DIALOGUE.LogicalLines
 {
 
-    //show a prompt at the end of dialogue to tell the user when input is expected
     public class LogicalLineManager : MonoBehaviour
     {
 

@@ -1,9 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using CHARACTERS;
-using UnityEditor;
 using UnityEngine;
 
 namespace COMMANDS
@@ -24,7 +21,6 @@ namespace COMMANDS
             database.AddCommand("createcharacter", new Action<string[]>(CreateCharacter));
             database.AddCommand("movecharacter", new Func<string[], IEnumerator>(MoveCharacter));
 
-            //Add commands to characters
             CommandDatabase baseCommands = CommandManager.instance.CreateSubDatabase(CommandManager.DATABASE_CHARACTERS_BASE);
             baseCommands.AddCommand("move", new Func<string[], IEnumerator>(MoveCharacter));
             baseCommands.AddCommand("show", new Func<string[], IEnumerator>(Show));
@@ -33,7 +29,6 @@ namespace COMMANDS
             baseCommands.AddCommand("setposition", new Action<string[]>(SetPosition));
             baseCommands.AddCommand("setColor", new Func<string[], IEnumerator>(SetColor));
 
-            //Add character specific databases
             CommandDatabase spriteCommands = CommandManager.instance.CreateSubDatabase(CommandManager.DATABASE_CHARACTERS_SPRITE);
             spriteCommands.AddCommand("setsprite", new Func<string[], IEnumerator>(SetSprite));
             spriteCommands.AddCommand("animate", new Func<string[], IEnumerator>(Animate));
@@ -78,19 +73,14 @@ namespace COMMANDS
 
             var parameters = ConvertDataToParameters(data);
 
-            //try to get the x axis position
             parameters.TryGetValue(PARAM_XPOS, out x);
 
-            //try to get the y axis position
             parameters.TryGetValue(PARAM_YPOS, out y);
 
-            //try to get the speed
             parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1);
 
-            //try to get the smoothing
             parameters.TryGetValue(PARAM_SMOOTH, out smooth, defaultValue: false);
 
-            //try to get imediate setting of position
             parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
 
             Vector2 position = new Vector2(x, y);
@@ -283,9 +273,6 @@ namespace COMMANDS
 
             character.StopAnimation(animationName, refresh);
         }
-
-
-
 
     }
 }

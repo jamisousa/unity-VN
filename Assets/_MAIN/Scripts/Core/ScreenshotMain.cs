@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ScreenshotMain : MonoBehaviour
@@ -59,8 +57,9 @@ public class ScreenshotMain : MonoBehaviour
         if(!filePath.Contains('.'))
             filePath = filePath + extension;
 
+        FileManager.TryCreateDirectoryFromPath(filePath);
+
         System.IO.File.WriteAllBytes(filePath, bytes);
     }
-
 
 }

@@ -6,10 +6,6 @@ using UnityEngine;
 
 namespace CHARACTERS
 {
-
-
-    //base class from which all characters derive from
-
     public abstract class Character
     {
         private const float UNHIGHLIGHTED_DARKEN_STRENGTH = 0.65f;
@@ -23,10 +19,8 @@ namespace CHARACTERS
         public CharacterConfigData config;
         public Animator animator;
 
-        //character color despite highlighting
         public Color color { get; protected set; } = Color.white;
 
-        //color that takes highlighted into account
         protected Color displayColor => highlighted ? highlightedColor : unhighlightedColor;
 
         protected Color highlightedColor => color;
@@ -41,7 +35,6 @@ namespace CHARACTERS
         protected CharacterManager characterManager => CharacterManager.instance;
         public DialogueSystem dialogueSystem => DialogueSystem.instance;
 
-        //Coroutines
         protected Coroutine co_revealing, co_hiding;
         protected Coroutine co_moving;
         protected Coroutine co_changingColor;
@@ -64,7 +57,6 @@ namespace CHARACTERS
 
         public Character(string name, CharacterConfigData config, GameObject prefab)
         {
-            //base constructor
             this.name = name;
             displayName = name;
             this.config = config;
@@ -79,7 +71,6 @@ namespace CHARACTERS
             }
         }
 
-        //supported character types
         public enum CharacterType
         {
             Text,
@@ -89,10 +80,6 @@ namespace CHARACTERS
             Model3D
         }
 
-
-        /*******************************************************
-         * Say lines independent from dialogue system and files (optional)
-         ********************************************************/
         public Coroutine Say(string dialogue) => Say(new List<string> { dialogue });
 
         public Coroutine Say(List<string> dialogue)
@@ -100,7 +87,6 @@ namespace CHARACTERS
             dialogueSystem.ShowSpeakerName(displayName);
             dialogue = FormatDialogue(dialogue);
 
-            //dialogueSystem.ApplySpeakerDataToDialogueContainer(name);
 
             UpdateTextCustomizationsOnScreen();
 
@@ -123,12 +109,6 @@ namespace CHARACTERS
             return formattedDialogue;
         }
 
-        /*******************************************************
-         * End Say lines independent from dialogue system and files (optional)
-         ********************************************************/
-
-
-        //Real time screen customs
         public void SetNameColor(Color color) => config.nameColor = color;
         public void SetDialogueColor(Color color) => config.dialogueColor = color;
 
@@ -139,7 +119,6 @@ namespace CHARACTERS
 
         public void ResetConfigurationData() => config = CharacterManager.instance.GetCharacterConfig(name);
 
-        //reveal characters on screen
         public virtual Coroutine Show(float speedMultiplier = 1f)
         {
             if (isRevealing)
@@ -177,11 +156,9 @@ namespace CHARACTERS
 
         public virtual IEnumerator ShowingOrHiding(bool show, float speedMultiplier = 1f)
         {
-            Debug.Log("Show and hide cannot be called from a base character type.");
             yield return null;
         }
 
-        //set character position for movement
         public virtual void SetPosition(Vector2 position)
         {
             if (root == null)
@@ -237,16 +214,13 @@ namespace CHARACTERS
                     root.anchorMax = maxAnchorTarget;
                     break;
                 }
-
+                
                 yield return null;
             }
-
-            Debug.Log("Done moving");
             co_moving = null;
 
         }
 
-        //convert ui target position to relative character anchor targets
         public (Vector2, Vector2) ConvertUITargetPosition(Vector2 position)
         {
 
@@ -261,13 +235,11 @@ namespace CHARACTERS
             return (minAnchorTarget, maxAnchorTarget);
         }
 
-        //character color transition - differentiate active speaker
         public virtual void SetColor(Color color)
         {
             this.color = color;
         }
 
-        //fade in color
         public Coroutine TransitionColor(Color color, float speed)
         {
             this.color = color;
@@ -284,17 +256,11 @@ namespace CHARACTERS
 
         public virtual IEnumerator ChangingColor(Color targetColor, float speed)
         {
-            Debug.Log("SetColor cannot be called for this character type!");
-
             yield return null;
-
         }
 
-        //highlighting character - differentiate active speaker
         public Coroutine Highlight(float speed = 1f, bool immediate = false)
         {
-
-
             if (isHighlighting || isUnhighlighting)
             {
                 characterManager.StopCoroutine(co_highlighting);
@@ -319,11 +285,9 @@ namespace CHARACTERS
 
         public virtual IEnumerator Highlighting(float speedMultiplier, bool immediate = false)
         {
-            Debug.Log("Highlighting is not available on this character type.");
             yield return null;
         }
 
-        //character flipping
         public Coroutine Flip(float speed = 1, bool immediate = false)
         {
             if(isFacingLeft){
@@ -356,11 +320,9 @@ namespace CHARACTERS
 
         public virtual IEnumerator FaceDirection(bool faceLeft, float speedMultiplier, bool immediate)
         {
-            Debug.Log("Face direction is not available on this character type.");
             yield return null;
         }
 
-        //layer priorities
         public void SetPriority(int priority, bool autoSortCharactersOnUi = true)
         {
             if (autoSortCharactersOnUi)
@@ -371,8 +333,6 @@ namespace CHARACTERS
             this.priority = priority;
             root.SetSiblingIndex(priority);
         }
-
-        //animations
         public void Animate(string animation)
         {
             animator.SetTrigger(animation);
@@ -389,8 +349,6 @@ namespace CHARACTERS
             animator.SetBool(animation, false);
             animator.SetTrigger(ANIMATION_REFRESH_TRIGGER);
         }
-
-
         public virtual void OnReceiveCastingExpression(int layer, string expression)
         {
             return;

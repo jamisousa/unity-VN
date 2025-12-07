@@ -6,7 +6,6 @@ using UnityEngine;
 namespace DIALOGUE
 {
 
-    //scripable object that defines the parameters for configuring the dialogue system as a whole
     [CreateAssetMenu(fileName = "Dialogue System Configuration", menuName = "Dialogue System/Dialogue Configuration Asset")]
     public class DialogueSystemConfigurationSO : ScriptableObject
     {

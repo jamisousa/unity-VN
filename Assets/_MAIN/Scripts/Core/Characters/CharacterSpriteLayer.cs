@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 namespace CHARACTERS
 {
-
-    //contains all data and functions available to a layer composing for a sprite character
-
     public class CharacterSpriteLayer
     {
 
@@ -33,7 +30,6 @@ namespace CHARACTERS
         public bool isFlipping => co_flipping != null;
 
 
-
         public CharacterSpriteLayer(Image defaultRenderer, int layer = 0)
         {
             renderer = defaultRenderer;
@@ -45,7 +41,6 @@ namespace CHARACTERS
             renderer.sprite = sprite;
         }
 
-        //transition layers into a new image
         public Coroutine TransitionSprite(Sprite sprite, float speed = 1)
         {
             if (sprite == renderer.sprite)
@@ -84,7 +79,6 @@ namespace CHARACTERS
             Image newRenderer = Object.Instantiate<Image>(renderer, parent);
             oldRenderers.Add(rendererCG);
 
-            //initialize new renderer and set its alpha to 0 
             newRenderer.name = renderer.name;
             renderer = newRenderer;
             renderer.gameObject.SetActive(true);
@@ -93,7 +87,6 @@ namespace CHARACTERS
             return newRenderer;
         }
 
-        //fade in new image and fade out old ones
         private Coroutine TryStartLevelingAlphas()
         {
             if (isLevelingAlpha)
@@ -108,7 +101,6 @@ namespace CHARACTERS
 
         private IEnumerator RunAlphaLeveling()
         {
-            //if current render is not visible or other renderers are still visible run this loop
             while (rendererCG.alpha < 1 || oldRenderers.Any(oldCG => oldCG.alpha > 0))
             {
                 float speed = DEFAULT_TRANSITION_SPEED * transitionSpeedMultiplier * Time.deltaTime;
@@ -118,7 +110,6 @@ namespace CHARACTERS
                 {
                     CanvasGroup oldCG = oldRenderers[i];
                     oldCG.alpha = Mathf.MoveTowards(oldCG.alpha, 0, speed);
-                    //if old renderer is fully transparent remove it
                     if (oldCG.alpha <= 0)
                     {
                         oldRenderers.RemoveAt(i);
@@ -131,7 +122,6 @@ namespace CHARACTERS
             co_levelingAlpha = null;
         }
 
-        //set the color of the layer for highlighting logic
         public void SetColor(Color color)
         {
             renderer.color = color;
@@ -167,7 +157,6 @@ namespace CHARACTERS
 
         private IEnumerator ChangingColor(Color color, float speedMultiplier)
         {
-            //lerp will smoothly change color over time
 
             Color oldColor = renderer.color;
             List<Image> oldImages = new List<Image>();
@@ -207,7 +196,6 @@ namespace CHARACTERS
         }
 
 
-        //character flipping
         public Coroutine Flip(float speed = 1, bool immediate = false)
         {
             if (isFacingLeft)

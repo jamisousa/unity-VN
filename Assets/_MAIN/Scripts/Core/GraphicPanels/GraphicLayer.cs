@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Video;
 
-//a single layer on a graphic panel that can be assigned an image or video and stacked on other layers
+
 public class GraphicLayer
 {
     public const string LAYER_OBJECT_NAME_FORMAT = "Layer: {0}";
@@ -67,7 +66,6 @@ public class GraphicLayer
         if (!immediate)
             return currentGraphic.FadeIn(transitionSpeed, blendingTexture);
 
-        //Otherwise this is an immediate effect
         DestroyOldGraphics();
         return null;
     }

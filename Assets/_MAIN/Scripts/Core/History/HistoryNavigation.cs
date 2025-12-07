@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DIALOGUE;
 using TMPro;
 using UnityEngine;
@@ -59,30 +59,30 @@ namespace History
 
         public void GoBack()
         {
-            if (progress == 0 && isViewingHistory && !canNavigate)
-            {
+            if (!history.Any() || !canNavigate)
                 return;
-            }
-
-            progress = isViewingHistory ? progress - 1 : history.Count - 1;
 
             if (!isViewingHistory)
             {
                 isViewingHistory = true;
                 isOnCachedState = false;
-
                 cachedState = HistoryState.Capture();
-
                 DialogueSystem.instance.onUserPrompt_Next += GoForward;
                 DialogueSystem.instance.OnStartViewingHistory();
-
+                progress = history.Count - 1;
             }
+            else
+            {
+                progress--;
+            }
+
+            progress = Mathf.Clamp(progress, 0, history.Count - 1);
 
             HistoryState state = history[progress];
             state.Load();
             UpdateStatusText();
-
         }
+
 
         private void UpdateStatusText()
         {

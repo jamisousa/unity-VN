@@ -1,21 +1,19 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DIALOGUE;
 using History;
 using UnityEngine;
 
+
 namespace VISUALNOVEL
 {
 
-    //file that is written to disk to save a players session progress
     [System.Serializable]
     public class VNGameSave
     {
         public static VNGameSave activeFile = null;
 
-        //extension for save file / vns for visual novel save
         public const string FILE_TYPE = ".vns";
         public const string SCREENSHOT_FILE_TYPE = ".jpeg";
         public const bool ENCRYPT_FILES = true;
@@ -32,6 +30,8 @@ namespace VISUALNOVEL
         public HistoryState[] historyLogs;
         public VN_VariableData[] variables;
         public string timestamp;
+
+        public int affinity;
 
         public bool newGame = true;
 
@@ -70,7 +70,6 @@ namespace VISUALNOVEL
                 activeState.Load();
             }
 
-            //repopulate list
             HistoryManager.instance.history = historyLogs.ToList();
             HistoryManager.instance.logManager.Clear();
             HistoryManager.instance.logManager.Rebuild();
@@ -94,7 +93,6 @@ namespace VISUALNOVEL
 
                 if(conversation.file != string.Empty)
                 {
-                    //compress file
                     var compressedData = new VN_ConversationDataCompressed();
                     compressedData.fileName = conversation.file;
                     compressedData.progress = conversation.GetProgress();
@@ -104,7 +102,6 @@ namespace VISUALNOVEL
                 }
                 else
                 {
-                    //save every data
                     var fullData = new VN_ConversationData();
                     fullData.conversation = conversation.GetLines();
                     fullData.progress = conversation.GetProgress();
@@ -141,7 +138,6 @@ namespace VISUALNOVEL
                         {
                             TextAsset file = Resources.Load<TextAsset>(compressedData.fileName);
 
-                            //extract the lines depending if it is a subconversation - isolate the needed ones
                             int count = compressedData.endIndex - compressedData.startIndex;
 
                             List<string> lines = FileManager.ReadTextAsset(file).Skip(compressedData.startIndex).Take(count + 1).ToList();
@@ -154,7 +150,6 @@ namespace VISUALNOVEL
                         }
                     }
 
-                    //go through every conversation added, start a new conversation with 1st element and enqueue the rest
                     if (conversation != null && conversation.GetLines().Count > 0) { 
                         if(i == 0)
                         {

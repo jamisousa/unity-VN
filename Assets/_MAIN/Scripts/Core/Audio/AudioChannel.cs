@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-//virtual channel for playing and managing audio tracks
 public class AudioChannel
 {
     private const string TRACK_CONTAINER_NAME_FORMAT = "Channel - [{0}]";

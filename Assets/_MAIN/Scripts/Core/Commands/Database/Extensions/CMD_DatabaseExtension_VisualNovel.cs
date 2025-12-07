@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using VISUALNOVEL;
 
 namespace COMMANDS
 {
@@ -9,13 +7,45 @@ namespace COMMANDS
     {
         new public static void Extend(CommandDatabase database)
         {
-            //variable assignment
             database.AddCommand("setplayername", new Action<string>(SetPlayerNameVariable));
+            database.AddCommand("setaffinity", new Action<string>(SetAffinity));
         }
 
         private static void SetPlayerNameVariable(string data)
         {
-            VISUALNOVEL.VNGameSave.activeFile.playerName = data;
+            VNGameSave.activeFile.playerName = data;
         }
+
+        private static void SetAffinity(string data)
+        {
+            int valueChange = 0;
+
+            if (data.StartsWith("+") || data.StartsWith("-"))
+            {
+                if (!int.TryParse(data, out valueChange))
+                {
+                    UnityEngine.Debug.LogError($"[SetAffinity] Invalid value: {data}");
+                    return;
+                }
+
+                VNGameSave.activeFile.affinity += valueChange; 
+            }
+            else
+            {
+                if (!int.TryParse(data, out valueChange))
+                {
+                    UnityEngine.Debug.LogError($"[SetAffinity] Invalid value: {data}");
+                    return;
+                }
+
+                VNGameSave.activeFile.affinity = valueChange;
+            }
+
+            if (VNGameSave.activeFile.affinity < 0)
+                VNGameSave.activeFile.affinity = 0;
+
+            HeartsManager.instance.SetHearts(VNGameSave.activeFile.affinity);
+        }
+
     }
 }

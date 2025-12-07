@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Rendering;
 
-//handles sound effects, voices, ambience and music
 public class AudioManager : MonoBehaviour
 {
     public const string MUSIC_VOLUME_PARAMETER_NAME = "MusicVolume";
@@ -25,6 +23,9 @@ public class AudioManager : MonoBehaviour
     public Dictionary<int, AudioChannel> channels = new Dictionary<int, AudioChannel>();
 
     public AnimationCurve audioFalloffCurve;
+
+    [Header("Typing SFX")]
+    public AudioClip typingClip1;
 
     private void Awake()
     {
@@ -109,8 +110,6 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource PlayVoice(AudioClip clip, AudioMixerGroup mixer = null, float volume = 1, float pitch = 1, bool loop = false) => PlaySoundEffect(clip,voicesMixer, volume, pitch, loop);
 
-
-    //both music and ambience
     public AudioTrack PlayTrack(string filePath, int channel = 0, bool loop = true, float startingVolume = 0f, float volumeCap = 1f, float pitch = 1f)
     {
         AudioClip clip = Resources.Load<AudioClip>(filePath);
@@ -121,8 +120,6 @@ public class AudioManager : MonoBehaviour
             return null;
         }
 
-        Debug.Log("Clip found" + clip.name);
-
         return PlayTrack(clip, channel, loop, startingVolume, volumeCap, pitch, filePath);
     }
 
@@ -130,8 +127,6 @@ public class AudioManager : MonoBehaviour
     {
         AudioChannel audioChannel = TryGetChannel(channel, createIfDoesNotExist: true);
         AudioTrack track = audioChannel.PlayTrack(clip, loop, startingVolume, volumeCap, pitch, filePath);
-
-        Debug.Log("Track found" + track.name);
 
         return track;
     }

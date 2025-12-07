@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CHARACTERS
 {
-    //holds data for every character
 
     [CreateAssetMenu(fileName = "Character Configuration Asset", menuName = "Dialogue System/Character Configuration Asset")]
     public class CharacterConfigSO : ScriptableObject
@@ -21,7 +18,6 @@ namespace CHARACTERS
 
                 if(string.Equals(characterName, data.name.ToLower()) || string.Equals(characterName, data.alias.ToLower()))
                 {
-                    //needs to copy due to scriptable object behavior
                     return safe ? data.Copy() : data;
                 };
 

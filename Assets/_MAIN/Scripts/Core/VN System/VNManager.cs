@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using DIALOGUE;
 using UnityEngine;
@@ -6,7 +5,6 @@ using UnityEngine;
 namespace VISUALNOVEL
 {
 
-    //handles the VN startup and loading operations
     public class VNManager : MonoBehaviour
     {
         [SerializeField] private VisualNovelSO config;

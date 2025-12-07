@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-//virtual controller that plays music within an audio channel
 public class AudioTrack
 {
     private const string TRACK_NAME_FORMAT = "Track - [{0}]";

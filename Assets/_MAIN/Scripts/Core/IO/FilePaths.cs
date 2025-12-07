@@ -6,10 +6,8 @@ public class FilePaths
     
     public static readonly string root = $"{Application.dataPath}/gameData/";
 
-    //Runtime paths
     public static readonly string gameSaves = $"{runtimePath}Save Files/";
 
-    //Resources paths
     public static readonly string resources_font = "Fonts/";
 
     public static readonly string resources_graphics = "Graphics/";

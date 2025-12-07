@@ -1,19 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Search;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
-//provides centralized access and modification to data containers
-
-/*
- This logic allows dialogue files to accept logic such as:
-$money = 50
-
-if($money >  50)
-	next lines to be said
- */
 public class VariableStore
 {
     private const string DEFAULT_DATABASE_NAME = "Default";
@@ -45,14 +33,6 @@ public class VariableStore
 
         private Func<T> getter;
         private Action<T> setter;
-
-        /*
-             if we receive a request to create a new interger, and its not linked, then
-            create a new defautl variable with that value stored locally.
-
-            if we do have a link ,create a new variable which will not have an internal value but 
-            will have a link towards the actual value which has been linked
-         */
         public Variable(T defaultValue = default, Func<T> getter = null, Action<T> setter = null)
         {
             value = defaultValue;
@@ -95,7 +75,6 @@ public class VariableStore
     }
 
     public static Database GetDatabase(string name) {
-        Debug.Log($"Getdatabase name received {name}");
         if(name == string.Empty)
         {
             return defaultDatabase;
@@ -103,7 +82,6 @@ public class VariableStore
 
         if (!databases.ContainsKey(name))
         {
-            Debug.Log("Creating database");
             CreateDatabase(name);
         }
 
@@ -126,8 +104,6 @@ public class VariableStore
     public static bool TryGetValue(string name, out object variable)
     {
         (string[] parts, Database db, string variableName) = ExtractInfo(name);
-
-        Debug.Log($"Variable name is now {variableName} and db variables are ${db.variables.Keys}");
 
         if (!db.variables.ContainsKey(variableName))
         {
@@ -216,8 +192,6 @@ public class VariableStore
         {
             string variableName = variablePair.Key;
             object variableValue = variablePair.Value.Get();
-            Debug.Log($"Database: {database.name} variable name: {variableName} value: {variableValue}");
-
         }
     }
 }

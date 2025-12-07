@@ -302,7 +302,6 @@ namespace DIALOGUE
                 }
             }
 
-            Debug.Log(line.commandData);
             yield return null;
         }
 

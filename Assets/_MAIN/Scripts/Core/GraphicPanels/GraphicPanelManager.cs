@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-//manager that will controll all graphic panels such as background, cinematic and foreground
 public class GraphicPanelManager : MonoBehaviour
 {
     public static GraphicPanelManager instance { get; private set; }

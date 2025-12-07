@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using VISUALNOVEL;
 
@@ -7,7 +5,6 @@ public class SaveAndLoadMenu : MenuPage
 {
     public static SaveAndLoadMenu Instance { get; private set; }
     public const int MAX_FILES = 99;
-    private string savePath = FilePaths.gameSaves;
 
 
     private int currentPage = 1;

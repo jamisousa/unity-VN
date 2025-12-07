@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using CHARACTERS;
 using COMMANDS;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -80,7 +79,6 @@ public class CommandManager : MonoBehaviour
             }
         }
         string characterName = databaseName;
-        //if got here then try to run as a character command
         if (CharacterManager.instance.HasCharacter(characterName)){
             List<string> newArgs = new List<string>(args);
             newArgs.Insert(0, characterName);
@@ -90,7 +88,6 @@ public class CommandManager : MonoBehaviour
             return ExecuteCharacterCommand(subCommandName, args);
         }
 
-        //if none is true
         Debug.LogError($"No subdatabase called {databaseName} exists. Command {subCommandName} could not be run.");
         return null;
     }

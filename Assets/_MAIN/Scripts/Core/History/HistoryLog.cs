@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 namespace History
 {
 
-    //a visual log of a previous point in dialogue
     public class HistoryLog 
     {
         public GameObject container;

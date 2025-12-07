@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
@@ -6,7 +5,6 @@ using UnityEngine.Video;
 namespace History
 {
 
-    //all data for the images and videos being displayed on the graphic panels
     [System.Serializable]
     public class GraphicData
     {

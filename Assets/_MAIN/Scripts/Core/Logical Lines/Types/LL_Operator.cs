@@ -1,18 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
-using DIALOGUE;
 using UnityEngine;
 using System.Text.RegularExpressions;
-using System.Linq;
-
 using static DIALOGUE.LogicalLines.LogicalLineUtils.Expressions;
 using System;
-using Unity.VisualScripting;
 
 namespace DIALOGUE.LogicalLines
 {
-
-    //logical line to delcare and modify variables within a dialogue file
     public class LL_Operator : ILogicalLine
     {
         public string keyword => throw new System.NotImplementedException();
@@ -33,8 +26,6 @@ namespace DIALOGUE.LogicalLines
             string[] remainingParts = new string[parts.Length - 2];
             Array.Copy(parts, 2, remainingParts, 0, parts.Length - 2);
 
-            Debug.Log($"variable is {variable}, op is {op}, remaining parts is {remainingParts}");
-
             object value = CalculateValue(remainingParts);
 
             if (value == null)
@@ -47,10 +38,6 @@ namespace DIALOGUE.LogicalLines
 
         private void ProcessOperator(string variable, string op, object value)
         {
-
-            Debug.Log($"Processing operator with values: variable is {variable}, op is {op} and value is {value}");
-            
-
             if (VariableStore.TryGetValue(variable, out object currentValue))
             {
 
@@ -99,7 +86,6 @@ namespace DIALOGUE.LogicalLines
 
         public bool Matches(DIALOGUE_LINES line)
         {
-            //make sure if has both a variable and an operator assignment
             Match match = Regex.Match(line.rawData.Trim(), REGEX_OPERATOR_LINE);
 
             return match.Success;
