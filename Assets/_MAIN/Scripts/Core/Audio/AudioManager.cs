@@ -120,8 +120,6 @@ public class AudioManager : MonoBehaviour
             return null;
         }
 
-        Debug.Log("Clip found" + clip.name);
-
         return PlayTrack(clip, channel, loop, startingVolume, volumeCap, pitch, filePath);
     }
 
@@ -129,8 +127,6 @@ public class AudioManager : MonoBehaviour
     {
         AudioChannel audioChannel = TryGetChannel(channel, createIfDoesNotExist: true);
         AudioTrack track = audioChannel.PlayTrack(clip, loop, startingVolume, volumeCap, pitch, filePath);
-
-        Debug.Log("Track found" + track.name);
 
         return track;
     }

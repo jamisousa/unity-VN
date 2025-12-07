@@ -11,6 +11,11 @@ public class HistoryCache
     {
         object resource = null;
 
+        if (string.IsNullOrEmpty(key))
+        {
+            return default(T);
+        }
+
         if (loadedAssets.ContainsKey(key))
         {
             resource = (T)loadedAssets[key].asset;
