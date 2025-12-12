@@ -104,24 +104,65 @@ If you'd like to clone this repository for reference or to create your own proje
 - To write and customize your own story, check the following files in Assets/_Main folder: Character Configuration Asset // Dialogue System Configuration // Visual Novel Configuration
 - To load character sprites, refer to Assets/_TESTING/SpriteLoaderEditor.cs
 
+
 #### Example on how to write your story scripts using sprites and commands:
-This project supports character name casting, such as 'Your Name' as 'Something Else'.
-In the example below, mainCharName is a tag manager variable which will be saved and retrieved within save files.
+This project supports character name casting, such as 'Your Name' as 'Something Else'.  
+In the example below, mainCharName is a tag manager variable that will be saved to and retrieved from the save files.
 
 ```
-SetLayerMedia(background MainRoom_Night -l 0)
+SetLayerMedia(background YourBackgroundImage -l 0)
 PlayAmbience(Rain -l true)
-CreateCharacter(KMainChar)
+CreateCharacter(YourCharacterName)
 wait(2)
-KMainChar.Show()
-MainChar.Animate("Hop")
-KMainChar.SetSprite(KMainChar_Default_NightVariant -l 0 -spd 1)
-KMainChar as ??? "It's raining outside. The good kind of rain."
-<mainCharName> "There's a good kind?"
-KMainChar as ??? "Yeah. The soft one. The one that taps the window like it's checking in."
+YourCharacterName.Show()
+YourCharacterName.Animate('Hop')
+YourCharacterName.SetSprite(YourCharacterSpriteImage -l 0 -spd 1)
+YourCharacterName as ??? 'It's raining outside. The good kind of rain.'
+<mainCharName> 'There's a good kind?'
+YourCharacterName as ??? 'Yeah. The soft one. The one that taps the window like it's checking in.'
+```
+
+#### Input example
+In the example below, a panel will show up on screen for user input. SetPlayerName will populate the mainCharName variable. Saving and loading files will persist that value.
 
 ```
----
+input 'What is your name?'
+SetPlayerName(<input>)
+```
+
+#### Choice example
+In the example below, a choice panel will appear on screen, and you can load new .txt files to continue the story based on user choices. You can choose to enqueue text files or not, so it either waits for the current file to finish its lines or skips to the next file instead.
+
+```
+choice ''
+{
+    - 'Who are you? And why am I here?'
+        YourCharacterName.SetSprite(YourCharacterSpriteImage -l 0 -spd 1)
+        YourCharacterName as ??? 'Long story. Short answer: glitch.'
+        <mainCharName> as You 'That... does not help.'
+        SetAffinity(+1)
+
+    - 'Okay, then just send me back.'
+        YourCharacterName.SetSprite(YourCharacterSpriteImage -l 0 -spd 1)
+        YourCharacterName as ??? 'I would if I could.'
+        <mainCharName> as You 'That is extremely reassuring.'
+        SetAffinity(0)
+}
+```
+
+#### Conditional lines and loading new chapters example
+Using the example below, you can customize your story based on variables and comparisons. In this case, if the affinity with the main character is greater than 2, the good route will load; otherwise, the neutral route will load.
+
+```
+if(<affinity> > 2)
+{
+    Load(Chapter_G1 -enqueue false)
+}
+else
+{
+    Load(Chapter_N1 -enqueue true)
+}
+```
 
 ## 👾 Game Demonstrations
 
