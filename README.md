@@ -115,18 +115,19 @@ PlayAmbience(Rain -l true)
 CreateCharacter(YourCharacterName)
 wait(2)
 YourCharacterName.Show()
-YourCharacterName.Animate('Hop')
+YourCharacterName.Animate("Hop")
 YourCharacterName.SetSprite(YourCharacterSpriteImage -l 0 -spd 1)
-YourCharacterName as ??? 'It's raining outside. The good kind of rain.'
-<mainCharName> 'There's a good kind?'
-YourCharacterName as ??? 'Yeah. The soft one. The one that taps the window like it's checking in.'
+YourCharacterName as ??? "It's raining outside. The good kind of rain."
+<mainCharName> "There's a good kind?"
+YourCharacterName as ??? "Yeah. The soft one. The one that taps the window like it's checking in."
+
 ```
 
 #### Input example
 In the example below, a panel will show up on screen for user input. SetPlayerName will populate the mainCharName variable. Saving and loading files will persist that value.
 
 ```
-input 'What is your name?'
+input "What is your name?"
 SetPlayerName(<input>)
 ```
 
@@ -134,20 +135,21 @@ SetPlayerName(<input>)
 In the example below, a choice panel will appear on screen, and you can load new .txt files to continue the story based on user choices. You can choose to enqueue text files or not, so it either waits for the current file to finish its lines or skips to the next file instead.
 
 ```
-choice ''
+choice "Here you can add a title above the choices or keep it empty string"
 {
-    - 'Who are you? And why am I here?'
+    - "Who are you? And why am I here?"
         YourCharacterName.SetSprite(YourCharacterSpriteImage -l 0 -spd 1)
-        YourCharacterName as ??? 'Long story. Short answer: glitch.'
-        <mainCharName> as You 'That... does not help.'
+        YourCharacterName as ??? "Long story. Short answer: glitch."
+        <mainCharName> as You "That... does not help."
         SetAffinity(+1)
 
-    - 'Okay, then just send me back.'
+    - "Okay, then just send me back."
         YourCharacterName.SetSprite(YourCharacterSpriteImage -l 0 -spd 1)
-        YourCharacterName as ??? 'I would if I could.'
-        <mainCharName> as You 'That is extremely reassuring.'
+        YourCharacterName as ??? "I would if I could."
+        <mainCharName> as You "That is extremely reassuring."
         SetAffinity(0)
 }
+
 ```
 
 #### Conditional lines and loading new chapters example
