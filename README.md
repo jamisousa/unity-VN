@@ -135,6 +135,7 @@ SetPlayerName(<input>)
 In the example below, a choice panel will appear on screen, and you can load new .txt files to continue the story based on user choices. You can choose to enqueue text files or not, so it either waits for the current file to finish its lines or skips to the next file instead.
 
 ```
+YourCharacterName as ??? "Hey."
 choice "Here you can add a title above the choices or keep it empty string"
 {
     - "Who are you? And why am I here?"
@@ -156,8 +157,10 @@ choice "Here you can add a title above the choices or keep it empty string"
 Using the example below, you can customize your story based on variables and comparisons. In this case, if the affinity with the main character is greater than 2, the good route will load; otherwise, the neutral route will load.
 
 ```
+narrator "Something about this moment feels important."
 if(<affinity> > 2)
 {
+    YourCharacterName as ??? "I like you... I think. Just a little."
     Load(Chapter_G1 -enqueue false)
 }
 else
