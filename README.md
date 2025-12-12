@@ -104,6 +104,23 @@ If you'd like to clone this repository for reference or to create your own proje
 - To write and customize your own story, check the following files in Assets/_Main folder: Character Configuration Asset // Dialogue System Configuration // Visual Novel Configuration
 - To load character sprites, refer to Assets/_TESTING/SpriteLoaderEditor.cs
 
+#### Example on how to write your story scripts using sprites and commands:
+This project supports character name casting, such as 'Your Name' as 'Something Else'.
+In the example below, mainCharName is a tag manager variable which will be saved and retrieved within save files.
+
+```
+SetLayerMedia(background MainRoom_Night -l 0)
+PlayAmbience(Rain -l true)
+CreateCharacter(KMainChar)
+wait(2)
+KMainChar.Show()
+MainChar.Animate("Hop")
+KMainChar.SetSprite(KMainChar_Default_NightVariant -l 0 -spd 1)
+KMainChar as ??? "It's raining outside. The good kind of rain."
+<mainCharName> "There's a good kind?"
+KMainChar as ??? "Yeah. The soft one. The one that taps the window like it's checking in."
+
+```
 ---
 
 ## 👾 Game Demonstrations
