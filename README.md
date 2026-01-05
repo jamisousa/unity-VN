@@ -63,6 +63,8 @@ This Unity-based visual novel introduces a mysterious character whose true ident
 ### Visual Novel Commands
 - SetPlayerName → sets the player name based on the input on screen
 - SetAffinity → sets affinity with the main character and updates hearts on screen
+- LockCursor → hides the user's cursor. It does not actually stops the cursor from working so the story progress is not affected.
+- UnlockCursor → shows the user's cursor.
 
 ### Gallery Commands
 - ShowGalleryImage → shows gallery image and unlocks it in the gallery menu
@@ -80,9 +82,9 @@ A huge thanks to [Stellar Studio](https://www.youtube.com/@stellarstudio5495) fo
 
 ## 🎮 Playing the Game
 
-The game build is located in the releases page. Simply extract the zip and open the executable VisualNovel.exe to play.
+If you'd like, it's possible to install the game through [itch.io](https://jamisousa.itch.io/visual-novel)! Enter the password "VisualNovel2026" to be able to enter the page and get the files.
 
-To download and play the latest version of the game, please check [the release page](https://github.com/jamisousa/unity-VN/releases/tag/v1.0)
+The game build is also located in the releases page. Simply extract the zip and open the executable VisualNovel.exe to play. Please check [the release page](https://github.com/jamisousa/unity-VN/releases/)
 
 ---
 
