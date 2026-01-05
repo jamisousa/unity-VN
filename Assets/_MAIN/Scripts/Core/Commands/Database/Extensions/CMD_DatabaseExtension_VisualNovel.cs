@@ -11,8 +11,8 @@ namespace COMMANDS
             database.AddCommand("setplayername", new Action<string>(SetPlayerNameVariable));
             database.AddCommand("setaffinity", new Action<string>(SetAffinity));
 
-            database.AddCommand("lockcursor", new Action(LockCursor));
-            database.AddCommand("unlockcursor", new Action(UnlockCursor));
+            database.AddCommand("hidecursor", new Action(LockCursor));
+            database.AddCommand("showcursor", new Action(UnlockCursor));
         }
 
         private static void SetPlayerNameVariable(string data)
@@ -51,13 +51,13 @@ namespace COMMANDS
             HeartsManager.instance.SetHearts(VNGameSave.activeFile.affinity);
         }
 
-        private static void LockCursor()
+        private static void HideCursor()
         {
             //not actually locking since it needs to progress story
             Cursor.visible = false;
         }
 
-        private static void UnlockCursor()
+        private static void ShowCursor()
         {
             Cursor.visible = true;
         }
