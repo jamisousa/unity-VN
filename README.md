@@ -63,8 +63,8 @@ This Unity-based visual novel introduces a mysterious character whose true ident
 ### Visual Novel Commands
 - SetPlayerName → sets the player name based on the input on screen
 - SetAffinity → sets affinity with the main character and updates hearts on screen
-- LockCursor → hides the user's cursor. It does not actually stops the cursor from working so the story progress is not affected.
-- UnlockCursor → shows the user's cursor.
+- HideCursor → hides the user's cursor. It does not actually stops the cursor from working so the story progress is not affected.
+- ShowCursor → shows the user's cursor.
 
 ### Gallery Commands
 - ShowGalleryImage → shows gallery image and unlocks it in the gallery menu
