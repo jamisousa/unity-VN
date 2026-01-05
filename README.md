@@ -84,7 +84,7 @@ A huge thanks to [Stellar Studio](https://www.youtube.com/@stellarstudio5495) fo
 
 If you'd like, it's possible to install the game through [itch.io](https://jamisousa.itch.io/visual-novel)! Enter the password "VisualNovel2026" to be able to enter the page and get the files.
 
-The game build is also located in the releases page. Simply extract the zip and open the executable VisualNovel.exe to play. Please check [the release page](https://github.com/jamisousa/unity-VN/releases/)
+The game build is also located in the releases page. Simply extract the zip and open the executable VisualNovel.exe to play. Please check [the release page](https://github.com/jamisousa/unity-VN/releases/).
 
 ---
 
