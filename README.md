@@ -16,6 +16,15 @@ This Unity-based visual novel introduces a mysterious character whose true ident
 
 ---
 
+## 🎮 Playing the Game
+
+If you'd like, it's possible to install the game through [itch.io](https://jamisousa.itch.io/visual-novel)! Enter the password "VisualNovel2026" to be able to enter the page and get the files.
+
+The game build is also located in the releases page. Simply extract the zip and open the executable VisualNovel.exe to play. Please check [the release page](https://github.com/jamisousa/unity-VN/releases/).
+
+---
+
+
 ## 💻 Game Features
 
 - Interactive dialogue system with branching choices
@@ -77,14 +86,6 @@ This Unity-based visual novel introduces a mysterious character whose true ident
 ## 💗 Acknowledgment
 
 A huge thanks to [Stellar Studio](https://www.youtube.com/@stellarstudio5495) for making an incredible, free [course](https://www.youtube.com/watch?v=cO6NzrvTrkY&list=PLGSox0FgA5B58Ki4t4VqAPDycEpmkBd0i) available to everyone on YouTube. His lessons were essential to creating this project.
-
----
-
-## 🎮 Playing the Game
-
-If you'd like, it's possible to install the game through [itch.io](https://jamisousa.itch.io/visual-novel)! Enter the password "VisualNovel2026" to be able to enter the page and get the files.
-
-The game build is also located in the releases page. Simply extract the zip and open the executable VisualNovel.exe to play. Please check [the release page](https://github.com/jamisousa/unity-VN/releases/).
 
 ---
 
