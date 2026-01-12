@@ -13,6 +13,7 @@ namespace VISUALNOVEL
     public class VNGameSave
     {
         public static VNGameSave activeFile = null;
+        public static bool isLoading = false;
 
         public const string FILE_TYPE = ".vns";
         public const string SCREENSHOT_FILE_TYPE = ".jpeg";
@@ -23,6 +24,8 @@ namespace VISUALNOVEL
         public string screenshotPath => $"{FilePaths.gameSaves}{slotNumber}{SCREENSHOT_FILE_TYPE}";
 
         public string playerName;
+        public string mainCharGuessedName;
+
         public int slotNumber = 1;
 
         public string[] activeConversations;
@@ -37,17 +40,18 @@ namespace VISUALNOVEL
 
         public static VNGameSave Load(string filePath, bool activateOnLoad = false)
         {
-            VNGameSave save = FileManager.Load<VNGameSave>(filePath, encrypt: ENCRYPT_FILES);
+            isLoading = true;
 
+            VNGameSave save = FileManager.Load<VNGameSave>(filePath, encrypt: ENCRYPT_FILES);
             activeFile = save;
 
             if (activateOnLoad)
-            {
                 save.Activate();
-            }
 
+            isLoading = false;
             return save;
         }
+
 
         public void Save() {
             newGame = false;
@@ -195,6 +199,8 @@ namespace VISUALNOVEL
             foreach(var variable in variables)
             {
                 string val = variable.value;
+
+                Debug.Log($"Setting variable {variable.name} = {val} ({variable.type})");
 
                 switch (variable.type.Trim().ToLowerInvariant())
                 {

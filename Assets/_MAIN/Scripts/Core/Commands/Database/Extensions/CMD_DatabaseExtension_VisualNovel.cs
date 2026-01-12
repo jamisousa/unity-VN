@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using VISUALNOVEL;
 
 namespace COMMANDS
@@ -8,7 +9,11 @@ namespace COMMANDS
         new public static void Extend(CommandDatabase database)
         {
             database.AddCommand("setplayername", new Action<string>(SetPlayerNameVariable));
+            database.AddCommand("setmaincharname", new Action<string>(SetMainCharName));
             database.AddCommand("setaffinity", new Action<string>(SetAffinity));
+
+            database.AddCommand("lockcursor", new Action(LockCursor));
+            database.AddCommand("unlockcursor", new Action(UnlockCursor));
         }
 
         private static void SetPlayerNameVariable(string data)
@@ -16,25 +21,34 @@ namespace COMMANDS
             VNGameSave.activeFile.playerName = data;
         }
 
+        private static void SetMainCharName(string data)
+        {
+            VNGameSave.activeFile.mainCharGuessedName = data;
+        }
+
+
         private static void SetAffinity(string data)
         {
+            if (VNGameSave.isLoading)
+                return;
+
             int valueChange = 0;
 
             if (data.StartsWith("+") || data.StartsWith("-"))
             {
                 if (!int.TryParse(data, out valueChange))
                 {
-                    UnityEngine.Debug.LogError($"[SetAffinity] Invalid value: {data}");
+                    Debug.LogError($"[SetAffinity] Invalid value: {data}");
                     return;
                 }
 
-                VNGameSave.activeFile.affinity += valueChange; 
+                VNGameSave.activeFile.affinity += valueChange;
             }
             else
             {
                 if (!int.TryParse(data, out valueChange))
                 {
-                    UnityEngine.Debug.LogError($"[SetAffinity] Invalid value: {data}");
+                    Debug.LogError($"[SetAffinity] Invalid value: {data}");
                     return;
                 }
 
@@ -47,5 +61,16 @@ namespace COMMANDS
             HeartsManager.instance.SetHearts(VNGameSave.activeFile.affinity);
         }
 
+
+        private static void LockCursor()
+        {
+            //not actually locking since it needs to progress story
+            Cursor.visible = false;
+        }
+
+        private static void UnlockCursor()
+        {
+            Cursor.visible = true;
+        }
     }
 }

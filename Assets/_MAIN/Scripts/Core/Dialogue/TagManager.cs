@@ -21,6 +21,12 @@ public class TagManager
             ? HeartsManager.instance.CurrentHearts.ToString()
             : "0"
         },
+        { "<mainCharGuessedName>", () =>
+            string.IsNullOrEmpty(VNGameSave.activeFile.mainCharGuessedName)
+                ? tags["<KMainCharData>"]()
+                : VNGameSave.activeFile.mainCharGuessedName
+        },
+
     };
 
     private static readonly Regex tagRegex = new Regex("<\\w+>");
@@ -56,6 +62,9 @@ public class TagManager
     {
         var matches = Regex.Matches(value, VariableStore.REGEX_VARIABLE_IDS);
         var matchesList = matches.Cast<Match>().ToList();
+
+        if (Regex.IsMatch(value, "<\\w+>"))
+            return value;
 
         for (int i = matchesList.Count - 1; i >= 0; i--)
         {

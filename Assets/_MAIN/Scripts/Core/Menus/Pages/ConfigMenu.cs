@@ -27,7 +27,7 @@ public class ConfigMenu : MenuPage
 
     void Start()
     {
-        for(int i = 0; i < panels.Length; i++)
+        for (int i = 0; i < panels.Length; i++)
         {
             panels[i].SetActive(i == 0);
         }
@@ -35,8 +35,23 @@ public class ConfigMenu : MenuPage
         activePanel = panels[0];
 
         SetAvailableResolutions();
+
         LoadConfig();
+
+        if (!string.IsNullOrEmpty(config.display_resolution))
+        {
+            int index = ui.resolutions.options.FindIndex(opt =>
+                opt.text == config.display_resolution);
+
+            if (index >= 0)
+            {
+                ui.resolutions.value = index;
+                ui.resolutions.RefreshShownValue();
+                SetDisplayResolution();
+            }
+        }
     }
+
 
     private void LoadConfig()
     {
@@ -82,13 +97,40 @@ public class ConfigMenu : MenuPage
     private void SetAvailableResolutions()
     {
         Resolution[] resolutions = Screen.resolutions;
-
         List<string> options = new List<string>();
 
-        for (int i = resolutions.Length - 1; i >= 0; i--)
+        if (resolutions != null && resolutions.Length > 0)
         {
-            options.Add($"{resolutions[i].width} x {resolutions[i].height}");
+            for (int i = resolutions.Length - 1; i >= 0; i--)
+            {
+                options.Add($"{resolutions[i].width} x {resolutions[i].height}");
+            }
         }
+        else
+        {
+            options.Add("1920 x 1080");
+            options.Add("1600 x 900");
+            options.Add("1280 x 720");
+            options.Add("1024 x 768");
+        }
+
+        ui.resolutions.ClearOptions();
+        ui.resolutions.AddOptions(options);
+
+        int currentIndex = options.FindIndex(opt =>
+        {
+            string[] split = opt.Split('x');
+            int w = int.Parse(split[0].Trim());
+            int h = int.Parse(split[1].Trim());
+            return Screen.width == w && Screen.height == h;
+        });
+
+        if (currentIndex >= 0)
+            ui.resolutions.value = currentIndex;
+        else
+            ui.resolutions.value = 0;
+
+        ui.resolutions.RefreshShownValue();
     }
 
 
@@ -147,7 +189,9 @@ public class ConfigMenu : MenuPage
         string resolution = ui.resolutions.captionText.text;
         string[] values = resolution.Split('x');
 
-        if (int.TryParse(values[0], out int width) && int.TryParse(values[1], out int height))
+        if (values.Length == 2 &&
+            int.TryParse(values[0].Trim(), out int width) &&
+            int.TryParse(values[1].Trim(), out int height))
         {
             Screen.SetResolution(width, height, Screen.fullScreen);
             config.display_resolution = resolution;
