@@ -281,6 +281,7 @@ public class TextArchitect
         switch (buildMethod)
         {
             case BuildMethod.typewriter:
+                tmpro.ForceMeshUpdate();
                 tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
                 break;
             case BuildMethod.fade:
@@ -290,5 +291,16 @@ public class TextArchitect
 
         StopBuilding();
         onComplete();
+    }
+
+    public void SetText(string text)
+    {
+        preText = "";
+        targetText = text;
+
+        StopBuilding();
+
+        tmpro.text = targetText;
+        ForceComplete();
     }
 }
